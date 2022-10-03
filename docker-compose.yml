@@ -1,0 +1,29 @@
+version: '2.2'
+
+x-app-service: &default-app
+  build: .
+  command: ''
+  volumes:
+    - .:/code:delegated
+    - node_modules:/code/node_modules:delegated
+
+services:
+  app:
+    <<: *default-app
+
+  server-application:
+    <<: *default-app
+    command: bash -c "npm run start:application"
+    ports:
+      - 5000:5000
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/code/firebase-admin.json
+
+  rabbitmq:
+    image: 'rabbitmq:3.8-management'
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+volumes:
+  node_modules:

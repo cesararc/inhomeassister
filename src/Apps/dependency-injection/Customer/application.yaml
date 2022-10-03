@@ -1,0 +1,19 @@
+services:
+  Customer.CustomerRepository:
+    class: ../../../Contexts/Customer/Customer/infrastructure/CustomerRepositoryFirebase
+    arguments: []
+
+  Customer.CustomerCreate:
+    class: ../../../Contexts/Customer/Customer/application/create/CustomerCreate
+    arguments: ['@Customer.CustomerRepository']
+
+  Customer.CustomerCreateCommandHandler:
+    class: ../../../Contexts/Customer/Customer/application/create/CustomerCreateCommandHandler
+    arguments: ['@Customer.CustomerCreate']
+    tags:
+      - { name: 'commandHandler' }
+
+  Customer.CustomerCreateController:
+    class: ../../../Apps/Customer/controllers/CustomerCreateController
+    arguments: ['@Shared.CommandBus']
+
