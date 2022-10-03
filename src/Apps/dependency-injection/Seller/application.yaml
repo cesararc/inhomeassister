@@ -1,0 +1,19 @@
+services:
+  Seller.SellerRepository:
+    class: ../../../Contexts/Seller/Seller/infrastructure/SellerRepositoryFirebase
+    arguments: []
+
+  Seller.SellerCreate:
+    class: ../../../Contexts/Seller/Seller/application/create/SellerCreate
+    arguments: ['@Seller.SellerRepository']
+
+  Seller.SellerCreateCommandHandler:
+    class: ../../../Contexts/Seller/Seller/application/create/SellerCreateCommandHandler
+    arguments: ['@Seller.SellerCreate']
+    tags:
+      - { name: 'commandHandler' }
+
+  Seller.SellerCreateController:
+    class: ../../../Apps/Seller/controllers/SellerCreateController
+    arguments: ['@Shared.CommandBus']
+
