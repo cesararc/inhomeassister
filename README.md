@@ -14,11 +14,6 @@
 ### 🛠️ Configuración de entorno
 
 1. Instala las dependencias del proyecto utilizando el comando de docker: `docker-compose up --build -d`
-
-## 👩‍💻 Proyecto explicación
-
-Este proyecto tiene como objetivo exponer 3 endpoints de reservación de citas médicas. Se sigue principios solid, arquitectura hexagonal,
-conceptos que aplican a cualquier framework como Laravel o Symfony. 
    
 ### 🔨 Arquitectura Hexagonal
 
