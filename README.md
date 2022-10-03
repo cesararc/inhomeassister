@@ -15,7 +15,7 @@
 
 1. Instala las dependencias del proyecto utilizando el comando de docker: `docker-compose up --build -d`
    
-### 🔨 Arquitectura Hexagonal
+### 🔨 Arquitectura Hexagonal y DDD
 
 Esta estructura de carpetas sigue los principios de arquitectura hexagonal y principios SOLID.
 
