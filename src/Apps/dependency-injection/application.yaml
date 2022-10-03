@@ -1,3 +1,4 @@
 imports: 
   - { resource: ./Shared/application.yaml }
   - { resource: ./Customer/application.yaml }
+  - { resource: ./Seller/application.yaml }
