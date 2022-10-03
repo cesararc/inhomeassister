@@ -1,0 +1,19 @@
+services:
+  ServiceProvider.ServiceProviderRepository:
+    class: ../../../Contexts/ServiceProvider/ServiceProvider/infrastructure/ServiceProviderRepositoryFirebase
+    arguments: []
+
+  ServiceProvider.ServiceProviderCreate:
+    class: ../../../Contexts/ServiceProvider/ServiceProvider/application/create/ServiceProviderCreate
+    arguments: ['@ServiceProvider.ServiceProviderRepository']
+
+  ServiceProvider.ServiceProviderCreateCommandHandler:
+    class: ../../../Contexts/ServiceProvider/ServiceProvider/application/create/ServiceProviderCreateCommandHandler
+    arguments: ['@ServiceProvider.ServiceProviderCreate']
+    tags:
+      - { name: 'commandHandler' }
+
+  ServiceProvider.ServiceProviderCreateController:
+    class: ../../../Apps/ServiceProvider/controllers/ServiceProviderCreateController
+    arguments: ['@Shared.CommandBus']
+
