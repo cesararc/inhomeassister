@@ -3,4 +3,5 @@ imports:
   - { resource: ./Customer/application.yaml }
   - { resource: ./Seller/application.yaml }
   - { resource: ./ServiceProvider/application.yaml }
+  - { resource: ./Backoffice/Customer/application.yaml}
 

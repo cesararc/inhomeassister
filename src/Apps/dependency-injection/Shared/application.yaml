@@ -6,3 +6,11 @@ services:
   Shared.CommandBus:
     class: ../../../Contexts/Shared/infrastructure/CommandBus/InMemoryCommandBus
     arguments: ['@Shared.CommandHandlersInformation']
+
+  Shared.QueryHandlersInformation:
+    class: ../../../Contexts/Shared/infrastructure/QueryBus/QueryHandlersInformation
+    arguments: ['!tagged queryHandler']
+
+  Shared.QueryBus:
+    class: ../../../Contexts/Shared/domain/QueryBus
+    arguments: ['@Shared.QueryHandlersInformation']

@@ -1,6 +1,8 @@
 import { CustomerRepository } from "../domain/CustomerRepository";
 import { Customer } from '../domain/Customer';
 import { auth } from '../../../../Apps/database';
+import { PaginateNextToken } from "../../../Backoffice/customer/customer/shared/PaginateNextToken";
+import { UserRecord } from "firebase-admin/lib/auth/user-record";
 
 export class CustomerRepositoryFirebase implements CustomerRepository {
 
@@ -16,4 +18,15 @@ export class CustomerRepositoryFirebase implements CustomerRepository {
 
         await auth.createUser(user);
     }
+
+    customerMapAttr(customer: UserRecord) {
+        return {
+          email: customer.email,
+          displayname: customer.displayName,
+          uid: customer.uid,
+          phone: customer.phoneNumber,
+          password: customer.passwordHash
+        }
+    }
+
 }
