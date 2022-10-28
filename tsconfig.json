@@ -6,7 +6,7 @@
         "moduleResolution": "node",
         "noImplicitAny": true,
         "removeComments": true,
-      //   "preserveConstEnums": true,
+        //   "preserveConstEnums": true,
         "sourceMap": false,
         "lib": ["es6", "dom"],
         "resolveJsonModule": true,
@@ -24,4 +24,4 @@
     "exclude": [
         "node_modules"
     ]
-  }
+}

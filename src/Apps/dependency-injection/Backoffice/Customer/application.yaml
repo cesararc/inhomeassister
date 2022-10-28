@@ -1,0 +1,18 @@
+services:
+  Customer.Backoffice.CustomerRepositoryFirebase:
+    class: ../../../../Contexts/Backoffice/customer/customer/infrastructure/CustomerRepositoryFirebase
+    arguments: []
+
+  Customer.CustomerList:
+    class: ../../../../Contexts/Backoffice/customer/customer/application/list/CustomerList
+    arguments: ['@Customer.Backoffice.CustomerRepositoryFirebase']
+
+  Backoffice.customer.CustomerListQueryHandler:
+    class: ../../../../Contexts/Backoffice/customer/customer/application/list/CustomerListQueryHandler
+    arguments: ['@Customer.CustomerList']
+    tags:
+      - { name: 'queryHandler' }
+
+  Apps.Backoffice.customer.controller.CustomerListController:
+    class: ../../../backoffice/customer/controller/CustomerListController
+    arguments: ['@Shared.QueryBus']
