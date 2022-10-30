@@ -14,7 +14,7 @@ export class Customer extends AggregateRoot {
     readonly email: CustomerEmail;
     readonly password: CustomerPassword;
 
-    constructor(id: CustomerUid, displayName: CustomerDisplayName, phone: CustomerPhone, email: CustomerEmail, password: CustomerPassword) {
+    constructor(id: CustomerUid, displayName: CustomerDisplayName, phone: CustomerPhone, email: CustomerEmail, password?: CustomerPassword) {
         super();
         this.id = id;
         this.displayName = displayName;
@@ -43,5 +43,14 @@ export class Customer extends AggregateRoot {
             phoneNumber: this.phoneNumber.value,
             password: this.password.value
         }
+    }
+
+    static fromPrimitives(plainData: { id: string; displayName: string; email: string; phoneNumber: string; }) {
+        return new Customer(
+            new CustomerUid(plainData.id),
+            new CustomerDisplayName(plainData.displayName),
+            new CustomerPhone(plainData.phoneNumber),
+            new CustomerEmail(plainData.email)
+        );
     }
 }
