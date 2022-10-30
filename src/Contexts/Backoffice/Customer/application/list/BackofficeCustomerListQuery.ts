@@ -1,6 +1,6 @@
 import { Query } from "../../../../Shared/domain/Query";
 
-export class CustomerListQuery implements Query {
+export class BackofficeCustomerListQuery implements Query {
     maxResults: number
     token: string
 

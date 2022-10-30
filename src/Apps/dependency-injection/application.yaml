@@ -1,7 +1,7 @@
 imports: 
   - { resource: ./Shared/application.yaml }
   - { resource: ./Customer/application.yaml }
+  - { resource: ./Backoffice/application.yaml}
   - { resource: ./Seller/application.yaml }
   - { resource: ./ServiceProvider/application.yaml }
-  - { resource: ./Backoffice/Customer/application.yaml}
 

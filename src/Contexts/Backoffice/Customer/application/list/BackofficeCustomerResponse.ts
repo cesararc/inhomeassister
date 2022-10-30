@@ -1,9 +1,9 @@
-import { Customer } from "../../domain/BackofficeCustomer";
+import { BackofficeCustomer } from '../../domain/BackofficeCustomer';
 
 export class BackofficeCustomerResponse {
-  readonly customer: Array<Customer>;
+  readonly customer: Array<BackofficeCustomer>;
 
-  constructor(customer: Array<Customer>) {
+  constructor(customer: Array<BackofficeCustomer>) {
     this.customer = customer;
   }
 }
