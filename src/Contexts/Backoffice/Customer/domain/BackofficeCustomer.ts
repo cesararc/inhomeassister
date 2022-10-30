@@ -1,17 +1,18 @@
-import { CustomerDisplayName } from "../../../../Customer/Customer/domain/CustomerDisplayName";
-import { CustomerEmail } from "../../../../Customer/Customer/domain/CustomerEmail";
-import { CustomerPhone } from "../../../../Customer/Customer/domain/CustomerPhone";
-import { BackofficeCustomer } from "../../../../Customer/Customer/domain/BackofficeCustomer";
-import { AggregateRoot } from "../../../../Shared/domain/AggregateRoot";
+import { AggregateRoot } from "../../../Shared/domain/AggregateRoot";
+import { BackofficeCustomerDisplayName } from "./BackofficeCustomerDisplayName";
+import { BackofficeCustomerEmail } from "./BackofficeCustomerEmail";
+import { BackofficeCustomerPhone } from "./BackofficeCustomerPhone";
+import { BackofficeCustomerUid } from "./BackofficeCustomerUId";
+
 
 export class BackofficeCustomer extends AggregateRoot {
 
-    readonly id: BackofficeCustomer;
-    readonly displayname: CustomerDisplayName;
-    readonly phone: CustomerPhone;
-    readonly email: CustomerEmail;
+    readonly id: BackofficeCustomerUid;
+    readonly displayname: BackofficeCustomerDisplayName;
+    readonly phone: BackofficeCustomerPhone;
+    readonly email: BackofficeCustomerEmail;
 
-    constructor(id: BackofficeCustomer, displayname: CustomerDisplayName, phone: CustomerPhone, email: CustomerEmail) {
+    constructor(id: BackofficeCustomerUid, displayname: BackofficeCustomerDisplayName, phone: BackofficeCustomerPhone, email: BackofficeCustomerEmail) {
         super();
         this.id = id;
         this.displayname = displayname;
@@ -28,12 +29,12 @@ export class BackofficeCustomer extends AggregateRoot {
         }
     }
 
-    static fromPrimitives(plainData: { uid: string; displayName: string; phoneNumber: string; email: string }): Customer {
+    static fromPrimitives(plainData: { uid: string; displayName: string; phoneNumber: string; email: string }) {
         return new BackofficeCustomer(
-            new BackofficeCustomer(plainData.uid),
-            new CustomerDisplayName(plainData.displayName),
-            new CustomerPhone(plainData.phoneNumber),
-            new CustomerEmail(plainData.email)
+            new BackofficeCustomerUid(plainData.uid),
+            new BackofficeCustomerDisplayName(plainData.displayName),
+            new BackofficeCustomerPhone(plainData.phoneNumber),
+            new BackofficeCustomerEmail(plainData.email)
         );
     }
 }
