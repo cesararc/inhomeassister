@@ -4,27 +4,33 @@ import { CustomerPhone } from './CustomerPhone';
 import { CustomerEmail } from "./CustomerEmail";
 import { CustomerPassword } from "./CustomerPassword";
 import { CustomerDisplayName } from './CustomerDisplayName';
+import { CustomerCreatedDomainEvent } from './CustomerCreatedDomainEvent';
 
 export class Customer extends AggregateRoot {
 
     readonly id: CustomerUid;
-    readonly displayname: CustomerDisplayName;
-    readonly phone: CustomerPhone;
+    readonly displayName: CustomerDisplayName;
+    readonly phoneNumber: CustomerPhone;
     readonly email: CustomerEmail;
     readonly password: CustomerPassword;
 
-    constructor(id: CustomerUid, displayname: CustomerDisplayName, phone: CustomerPhone, email: CustomerEmail, password: CustomerPassword) {
+    constructor(id: CustomerUid, displayName: CustomerDisplayName, phone: CustomerPhone, email: CustomerEmail, password?: CustomerPassword) {
         super();
         this.id = id;
-        this.displayname = displayname;
-        this.phone = phone;
+        this.displayName = displayName;
+        this.phoneNumber = phone;
         this.email = email;
         this.password = password;
     }
 
-    static create(id: CustomerUid, displayname: CustomerDisplayName, phone: CustomerPhone, email: CustomerEmail, password: CustomerPassword): Customer {
+    static create(uid: CustomerUid, displayName: CustomerDisplayName, phoneNumber: CustomerPhone, email: CustomerEmail, password: CustomerPassword): Customer {
 
-        const customer = new Customer(id, displayname, phone, email, password);
+        const customer = new Customer(uid, displayName, phoneNumber, email, password);
+
+        customer.record(new CustomerCreatedDomainEvent({
+            email: email.value,
+            uid: uid.value
+        }));
 
         return customer;
     }
@@ -32,10 +38,19 @@ export class Customer extends AggregateRoot {
     toPrimitives() {
         return {
             id: this.id.value,
-            displayname: this.displayname.value,
+            displayName: this.displayName.value,
             email: this.email.value,
-            phone: this.phone.value,
+            phoneNumber: this.phoneNumber.value,
             password: this.password.value
         }
+    }
+
+    static fromPrimitives(plainData: { id: string; displayName: string; email: string; phoneNumber: string; }) {
+        return new Customer(
+            new CustomerUid(plainData.id),
+            new CustomerDisplayName(plainData.displayName),
+            new CustomerPhone(plainData.phoneNumber),
+            new CustomerEmail(plainData.email)
+        );
     }
 }

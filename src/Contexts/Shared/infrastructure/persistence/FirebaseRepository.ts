@@ -1,4 +1,3 @@
-import { Paginate } from "../../domain/Paginate";
 import firestore from '../../../../Apps/database';
 import { AggregateRoot } from "../../domain/AggregateRoot";
 
@@ -44,24 +43,24 @@ export abstract class FirebaseRepository<T extends AggregateRoot>{
         return result;
     }
 
-    protected async paginated<T>(limitOfDocuments: number, page: number): Promise<Paginate<T>> {
+    // protected async paginated<T>(limitOfDocuments: number, page: number): Promise<Paginate<T>> {
 
-        const limit = page > 1 ? ((limitOfDocuments * page) - limitOfDocuments) : 0;
+    //     const limit = page > 1 ? ((limitOfDocuments * page) - limitOfDocuments) : 0;
 
-        const documents = await firestore.collection(this.moduleName())
-            .select(this.orderBy())
-            .orderBy(this.orderBy())
-            .get();
+    //     const documents = await firestore.collection(this.moduleName())
+    //         .select(this.orderBy())
+    //         .orderBy(this.orderBy())
+    //         .get();
 
-        const documentRef: number = page > 1 ? documents.docs[limit - 1].data()[this.orderBy()] : 0;
+    //     const documentRef: number = page > 1 ? documents.docs[limit - 1].data()[this.orderBy()] : 0;
 
-        const snapshot = page > 1
-            ? await this.paginatePaginateQuery<T>(limitOfDocuments, documentRef)
-            : await this.paginateSimpleQuery<T>(limitOfDocuments);
+    //     const snapshot = page > 1
+    //         ? await this.paginatePaginateQuery<T>(limitOfDocuments, documentRef)
+    //         : await this.paginateSimpleQuery<T>(limitOfDocuments);
 
-        return {
-            count: documents.size,
-            results: snapshot
-        }
-    }
+    //     return {
+    //         count: documents.size,
+    //         results: snapshot
+    //     }
+    // }
 }

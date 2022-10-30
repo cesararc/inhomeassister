@@ -1,32 +1,19 @@
 import { CustomerRepository } from "../domain/CustomerRepository";
 import { Customer } from '../domain/Customer';
-import { auth } from '../../../../Apps/database';
-import { PaginateNextToken } from "../../../Backoffice/customer/customer/shared/PaginateNextToken";
-import { UserRecord } from "firebase-admin/lib/auth/user-record";
+import { AuthRepository } from '../../../Shared/infrastructure/persistence/AuthRepository';
+import { CustomerUid } from '../domain/CustomerUid';
 
-export class CustomerRepositoryFirebase implements CustomerRepository {
+export class CustomerRepositoryFirebase extends AuthRepository<Customer> implements CustomerRepository {
 
     async create(customer: Customer): Promise<void> {
-
-        const user = {
-            displayname: customer.displayname.value,
-            email: customer.email.value,
-            phone: customer.phone.value,
-            password: customer.password.value,
-            uid: customer.id.value
-        }
-
-        await auth.createUser(user);
+        await this.persist(customer);
     }
 
-    customerMapAttr(customer: UserRecord) {
-        return {
-          email: customer.email,
-          displayname: customer.displayName,
-          uid: customer.uid,
-          phone: customer.phoneNumber,
-          password: customer.passwordHash
-        }
-    }
+    async profile(customerUid: CustomerUid): Promise<Customer> {
+        const customer = await this.authentication().getUser(customerUid.value);
 
+        const plainData = { id: customer.uid, displayName: customer.displayName, email: customer.email, phoneNumber: customer.phoneNumber };
+
+        return Customer.fromPrimitives(plainData);
+    }
 }

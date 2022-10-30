@@ -11,22 +11,20 @@ export class CustomerCreateController implements Controller {
     async run(req: Request, res: Response): Promise<void> {
         const id = req.body.id;
         const email = req.body.email;
-        const phone = req.body.phone;
+        const phoneNumber = req.body.phoneNumber;
         const password = req.body.password;
-        const displayName = req.body.displayname;
-
+        const displayName = req.body.displayName;
         try {
             const command = new CustomerCreateCommand({
                 displayName,
                 email,
                 id,
                 password,
-                phone
+                phoneNumber
             });
 
             await this.commandBus.dispatch(command);
         } catch (error) {
-            console.log({ error })
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }
 

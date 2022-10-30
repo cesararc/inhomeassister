@@ -2,17 +2,17 @@ import { Command } from "../../../../Shared/domain/Command";
 
 export class CustomerCreateCommand extends Command {
     id: string;
-    phone: string;
-    displayname: string;
+    phoneNumber: string;
+    displayName: string;
     email: string;
     password: string;
 
-    constructor({ id, email, password, displayName, phone }: { id: string, phone: string, displayName: string, email: string, password: string }) {
+    constructor({ id, email, password, displayName, phoneNumber }: { id: string, phoneNumber: string, displayName: string, email: string, password: string }) {
         super();
         this.id = id;
-        this.phone = phone
+        this.phoneNumber = phoneNumber
         this.email = email;
         this.password = password;
-        this.displayname = displayName;
+        this.displayName = displayName;
     }
 }

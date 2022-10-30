@@ -18,8 +18,8 @@ export class CustomerCreateCommandHandler implements CommandHandler<CustomerCrea
     async handle(command: CustomerCreateCommand): Promise<void> {
         await this.customer.run(
             new CustomerUid(command.id),
-            new CustomerDisplayName(command.displayname),
-            new CustomerPhone(command.phone),
+            new CustomerDisplayName(command.displayName),
+            new CustomerPhone(command.phoneNumber),
             new CustomerEmail(command.email),
             new CustomerPassword(command.password),
         )

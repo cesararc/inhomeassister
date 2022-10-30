@@ -17,3 +17,17 @@ services:
     class: ../../../Apps/Customer/controllers/CustomerCreateController
     arguments: ['@Shared.CommandBus']
 
+  Customer.CustomerProfile:
+    class: ../../../Contexts/Customer/Customer/application/profile/CustomerProfile
+    arguments: ['@Customer.CustomerRepository']
+
+  Backoffice.customer.CustomerProfileQueryHandler:
+    class: ../../../Contexts/Customer/Customer/application/profile/CustomerProfileQueryHandler
+    arguments: ['@Customer.CustomerProfile']
+    tags:
+      - { name: 'queryHandler' }
+
+  Customer.CustomerProfileController:
+    class: ../../../Apps/Customer/controllers/CustomerProfileController
+    arguments: ['@Shared.QueryBus']
+

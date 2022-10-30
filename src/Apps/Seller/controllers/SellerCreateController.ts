@@ -3,6 +3,7 @@ import { Response, Request } from 'express';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { CustomerCreateCommand } from '../../../Contexts/Customer/Customer/application/create/CustomerCreateCommand';
 import httpStatus from 'http-status';
+import { SellerCreateCommand } from '../../../Contexts/Seller/Seller/application/create/SellerCreateCommand';
 
 export class SellerCreateController implements Controller {
 
@@ -16,7 +17,7 @@ export class SellerCreateController implements Controller {
         const displayName = req.body.displayname;
 
         try {
-            const command = new CustomerCreateCommand({
+            const command = new SellerCreateCommand({
                 displayName,
                 email,
                 id,
