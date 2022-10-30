@@ -1,5 +1,5 @@
-import { Query } from "../../../../../Shared/domain/Query";
-import { QueryHandler } from "../../../../../Shared/domain/QueryHandler";
+import { Query } from "../../../../Shared/domain/Query";
+import { QueryHandler } from "../../../../Shared/domain/QueryHandler";
 import { BackofficeCustomerResponse } from "./BackofficeCustomerResponse";
 import { CustomerList } from "./CustomerList";
 import { CustomerListQuery } from "./CustomerListQuery";
@@ -7,7 +7,7 @@ import { CustomerListQuery } from "./CustomerListQuery";
 export class CustomerListQueryHandler
   implements QueryHandler<CustomerListQuery, BackofficeCustomerResponse>
 {
-  constructor(private customerList: CustomerList) {}
+  constructor(private customerList: CustomerList) { }
   subscribedTo(): Query {
     return CustomerListQuery;
   }

@@ -1,10 +1,10 @@
-import { Customer } from "../../domain/Customer";
-import { CustomerRepository } from "../../domain/CustomerRepository";
-import { PaginateNextToken } from "../../shared/PaginateNextToken";
+import { Customer } from "../../domain/BackofficeCustomer";
+import { CustomerRepository } from "../../domain/BackofficeCustomerRepository";
+import { PaginateNextToken } from "../../../shared/PaginateNextToken";
 import { BackofficeCustomerResponse } from "./BackofficeCustomerResponse";
 
 export class CustomerList {
-  constructor(private customerRepository: CustomerRepository) {}
+  constructor(private customerRepository: CustomerRepository) { }
 
   async run(
     maxResults: number,

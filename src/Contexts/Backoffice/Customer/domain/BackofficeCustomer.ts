@@ -1,17 +1,17 @@
 import { CustomerDisplayName } from "../../../../Customer/Customer/domain/CustomerDisplayName";
 import { CustomerEmail } from "../../../../Customer/Customer/domain/CustomerEmail";
 import { CustomerPhone } from "../../../../Customer/Customer/domain/CustomerPhone";
-import { CustomerUid } from "../../../../Customer/Customer/domain/CustomerUid";
+import { BackofficeCustomer } from "../../../../Customer/Customer/domain/BackofficeCustomer";
 import { AggregateRoot } from "../../../../Shared/domain/AggregateRoot";
 
-export class Customer extends AggregateRoot {
+export class BackofficeCustomer extends AggregateRoot {
 
-    readonly id: CustomerUid;
+    readonly id: BackofficeCustomer;
     readonly displayname: CustomerDisplayName;
     readonly phone: CustomerPhone;
     readonly email: CustomerEmail;
 
-    constructor(id: CustomerUid, displayname: CustomerDisplayName, phone: CustomerPhone, email: CustomerEmail) {
+    constructor(id: BackofficeCustomer, displayname: CustomerDisplayName, phone: CustomerPhone, email: CustomerEmail) {
         super();
         this.id = id;
         this.displayname = displayname;
@@ -29,8 +29,8 @@ export class Customer extends AggregateRoot {
     }
 
     static fromPrimitives(plainData: { uid: string; displayName: string; phoneNumber: string; email: string }): Customer {
-        return new Customer(
-            new CustomerUid(plainData.uid),
+        return new BackofficeCustomer(
+            new BackofficeCustomer(plainData.uid),
             new CustomerDisplayName(plainData.displayName),
             new CustomerPhone(plainData.phoneNumber),
             new CustomerEmail(plainData.email)

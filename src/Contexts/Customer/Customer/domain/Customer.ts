@@ -4,6 +4,7 @@ import { CustomerPhone } from './CustomerPhone';
 import { CustomerEmail } from "./CustomerEmail";
 import { CustomerPassword } from "./CustomerPassword";
 import { CustomerDisplayName } from './CustomerDisplayName';
+import { CustomerCreatedDomainEvent } from './CustomerCreatedDomainEvent';
 
 export class Customer extends AggregateRoot {
 
@@ -22,9 +23,14 @@ export class Customer extends AggregateRoot {
         this.password = password;
     }
 
-    static create(id: CustomerUid, displayname: CustomerDisplayName, phone: CustomerPhone, email: CustomerEmail, password: CustomerPassword): Customer {
+    static create(uid: CustomerUid, displayname: CustomerDisplayName, phone: CustomerPhone, email: CustomerEmail, password: CustomerPassword): Customer {
 
-        const customer = new Customer(id, displayname, phone, email, password);
+        const customer = new Customer(uid, displayname, phone, email, password);
+
+        customer.record(new CustomerCreatedDomainEvent({
+            email: email.value,
+            uid: uid.value
+        }));
 
         return customer;
     }

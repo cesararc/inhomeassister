@@ -1,6 +1,6 @@
 import { PaginateNextToken } from "../shared/PaginateNextToken";
-import { Customer } from "./Customer";
+import { Customer } from "./BackofficeCustomer";
 
-export interface CustomerRepository {
+export interface BackofficeCustomerRepository {
     listPaginate(limitOfDocuments: number, pageToken: string): Promise<PaginateNextToken<Customer>>;
 }
