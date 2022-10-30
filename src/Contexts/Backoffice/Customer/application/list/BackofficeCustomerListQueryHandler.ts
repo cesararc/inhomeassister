@@ -14,9 +14,9 @@ export class BackofficeCustomerListQueryHandler implements QueryHandler<Backoffi
 
   async handle(query: BackofficeCustomerListQuery): Promise<BackofficeCustomerResponse> {
 
-    const resultados = await this.customerList.run(query.limitOfDocuments, query.token);
+    const { results, nextPageToken } = await this.customerList.run(query.limitOfDocuments, query.token);
 
-    return new BackofficeCustomerResponse(resultados.results);
+    return new BackofficeCustomerResponse(results, nextPageToken);
 
   }
 }

@@ -1,9 +1,11 @@
-import { BackofficeCustomer } from "../domain/BackofficeCustomer";
+import { BackofficeCustomer } from '../domain/BackofficeCustomer';
 
 export class BackofficeCustomerResponse {
-  readonly customer: Array<BackofficeCustomer>;
+  results: Array<BackofficeCustomer>;
+  nextPageToken: string;
 
-  constructor(customer: Array<BackofficeCustomer>) {
-    this.customer = customer;
+  constructor(results: Array<BackofficeCustomer>, nextPageToken: string) {
+    this.results = results;
+    this.nextPageToken = nextPageToken;
   }
 }

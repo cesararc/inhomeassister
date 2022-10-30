@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
+import { BackofficeCustomerResponse } from "../../../../Contexts/Backoffice/Customer/application/BackofficeCustomerResponse";
 import { BackofficeCustomerListQuery } from "../../../../Contexts/Backoffice/Customer/application/list/BackofficeCustomerListQuery";
 import { BackofficeCustomer } from "../../../../Contexts/Backoffice/Customer/domain/BackofficeCustomer";
 import { QueryBus } from "../../../../Contexts/Shared/domain/QueryBus";
 import { Controller } from "../../../controller/Controller";
-import { BackofficeCustomerResponse } from '../../../../Contexts/Backoffice/Customer/application/BackofficeCustomerResponse';
 
 export class BackofficeCustomerListController implements Controller {
   constructor(private queryBus: QueryBus) { }
@@ -13,14 +13,12 @@ export class BackofficeCustomerListController implements Controller {
     const limitOfDocuments = Number(req.params.limit);
     const token = req.params.token;
 
-    console.log(req.params)
-
     try {
       const query = new BackofficeCustomerListQuery(limitOfDocuments, token);
 
-      const result: BackofficeCustomerResponse = await this.queryBus.ask(query);
+      const { results, nextPageToken }: BackofficeCustomerResponse = await this.queryBus.ask(query);
 
-      const response = { results: this.toResponse(result.customer), nextPageToken: "" };
+      const response = { results: this.toResponse(results), nextPageToken };
 
       res.status(httpStatus.CREATED).send(response);
 
@@ -32,7 +30,7 @@ export class BackofficeCustomerListController implements Controller {
   private toResponse(customers: Array<BackofficeCustomer>) {
     return customers.map(customer => ({
       id: customer.id.toString(),
-      displayName: customer.displayname.toString(),
+      displayName: customer.displayName.toString(),
       phone: customer.phone.toString(),
       email: customer.email.toString()
     }));

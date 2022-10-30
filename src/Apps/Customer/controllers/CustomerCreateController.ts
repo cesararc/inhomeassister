@@ -14,7 +14,6 @@ export class CustomerCreateController implements Controller {
         const phoneNumber = req.body.phoneNumber;
         const password = req.body.password;
         const displayName = req.body.displayName;
-
         try {
             const command = new CustomerCreateCommand({
                 displayName,

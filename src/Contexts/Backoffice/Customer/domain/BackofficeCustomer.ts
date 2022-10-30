@@ -8,14 +8,14 @@ import { BackofficeCustomerUid } from "./BackofficeCustomerUId";
 export class BackofficeCustomer extends AggregateRoot {
 
     readonly id: BackofficeCustomerUid;
-    readonly displayname: BackofficeCustomerDisplayName;
+    readonly displayName: BackofficeCustomerDisplayName;
     readonly phone: BackofficeCustomerPhone;
     readonly email: BackofficeCustomerEmail;
 
-    constructor(id: BackofficeCustomerUid, displayname: BackofficeCustomerDisplayName, phone: BackofficeCustomerPhone, email: BackofficeCustomerEmail) {
+    constructor(id: BackofficeCustomerUid, displayName: BackofficeCustomerDisplayName, phone: BackofficeCustomerPhone, email: BackofficeCustomerEmail) {
         super();
         this.id = id;
-        this.displayname = displayname;
+        this.displayName = displayName;
         this.phone = phone;
         this.email = email;
     }
@@ -23,7 +23,7 @@ export class BackofficeCustomer extends AggregateRoot {
     toPrimitives() {
         return {
             id: this.id.value,
-            displayname: this.displayname.value,
+            displayName: this.displayName.value,
             email: this.email.value,
             phone: this.phone.value
         }
