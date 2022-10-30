@@ -5,9 +5,10 @@ import { BackofficeCustomerRepository } from '../domain/BackofficeCustomerReposi
 
 export class BackofficeCustomerRepositoryFirebase implements BackofficeCustomerRepository {
 
-    async listPaginate(maxResults: number, token: string): Promise<PaginateNextToken<BackofficeCustomer>> {
-        const { pageToken, users } = await auth.listUsers(maxResults, token);
+    async listPaginate(limitOfDocuments: number, token: string): Promise<PaginateNextToken<BackofficeCustomer>> {
+        const { pageToken, users } = await auth.listUsers(limitOfDocuments);
 
+        users.map((e) => console.log(e))
         const customers = users.map((e) => BackofficeCustomer.fromPrimitives({ uid: e.uid, displayName: e.displayName, phoneNumber: e.phoneNumber, email: e.email }));
 
         return { nextPageToken: pageToken, results: customers }

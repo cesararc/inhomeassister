@@ -3,9 +3,7 @@ import { BackofficeCustomerRepository } from '../../domain/BackofficeCustomerRep
 export class BackofficeCustomerList {
   constructor(private repository: BackofficeCustomerRepository) { }
 
-  async run(maxResults: number, token: string) {
-    const { nextPageToken, results } = await this.repository.listPaginate(maxResults, token);
-
-    return { nextPageToken: nextPageToken, results: results };
+  async run(limitOfDocuments: number, token: string) {
+    return await this.repository.listPaginate(limitOfDocuments, token);
   }
 }

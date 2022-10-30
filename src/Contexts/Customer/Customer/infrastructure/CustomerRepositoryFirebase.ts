@@ -7,9 +7,9 @@ export class CustomerRepositoryFirebase implements CustomerRepository {
     async create(customer: Customer): Promise<void> {
 
         const user = {
-            displayname: customer.displayname.value,
+            displayName: customer.displayName.value,
             email: customer.email.value,
-            phone: customer.phone.value,
+            phoneNumber: customer.phoneNumber.value,
             password: customer.password.value,
             uid: customer.id.value
         }

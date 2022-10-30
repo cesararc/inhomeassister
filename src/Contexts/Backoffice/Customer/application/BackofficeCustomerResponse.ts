@@ -1,4 +1,4 @@
-import { BackofficeCustomer } from '../../domain/BackofficeCustomer';
+import { BackofficeCustomer } from "../domain/BackofficeCustomer";
 
 export class BackofficeCustomerResponse {
   readonly customer: Array<BackofficeCustomer>;
