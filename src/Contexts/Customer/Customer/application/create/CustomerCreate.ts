@@ -1,17 +1,16 @@
 import { CustomerRepository } from '../../domain/CustomerRepository';
 import { CustomerUid } from '../../domain/CustomerUid';
-import { CustomerDisplayName } from '../../domain/CustomerDisplayName';
-import { CustomerEmail } from '../../domain/CustomerEmail';
-import { CustomerPassword } from '../../domain/CustomerPassword';
-import { CustomerPhone } from '../../domain/CustomerPhone';
 import { Customer } from '../../domain/Customer';
+import { UserRecordUid } from '../../../../UserRecord/domain/UserRecordUid';
+import { CustomerAddress } from '../../domain/CustomerAddress';
+import { CustomerBirthday } from '../../domain/CustomerBirthday';
 
 export class CustomerCreate {
-    constructor(private customerRepository: CustomerRepository) { }
+    constructor(private repository: CustomerRepository) { }
 
-    async run(id: CustomerUid, displayName: CustomerDisplayName, phone: CustomerPhone, email: CustomerEmail, password: CustomerPassword): Promise<void> {
-        const customer = Customer.create(id, displayName, phone, email, password);
+    async run(userRecordUid: UserRecordUid, id: CustomerUid, address: CustomerAddress, birthday: CustomerBirthday): Promise<void> {
+        const customer = Customer.create(userRecordUid, id, birthday, address);
 
-        await this.customerRepository.create(customer);
+        await this.repository.create(customer);
     }
 }

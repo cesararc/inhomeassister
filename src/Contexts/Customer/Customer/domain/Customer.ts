@@ -1,56 +1,49 @@
 import { AggregateRoot } from "../../../Shared/domain/AggregateRoot";
 import { CustomerUid } from "./CustomerUid";
-import { CustomerPhone } from './CustomerPhone';
-import { CustomerEmail } from "./CustomerEmail";
-import { CustomerPassword } from "./CustomerPassword";
-import { CustomerDisplayName } from './CustomerDisplayName';
 import { CustomerCreatedDomainEvent } from './CustomerCreatedDomainEvent';
+import { CustomerBirthday } from "./CustomerBirthday";
+import { CustomerAddress } from './CustomerAddress';
+import { UserRecordUid } from '../../../UserRecord/domain/UserRecordUid';
 
 export class Customer extends AggregateRoot {
 
-    readonly id: CustomerUid;
-    readonly displayName: CustomerDisplayName;
-    readonly phoneNumber: CustomerPhone;
-    readonly email: CustomerEmail;
-    readonly password: CustomerPassword;
+    readonly userRecordUid: UserRecordUid;
+    readonly uid: CustomerUid;
+    readonly birthday: CustomerBirthday;
+    readonly address: CustomerAddress;
 
-    constructor(id: CustomerUid, displayName: CustomerDisplayName, phone: CustomerPhone, email: CustomerEmail, password?: CustomerPassword) {
+    constructor(userRecordUid: UserRecordUid, uid: CustomerUid, birthday: CustomerBirthday, address: CustomerAddress) {
         super();
-        this.id = id;
-        this.displayName = displayName;
-        this.phoneNumber = phone;
-        this.email = email;
-        this.password = password;
+        this.userRecordUid = userRecordUid;
+        this.uid = uid;
+        this.birthday = birthday;
+        this.address = address;
     }
 
-    static create(uid: CustomerUid, displayName: CustomerDisplayName, phoneNumber: CustomerPhone, email: CustomerEmail, password: CustomerPassword): Customer {
+    static create(userRecordUid: UserRecordUid, uid: CustomerUid, birthday: CustomerBirthday, address: CustomerAddress): Customer {
 
-        const customer = new Customer(uid, displayName, phoneNumber, email, password);
+        const customer = new Customer(userRecordUid, uid, birthday, address);
 
-        customer.record(new CustomerCreatedDomainEvent({
-            email: email.value,
-            uid: uid.value
-        }));
+        customer.record(new CustomerCreatedDomainEvent({ uid: uid.value }));
 
         return customer;
     }
 
     toPrimitives() {
         return {
-            id: this.id.value,
-            displayName: this.displayName.value,
-            email: this.email.value,
-            phoneNumber: this.phoneNumber.value,
-            password: this.password.value
+            user_record: this.userRecordUid.value,
+            uid: this.uid.value,
+            birthday: this.birthday.value,
+            address: this.address.value,
         }
     }
 
-    static fromPrimitives(plainData: { id: string; displayName: string; email: string; phoneNumber: string; }) {
+    static fromPrimitives(plainData: { userRecordUid: string, uid: string; birthday: Date; address: string; }) {
         return new Customer(
-            new CustomerUid(plainData.id),
-            new CustomerDisplayName(plainData.displayName),
-            new CustomerPhone(plainData.phoneNumber),
-            new CustomerEmail(plainData.email)
+            new UserRecordUid(plainData.userRecordUid),
+            new CustomerUid(plainData.uid),
+            new CustomerBirthday(plainData.birthday),
+            new CustomerAddress(plainData.address)
         );
     }
 }

@@ -19,7 +19,7 @@ export class CustomerProfileController implements Controller {
 
             const { customer }: CustomerProfileResponse = await this.query.ask(query);
 
-            res.status(httpStatus.ACCEPTED).send(this.toResponse(customer));
+            //res.status(httpStatus.ACCEPTED).send(this.toResponse(customer));
 
         } catch (error) {
             if (error instanceof CustomerNotFound) {
@@ -32,12 +32,12 @@ export class CustomerProfileController implements Controller {
         res.status(httpStatus.CREATED).send();
     }
 
-    private toResponse(customer: Customer) {
-        return {
-            id: customer.id.toString(),
-            displayName: customer.displayName.toString(),
-            phone: customer.phoneNumber.toString(),
-            email: customer.email.toString()
-        };
-    }
+    // private toResponse(customer: Customer) {
+    //     return {
+    //         id: customer.id.toString(),
+    //         displayName: customer.displayName.toString(),
+    //         phone: customer.phoneNumber.toString(),
+    //         email: customer.email.toString()
+    //     };
+    // }
 }

@@ -9,18 +9,16 @@ export class CustomerCreateController implements Controller {
     constructor(private commandBus: CommandBus) { }
 
     async run(req: Request, res: Response): Promise<void> {
-        const id = req.body.id;
-        const email = req.body.email;
-        const phoneNumber = req.body.phoneNumber;
-        const password = req.body.password;
-        const displayName = req.body.displayName;
+        const uid = req.body.uid;
+        const birthday: Date = req.body.birthday;
+        const address = req.body.address;
+
         try {
             const command = new CustomerCreateCommand({
-                displayName,
-                email,
-                id,
-                password,
-                phoneNumber
+                userRecordUid: uid,
+                uid,
+                address,
+                birthday,
             });
 
             await this.commandBus.dispatch(command);
