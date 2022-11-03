@@ -11,3 +11,8 @@ services:
     class: ../../../Contexts/UserRecord/application/profile/UserRecordProfile
     arguments: ['@UserRecord.UserRecordRepository']
 
+  UserRecord.UserRecordCreateCommandHandler:
+    class: ../../../Contexts/UserRecord/application/create/UserRecordCreateCommandHandler
+    arguments: ['@UserRecord.UserRecordCreate']
+    tags:
+      - { name: 'commandHandler' }

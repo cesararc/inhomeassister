@@ -2,7 +2,6 @@ import { CustomerRepository } from "../domain/CustomerRepository";
 import { Customer } from '../domain/Customer';
 import { CustomerUid } from '../domain/CustomerUid';
 import { FirebaseRepository } from '../../../Shared/infrastructure/persistence/FirebaseRepository';
-import { UserRecordUid } from '../../../UserRecord/domain/UserRecordUid';
 import { CustomerBirthday } from '../domain/CustomerBirthday';
 import { CustomerAddress } from '../domain/CustomerAddress';
 
@@ -20,7 +19,6 @@ export class CustomerRepositoryFirebase extends FirebaseRepository<Customer> imp
         //     // return Customer.fromPrimitives(plainData);
         //    // return Customer.create()
         return new Customer(
-            new UserRecordUid(""),
             new CustomerUid(""),
             new CustomerBirthday(new Date()),
             new CustomerAddress("")
