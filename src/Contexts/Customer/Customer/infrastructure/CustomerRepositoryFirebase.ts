@@ -2,8 +2,12 @@ import { CustomerRepository } from "../domain/CustomerRepository";
 import { Customer } from '../domain/Customer';
 import { CustomerUid } from '../domain/CustomerUid';
 import { FirebaseRepository } from '../../../Shared/infrastructure/persistence/FirebaseRepository';
-import { CustomerBirthday } from '../domain/CustomerBirthday';
-import { CustomerAddress } from '../domain/CustomerAddress';
+
+type CustomerPlainData = {
+    uid: string;
+    birthday: Date;
+    address: string;
+}
 
 export class CustomerRepositoryFirebase extends FirebaseRepository<Customer> implements CustomerRepository {
 
@@ -12,17 +16,11 @@ export class CustomerRepositoryFirebase extends FirebaseRepository<Customer> imp
     }
 
     async profile(customerUid: CustomerUid): Promise<Customer> {
-        //     // const customer = await this.collection().doc(customerUid.value).get();
+        const reference = await this.collection().doc(customerUid.value).get();
 
-        //     // const plainData = { id: customer.uid, displayName: customer.displayName, email: customer.email, phoneNumber: customer.phoneNumber };
+        const doc = reference.data() as CustomerPlainData;
 
-        //     // return Customer.fromPrimitives(plainData);
-        //    // return Customer.create()
-        return new Customer(
-            new CustomerUid(""),
-            new CustomerBirthday(new Date()),
-            new CustomerAddress("")
-        );
+        return Customer.fromPrimitives({ uid: doc.uid, address: doc.address, birthday: doc.birthday });
     }
 
     moduleName(): string {

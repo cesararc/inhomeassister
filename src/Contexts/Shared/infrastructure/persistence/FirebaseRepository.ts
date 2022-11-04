@@ -9,7 +9,7 @@ export abstract class FirebaseRepository<T extends AggregateRoot>{
     }
 
     protected async persist(aggregateRoot: T) {
-        const collection = this.collection().doc(aggregateRoot.toPrimitives().id);
+        const collection = this.collection().doc(aggregateRoot.toPrimitives().uid);
         const document = { ...aggregateRoot.toPrimitives() };
 
         return await collection.set(document);
