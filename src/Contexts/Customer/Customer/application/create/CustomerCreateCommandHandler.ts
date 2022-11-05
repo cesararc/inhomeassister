@@ -3,10 +3,8 @@ import { CustomerCreateCommand } from './CustomerCreateCommand';
 import { CustomerCreate } from './CustomerCreate';
 import { Command } from '../../../../Shared/domain/Command';
 import { CustomerUid } from '../../domain/CustomerUid';
-import { CustomerDisplayName } from '../../domain/CustomerDisplayName';
-import { CustomerEmail } from '../../domain/CustomerEmail';
-import { CustomerPassword } from '../../domain/CustomerPassword';
-import { CustomerPhone } from '../../domain/CustomerPhone';
+import { CustomerAddress } from '../../domain/CustomerAddress';
+import { CustomerBirthday } from '../../domain/CustomerBirthday';
 
 export class CustomerCreateCommandHandler implements CommandHandler<CustomerCreateCommand>{
     constructor(private customer: CustomerCreate) { }
@@ -17,11 +15,9 @@ export class CustomerCreateCommandHandler implements CommandHandler<CustomerCrea
 
     async handle(command: CustomerCreateCommand): Promise<void> {
         await this.customer.run(
-            new CustomerUid(command.id),
-            new CustomerDisplayName(command.displayName),
-            new CustomerPhone(command.phoneNumber),
-            new CustomerEmail(command.email),
-            new CustomerPassword(command.password),
+            new CustomerUid(command.uid),
+            new CustomerAddress(command.address),
+            new CustomerBirthday(command.birthday),
         )
     }
 }

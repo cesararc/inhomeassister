@@ -1,0 +1,28 @@
+services:
+  UserRecord.UserRecordRepository:
+    class: ../../../Contexts/UserRecord/infrastructure/UserRecordRepositoryFirebase
+    arguments: []
+
+  UserRecord.UserRecordCreate:
+    class: ../../../Contexts/UserRecord/application/create/UserRecordCreate
+    arguments: ['@UserRecord.UserRecordRepository']
+
+  UserRecord.UserRecordCreateCommandHandler:
+    class: ../../../Contexts/UserRecord/application/create/UserRecordCreateCommandHandler
+    arguments: ['@UserRecord.UserRecordCreate']
+    tags:
+      - { name: 'commandHandler' }
+
+  UserRecord.UserRecordProfile:
+    class: ../../../Contexts/UserRecord/application/profile/UserRecordProfile
+    arguments: ['@UserRecord.UserRecordRepository']
+    
+  UserRecord.UserRecordProfileQueryHandler:
+    class: ../../../Contexts/UserRecord/application/profile/UserRecordProfileQueryHandler
+    arguments: ['@UserRecord.UserRecordProfile']
+    tags: 
+      - { name: 'queryHandler' }
+
+  UserRecord.UserRecordProfileController:
+    class: ../../../Apps/UserRecord/controllers/UserRecordProfileController
+    arguments: ['@Shared.QueryBus']

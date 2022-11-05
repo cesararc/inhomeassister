@@ -2,15 +2,11 @@ import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
 import httpStatus from 'http-status';
 import { QueryBus } from '../../../Contexts/Shared/domain/QueryBus';
-import { CustomerProfileQuery } from '../../../Contexts/Customer/Customer/application/profile/CustomerProfileQuery';
-import { CustomerProfileResponse } from '../../../Contexts/Customer/Customer/application/profile/CustomerProfileResponse';
-import { Customer } from '../../../Contexts/Customer/Customer/domain/Customer';
-import { CustomerNotFound } from '../../../Contexts/Customer/Customer/domain/CustomerNotFound';
 import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/profile/UserRecordProfileQuery';
 import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/profile/UserRecordProfileResponse';
 import { UserRecord } from '../../../Contexts/UserRecord/domain/UserRecord';
 
-export class CustomerProfileController implements Controller {
+export class UserRecordProfileController implements Controller {
 
     constructor(private query: QueryBus) { }
 
@@ -20,28 +16,18 @@ export class CustomerProfileController implements Controller {
         try {
             const userRecordQuery = new UserRecordProfileQuery(uid);
 
-            const customerProfileQuery = new CustomerProfileQuery(uid);
-
-            const { customer }: CustomerProfileResponse = await this.query.ask(customerProfileQuery);
-
             const { userRecord }: UserRecordProfileResponse = await this.query.ask(userRecordQuery);
 
-            res.status(httpStatus.OK).send(this.toResponse(userRecord, customer));
+            res.status(httpStatus.OK).send(this.toResponse(userRecord));
 
         } catch (error) {
-            if (error instanceof CustomerNotFound) {
-                res.status(httpStatus.NOT_FOUND).send(error.message);
-            }
 
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }
     }
 
-    private toResponse(userRecord: UserRecord, customer: Customer) {
+    private toResponse(userRecord: UserRecord) {
         return {
-            uid: customer.uid.toString(),
-            address: customer.address.toString(),
-            birthday: customer.birthday.value,
             email: userRecord.email.toString(),
             phone: userRecord.phoneNumber.toString(),
             displayName: userRecord.displayName.toString(),

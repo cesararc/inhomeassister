@@ -21,7 +21,7 @@ services:
     class: ../../../Contexts/Customer/Customer/application/profile/CustomerProfile
     arguments: ['@Customer.CustomerRepository']
 
-  Backoffice.customer.CustomerProfileQueryHandler:
+  Customer.CustomerProfileQueryHandler:
     class: ../../../Contexts/Customer/Customer/application/profile/CustomerProfileQueryHandler
     arguments: ['@Customer.CustomerProfile']
     tags:
