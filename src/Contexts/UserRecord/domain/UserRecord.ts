@@ -31,7 +31,7 @@ export class UserRecord extends AggregateRoot {
 
     toPrimitives() {
         return {
-            id: this.id.value,
+            uid: this.id.value,
             displayName: this.displayName.value,
             email: this.email.value,
             phoneNumber: this.phoneNumber.value,
