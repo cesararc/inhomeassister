@@ -10,6 +10,7 @@ export class UserRecordRepositoryFirebase extends AuthRepository<UserRecord> imp
     }
 
     async profile(customerUid: UserRecordUid): Promise<UserRecord> {
+        console.log({ customerUid })
         const customer = await this.authentication().getUser(customerUid.value);
 
         const plainData = { id: customer.uid, displayName: customer.displayName, email: customer.email, phoneNumber: customer.phoneNumber };

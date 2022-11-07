@@ -1,0 +1,16 @@
+services:
+  Authentication.AuthenticationRepositoryFirebase:
+    class: ../../../Contexts/Authentication/infrastructure/AuthenticationFirebaseRepository
+    arguments: []
+
+  Authentication.AuthenticationCookieSessionCreate:
+    class: ../../../Contexts/Authentication/application/AuthenticationCookieSessionCreate
+    arguments: ['@Authentication.AuthenticationRepositoryFirebase']
+
+  Authentication.AuthenticationCreateCookieSessionController:
+    class: ../../../Apps/Authentication/controllers/AuthenticationCreateCookieSessionController
+    arguments: ['@Authentication.AuthenticationCookieSessionCreate']
+
+  Authentication.AuthenticationSignOutController:
+    class: ../../../Apps/Authentication/controllers/AuthenticationSignOutController
+    arguments: []
