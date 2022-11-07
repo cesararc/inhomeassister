@@ -16,6 +16,7 @@ export class CustomerProfileController implements Controller {
 
     async run(req: Request, res: Response): Promise<void> {
         const uid = req.params.uid;
+        console.log(uid)
 
         try {
             const userRecordQuery = new UserRecordProfileQuery(uid);

@@ -5,4 +5,4 @@ imports:
   - { resource: ./Seller/application.yaml }
   - { resource: ./ServiceProvider/application.yaml }
   - { resource: ./UserRecord/application.yaml}
-
+  - { resource: ./Authentication/application.yaml}
