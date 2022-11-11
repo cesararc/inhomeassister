@@ -1,18 +1,16 @@
-import { ServiceProviderRepository } from "../../domain/ServiceProviderRepository";
+import { ServiceProviderRepository } from '../../domain/ServiceProviderRepository';
 import { ServiceProviderUid } from '../../domain/ServiceProviderUid';
 import { ServiceProvider } from '../../domain/ServiceProvider';
-import { ServiceProviderDisplayName } from "../../domain/ServiceProviderDisplayName";
-import { ServiceProviderPhone } from '../../domain/ServiceProviderPhone';
-import { ServiceProviderEmail } from '../../domain/ServiceProviderEmail';
-import { ServiceProviderPassword } from '../../domain/ServiceProviderPassword';
-import { ServiceProviderDisabled } from "../../domain/ServiceProviderDisabled";
+import { ServiceProviderAddress } from '../../domain/ServiceProviderAddress';
+import { ServiceProviderDni } from '../../domain/ServiceProviderDni';
+import { ServiceProviderDescription } from '../../domain/ServiceProviderDescription';
 
 export class ServiceProviderCreate {
-    constructor(private ServiceProviderRepository: ServiceProviderRepository) { }
+    constructor(private repository: ServiceProviderRepository) { }
 
-    async run(id: ServiceProviderUid, disabled: ServiceProviderDisabled, displayName: ServiceProviderDisplayName, phone: ServiceProviderPhone, email: ServiceProviderEmail, password: ServiceProviderPassword): Promise<void> {
-        const serviceProvider = ServiceProvider.create(id, disabled, displayName, phone, email, password);
+    async run(uid: ServiceProviderUid, address: ServiceProviderAddress, dni: ServiceProviderDni, description: ServiceProviderDescription): Promise<void> {
+        const serviceProvider = ServiceProvider.create(uid, address, dni, description);
 
-        await this.ServiceProviderRepository.create(serviceProvider);
+        await this.repository.create(serviceProvider);
     }
 }
