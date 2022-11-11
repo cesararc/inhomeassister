@@ -1,44 +1,49 @@
 import { AggregateRoot } from "../../../Shared/domain/AggregateRoot";
-import { ServiceProviderDisplayName } from "./ServiceProviderDisplayName";
+import { ServiceProviderAddress } from './ServiceProviderAddress';
 import { ServiceProviderUid } from "./ServiceProviderUid";
-import { ServiceProviderPhone } from './ServiceProviderPhone';
-import { ServiceProviderEmail } from './ServiceProviderEmail';
-import { ServiceProviderPassword } from './ServiceProviderPassword';
-import { ServiceProviderDisabled } from './ServiceProviderDisabled';
+import { ServiceProviderDescription } from './ServiceProviderDescription';
+import { ServiceProviderDni } from './ServiceProviderDni';
+import { ServiceProviderCreatedDomainEvent } from './ServiceProviderCreatedDomainEvent';
 
 export class ServiceProvider extends AggregateRoot {
 
-    readonly id: ServiceProviderUid;
-    readonly displayname: ServiceProviderDisplayName;
-    readonly phone: ServiceProviderPhone;
-    readonly email: ServiceProviderEmail;
-    readonly password: ServiceProviderPassword;
-    readonly disabled: ServiceProviderDisabled;
+    readonly uid: ServiceProviderUid;
+    readonly address: ServiceProviderAddress;
+    readonly dni: ServiceProviderDni;
+    readonly description: ServiceProviderDescription;
 
-    constructor(id: ServiceProviderUid, disabled: ServiceProviderDisabled, displayname: ServiceProviderDisplayName, phone: ServiceProviderPhone, email: ServiceProviderEmail, password: ServiceProviderPassword) {
+    constructor(uid: ServiceProviderUid, address: ServiceProviderAddress, dni: ServiceProviderDni, description: ServiceProviderDescription) {
         super();
-        this.id = id;
-        this.displayname = displayname;
-        this.phone = phone;
-        this.email = email;
-        this.password = password;
+        this.uid = uid;
+        this.address = address;
+        this.dni = dni;
+        this.description = description;
     }
 
-    static create(id: ServiceProviderUid, disabled: ServiceProviderDisabled, displayname: ServiceProviderDisplayName, phone: ServiceProviderPhone, email: ServiceProviderEmail, password: ServiceProviderPassword): ServiceProvider {
+    static create(uid: ServiceProviderUid, address: ServiceProviderAddress, dni: ServiceProviderDni, description: ServiceProviderDescription): ServiceProvider {
 
-        const serviceProvider = new ServiceProvider(id, disabled, displayname, phone, email, password);
+        const serviceProvider = new ServiceProvider(uid, address, dni, description);
+
+        serviceProvider.record(new ServiceProviderCreatedDomainEvent({ uid: uid.value }));
 
         return serviceProvider;
     }
 
+    static fromPrimitives(plainData: { uid: string; address: string; dni: string; description: string; }) {
+        return new ServiceProvider(
+            new ServiceProviderUid(plainData.uid),
+            new ServiceProviderAddress(plainData.address),
+            new ServiceProviderDni(plainData.dni),
+            new ServiceProviderDescription(plainData.description)
+        );
+    }
+
     toPrimitives() {
         return {
-            id: this.id.value,
-            disabled: this.disabled.value,
-            displayname: this.displayname.value,
-            email: this.email.value,
-            phone: this.phone.value,
-            password: this.password.value
+            uid: this.uid.value,
+            address: this.address.value,
+            dni: this.dni.value,
+            description: this.description.value,
         }
     }
 }

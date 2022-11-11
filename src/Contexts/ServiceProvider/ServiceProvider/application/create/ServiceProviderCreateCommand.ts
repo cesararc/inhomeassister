@@ -1,20 +1,16 @@
 import { Command } from "../../../../Shared/domain/Command";
 
 export class ServiceProviderCreateCommand extends Command {
-    id: string;
-    disabled: boolean;
-    phone: string;
-    displayname: string;
-    email: string;
-    password: string;
+    uid: string;
+    address: string;
+    description: string;
+    dni: string;
 
-    constructor({ id, disabled, email, password, displayName, phone }: { id: string, disabled: boolean, phone: string, displayName: string, email: string, password: string }) {
+    constructor({ uid, address, dni, description }: { uid: string; address: string, description: string; dni: string }) {
         super();
-        this.id = id;
-        this.disabled = disabled;
-        this.phone = phone
-        this.email = email;
-        this.password = password;
-        this.displayname = displayName;
+        this.uid = uid;
+        this.address = address;
+        this.dni = dni;
+        this.description = description;
     }
 }
