@@ -31,3 +31,17 @@ services:
     class: ../../../Apps/Customer/controllers/CustomerProfileController
     arguments: ['@Shared.QueryBus']
 
+  Customer.CustomerUpdate:
+    class: ../../../Contexts/Customer/Customer/application/update/CustomerUpdate
+    arguments: ['@Customer.CustomerRepository']
+
+  Customer.CustomerUpdateCommandHandler:
+    class: ../../../Contexts/Customer/Customer/application/update/CustomerUpdateCommandHandler
+    arguments: ['@Customer.CustomerUpdate']
+    tags:
+      - { name: 'commandHandler' }
+
+  Customer.CustomerUpdateController:
+    class: ../../../Apps/Customer/controllers/CustomerUpdateController
+    arguments: ['@Shared.CommandBus']
+

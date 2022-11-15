@@ -16,19 +16,14 @@ export class CustomerRepositoryFirebase extends FirebaseRepository<Customer> imp
         await this.persist(customer);
     }
 
-    async profile(customerUid: CustomerUid): Promise<Customer> {
-        const reference = await this.collection().doc(customerUid.value).get();
+    async update(customer: Customer): Promise<void> {
+        await this.profileUpdate(customer);
+    }
 
-        const doc = reference.data() as CustomerPlainData;
+    async profile(uid: CustomerUid): Promise<Customer> {
+        const doc = await this.profileRetrieve<CustomerPlainData>(uid.value);
 
-        const data = {
-            uid: doc.uid,
-            address: doc.address,
-            birthday: doc.birthday,
-            dni: doc.dni
-        }
-
-        return Customer.fromPrimitives(data);
+        return Customer.fromPrimitives(doc);
     }
 
     moduleName(): string {
