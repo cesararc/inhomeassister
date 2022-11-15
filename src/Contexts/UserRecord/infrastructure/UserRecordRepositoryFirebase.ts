@@ -2,6 +2,7 @@ import { UserRecord } from '../domain/UserRecord';
 import { AuthRepository } from "../../Shared/infrastructure/persistence/AuthRepository";
 import { UserRecordUid } from '../domain/UserRecordUid';
 import { UserRecordRepository } from '../domain/UserRecordRepository';
+import { Claim } from '../domain/UserRecordClaim';
 
 export class UserRecordRepositoryFirebase extends AuthRepository<UserRecord> implements UserRecordRepository {
 
@@ -12,16 +13,15 @@ export class UserRecordRepositoryFirebase extends AuthRepository<UserRecord> imp
     async profile(customerUid: UserRecordUid): Promise<UserRecord> {
         const data = await this.authentication().getUser(customerUid.value);
 
-        // const plainData = {
-        //     id: data.uid,
-        //     displayName: data.displayName,
-        //     email: data.email,
-        //     phoneNumber: data.phoneNumber,
-        //     claim: new Cla
-        // };
+        const plainData = {
+            id: data.uid,
+            displayName: data.displayName,
+            email: data.email,
+            phoneNumber: data.phoneNumber,
+            claim: "customer" as Claim
+        };
 
-        // return UserRecord.fromPrimitives(plainData);
-        return null
+        return UserRecord.fromPrimitives(plainData);
 
     }
 }
