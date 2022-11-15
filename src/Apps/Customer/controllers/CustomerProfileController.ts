@@ -46,6 +46,7 @@ export class CustomerProfileController implements Controller {
             email: userRecord.email.toString(),
             phone: userRecord.phoneNumber.toString(),
             displayName: userRecord.displayName.toString(),
+            claim: userRecord.claim.value
         };
     }
 }

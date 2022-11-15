@@ -11,18 +11,21 @@ export class CustomerCreateController implements Controller {
 
     async run(req: Request, res: Response): Promise<void> {
         const uid = req.body.uid;
+        const claim = req.body.claim;
         const displayName = req.body.displayName;
-        const birthday: Date = req.body.birthday;
         const email = req.body.email;
-        const phone = req.body.phone;
         const password = req.body.password;
+        const phone = req.body.phone;
+        const birthday: Date = req.body.birthday;
         const address = req.body.address;
+        const dni = req.body.dni;
 
         try {
             const userRecordCreateCommand = new UserRecordCreateCommand({
                 displayName,
                 email,
                 password,
+                claim,
                 phone,
                 uid
             });
@@ -31,6 +34,7 @@ export class CustomerCreateController implements Controller {
                 uid,
                 address,
                 birthday,
+                dni
             });
 
             await this.commandBus.dispatch(userRecordCreateCommand);

@@ -7,6 +7,7 @@ type CustomerPlainData = {
     uid: string;
     birthday: Date;
     address: string;
+    dni: string;
 }
 
 export class CustomerRepositoryFirebase extends FirebaseRepository<Customer> implements CustomerRepository {
@@ -20,7 +21,14 @@ export class CustomerRepositoryFirebase extends FirebaseRepository<Customer> imp
 
         const doc = reference.data() as CustomerPlainData;
 
-        return Customer.fromPrimitives({ uid: doc.uid, address: doc.address, birthday: doc.birthday });
+        const data = {
+            uid: doc.uid,
+            address: doc.address,
+            birthday: doc.birthday,
+            dni: doc.dni
+        }
+
+        return Customer.fromPrimitives(data);
     }
 
     moduleName(): string {

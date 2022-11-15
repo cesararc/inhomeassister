@@ -18,6 +18,7 @@ export class ServiceProviderCreateController implements Controller {
         const address = req.body.address;
         const dni = req.body.dni;
         const description = req.body.description;
+        const claim = req.body.claim;
 
         try {
             const userRecordCreateCommand = new UserRecordCreateCommand({
@@ -25,6 +26,7 @@ export class ServiceProviderCreateController implements Controller {
                 email,
                 password,
                 phone,
+                claim,
                 uid
             });
 
