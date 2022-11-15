@@ -29,6 +29,13 @@ export class Customer extends AggregateRoot {
         return customer;
     }
 
+    static update(uid: CustomerUid, birthday: CustomerBirthday, address: CustomerAddress, dni: CustomerDni): Customer {
+        const customer = new Customer(uid, birthday, address, dni);
+
+        return customer;
+    }
+
+
     toPrimitives() {
         return {
             uid: this.uid.value,
