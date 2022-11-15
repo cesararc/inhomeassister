@@ -1,3 +1,4 @@
+import { Claim } from '../../domain/UserRecordClaim';
 
 type Params = {
     uid: string;
@@ -5,6 +6,7 @@ type Params = {
     phone: string;
     email: string;
     password: string;
+    claim: Claim;
 }
 
 export class UserRecordCreateCommand {
@@ -14,12 +16,14 @@ export class UserRecordCreateCommand {
     phone: string;
     email: string;
     password: string;
+    claim: Claim;
 
-    constructor({ uid, displayName, phone, email, password }: Params) {
+    constructor({ uid, displayName, phone, email, password, claim }: Params) {
         this.uid = uid;
         this.displayName = displayName;
         this.phone = phone;
         this.email = email;
         this.password = password;
+        this.claim = claim;
     }
 }

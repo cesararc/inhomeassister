@@ -17,12 +17,14 @@ export class CustomerCreateController implements Controller {
         const phone = req.body.phone;
         const password = req.body.password;
         const address = req.body.address;
+        const claim = req.body.claim;
 
         try {
             const userRecordCreateCommand = new UserRecordCreateCommand({
                 displayName,
                 email,
                 password,
+                claim,
                 phone,
                 uid
             });
