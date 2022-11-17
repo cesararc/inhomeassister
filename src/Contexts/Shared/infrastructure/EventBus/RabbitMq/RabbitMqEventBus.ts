@@ -10,11 +10,11 @@ export class RabbitMqEventBus implements EventBus {
     private connection: Connection;
     private exchange: Exchange;
     private queue: Queue;
-    private deserializer?: DomainEventJsonDeserializer;
+    private deserializer: DomainEventJsonDeserializer;
     private subscribers: Map<string, Array<DomainEventSubscriber<DomainEvent>>>;
 
     constructor(config: RabbitMqConfig) {
-        this.connection = new Connection(`amqp://${config.user}:${config.password}@${config.host}`);
+        this.connection = new Connection(`amqp://${config.user}:${config.password}@rabbitmq:${config.host}`);
         this.exchange = this.connection.declareExchange(config.exchange, "fanout", { durable: false });
         this.queue = this.connection.declareQueue(config.queue);
         this.subscribers = new Map();

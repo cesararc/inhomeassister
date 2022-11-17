@@ -6,7 +6,7 @@ export const config = convict({
             doc: 'The RabbitMQ connection host',
             format: String,
             env: 'RABBITMQ_HOST',
-            default: 'localhost'
+            default: '5672'
         },
         user: {
             doc: 'The RabbitMQ connection user',
