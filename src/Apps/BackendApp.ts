@@ -4,6 +4,7 @@ import { DomainEventSubscriber } from "../Contexts/Shared/domain/DomainEventSubs
 import { DomainEvent } from '../Contexts/Shared/domain/DomainEvent';
 import { Definition } from "node-dependency-injection";
 import { DomainEventMapping } from "../Contexts/Shared/infrastructure/EventBus/DomainEventMapping";
+import { EventBus } from "../Contexts/Shared/domain/EventBus";
 
 export class BackendApp {
     server?: Server;
@@ -18,7 +19,7 @@ export class BackendApp {
     }
 
     private async registerSubscribers() {
-        const eventBus = container.get('Shared.EventBus');
+        const eventBus = container.get<EventBus>('Shared.EventBus');
         const subscriberDefinitions = container.findTaggedServiceIds('domainEventSubscriber') as Map<String, Definition>;
         const subscribers: Array<DomainEventSubscriber<DomainEvent>> = [];
 
