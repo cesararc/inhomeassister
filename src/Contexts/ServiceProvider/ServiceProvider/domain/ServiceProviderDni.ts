@@ -1,3 +1,3 @@
 import { StringValueObject } from "../../../Shared/domain/value-objects/StringValueObject";
 
-export class ServiceProviderDisplayName extends StringValueObject { }
+export class ServiceProviderDni extends StringValueObject { }

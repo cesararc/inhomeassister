@@ -17,3 +17,17 @@ services:
     class: ../../../Apps/ServiceProvider/controllers/ServiceProviderCreateController
     arguments: ['@Shared.CommandBus']
 
+  ServiceProvider.ServiceProviderProfile:
+    class: ../../../Contexts/ServiceProvider/ServiceProvider/application/profile/ServiceProviderProfile
+    arguments: ['@ServiceProvider.ServiceProviderRepository']
+
+  ServiceProvider.ServiceProviderQueryHandler:
+    class: ../../../Contexts/ServiceProvider/ServiceProvider/application/profile/ServiceProviderProfileQueryHandler
+    arguments: ['@ServiceProvider.ServiceProviderProfile']
+    tags:
+      - { name: 'queryHandler' }
+
+  ServiceProvider.ServiceProviderProfileController:
+    class: ../../../Apps/ServiceProvider/controllers/ServiceProviderProfileController
+    arguments: ['@Shared.QueryBus']
+

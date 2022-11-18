@@ -5,7 +5,7 @@ services:
 
   Customer.CustomerCreate:
     class: ../../../Contexts/Customer/Customer/application/create/CustomerCreate
-    arguments: ['@Customer.CustomerRepository']
+    arguments: ['@Customer.CustomerRepository', '@Shared.EventBus']
 
   Customer.CustomerCreateCommandHandler:
     class: ../../../Contexts/Customer/Customer/application/create/CustomerCreateCommandHandler
@@ -30,4 +30,18 @@ services:
   Customer.CustomerProfileController:
     class: ../../../Apps/Customer/controllers/CustomerProfileController
     arguments: ['@Shared.QueryBus']
+
+  Customer.CustomerUpdate:
+    class: ../../../Contexts/Customer/Customer/application/update/CustomerUpdate
+    arguments: ['@Customer.CustomerRepository']
+
+  Customer.CustomerUpdateCommandHandler:
+    class: ../../../Contexts/Customer/Customer/application/update/CustomerUpdateCommandHandler
+    arguments: ['@Customer.CustomerUpdate']
+    tags:
+      - { name: 'commandHandler' }
+
+  Customer.CustomerUpdateController:
+    class: ../../../Apps/Customer/controllers/CustomerUpdateController
+    arguments: ['@Shared.CommandBus']
 

@@ -6,6 +6,7 @@ import { UserRecordPhone } from '../../domain/UserRecordPhone';
 import { UserRecordEmail } from '../../domain/UserRecordEmail';
 import { UserRecordPassword } from '../../domain/UserRecordPassword';
 import { UserRecordCreateCommand } from './UserRecordCreateCommand';
+import { UserRecordClaim } from '../../domain/UserRecordClaim';
 
 export class UserRecordCreateCommandHandler implements CommandHandler<UserRecordCreateCommand>{
     constructor(private userRecorCreate: UserRecordCreate) { }
@@ -20,7 +21,8 @@ export class UserRecordCreateCommandHandler implements CommandHandler<UserRecord
             new UserRecordDisplayName(command.displayName),
             new UserRecordPhone(command.phone),
             new UserRecordEmail(command.email),
-            new UserRecordPassword(command.password)
+            new UserRecordPassword(command.password),
+            new UserRecordClaim(command.claim)
         );
     }
 }

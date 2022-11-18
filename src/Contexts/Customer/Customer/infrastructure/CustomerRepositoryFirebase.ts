@@ -7,6 +7,7 @@ type CustomerPlainData = {
     uid: string;
     birthday: Date;
     address: string;
+    dni: string;
 }
 
 export class CustomerRepositoryFirebase extends FirebaseRepository<Customer> implements CustomerRepository {
@@ -15,12 +16,14 @@ export class CustomerRepositoryFirebase extends FirebaseRepository<Customer> imp
         await this.persist(customer);
     }
 
-    async profile(customerUid: CustomerUid): Promise<Customer> {
-        const reference = await this.collection().doc(customerUid.value).get();
+    async update(customer: Customer): Promise<void> {
+        await this.profileUpdate(customer);
+    }
 
-        const doc = reference.data() as CustomerPlainData;
+    async profile(uid: CustomerUid): Promise<Customer> {
+        const doc = await this.profileRetrieve<CustomerPlainData>(uid.value);
 
-        return Customer.fromPrimitives({ uid: doc.uid, address: doc.address, birthday: doc.birthday });
+        return Customer.fromPrimitives(doc);
     }
 
     moduleName(): string {

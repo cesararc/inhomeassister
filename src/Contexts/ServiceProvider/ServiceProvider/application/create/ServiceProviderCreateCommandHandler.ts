@@ -3,11 +3,9 @@ import { Command } from '../../../../Shared/domain/Command';
 import { ServiceProviderCreateCommand } from './ServiceProviderCreateCommand';
 import { ServiceProviderCreate } from './ServiceProviderCreate';
 import { ServiceProviderUid } from '../../domain/ServiceProviderUid';
-import { ServiceProviderDisplayName } from '../../domain/ServiceProviderDisplayName';
-import { ServiceProviderPhone } from '../../domain/ServiceProviderPhone';
-import { ServiceProviderEmail } from '../../domain/ServiceProviderEmail';
-import { ServiceProviderPassword } from '../../domain/ServiceProviderPassword';
-import { ServiceProviderDisabled } from '../../domain/ServiceProviderDisabled';
+import { ServiceProviderAddress } from '../../domain/ServiceProviderAddress';
+import { ServiceProviderDni } from '../../domain/ServiceProviderDni';
+import { ServiceProviderDescription } from '../../domain/ServiceProviderDescription';
 
 export class ServiceProviderCreateCommandHandler implements CommandHandler<ServiceProviderCreateCommand>{
     constructor(private serviceProvider: ServiceProviderCreate) { }
@@ -18,12 +16,10 @@ export class ServiceProviderCreateCommandHandler implements CommandHandler<Servi
 
     async handle(command: ServiceProviderCreateCommand): Promise<void> {
         await this.serviceProvider.run(
-            new ServiceProviderUid(command.id),
-            new ServiceProviderDisabled(command.disabled),
-            new ServiceProviderDisplayName(command.displayname),
-            new ServiceProviderPhone(command.phone),
-            new ServiceProviderEmail(command.email),
-            new ServiceProviderPassword(command.password),
+            new ServiceProviderUid(command.uid),
+            new ServiceProviderAddress(command.address),
+            new ServiceProviderDni(command.dni),
+            new ServiceProviderDescription(command.description),
         )
     }
 }
