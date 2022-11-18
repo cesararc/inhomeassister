@@ -1,7 +1,6 @@
 import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
-import { CustomerCreateCommand } from '../../../Contexts/Customer/Customer/application/create/CustomerCreateCommand';
 import httpStatus from 'http-status';
 import { SellerCreateCommand } from '../../../Contexts/Seller/Seller/application/create/SellerCreateCommand';
 

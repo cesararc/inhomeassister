@@ -16,3 +16,21 @@ services:
   Backoffice.customer.BackofficeCustomerListController:
     class: ../../backoffice/customer/controller/BackofficeCustomerListController
     arguments: ['@Shared.QueryBus']
+
+  Backoffice.seller.BackofficeSellerRepositoryFirebase:
+    class: ../../../Contexts/Backoffice/Seller/infrastructure/BackofficeSellerRepositoryFirebase
+    arguments: []
+
+  Backoffice.seller.BackofficeSellerList:
+    class: ../../../Contexts/Backoffice/Seller/application/list/BackofficeSellerList
+    arguments: ['@Backoffice.seller.BackofficeSellerRepositoryFirebase']
+
+  Backoffice.seller.BackofficeSellerListQueryHandler:
+    class: ../../../Contexts/Backoffice/Seller/application/list/BackofficeSellerListQueryHandler
+    arguments: ['@Backoffice.seller.BackofficeSellerList']
+    tags:
+      - { name: 'queryHandler' }
+
+  Backoffice.seller.BackofficeSellerListController:
+    class: ../../backoffice/seller/controller/BackofficeSellerListController
+    arguments: ['@Shared.QueryBus']
