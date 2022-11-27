@@ -4,6 +4,7 @@ import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { CustomerCreateCommand } from '../../../Contexts/Customer/Customer/application/create/CustomerCreateCommand';
 import httpStatus from 'http-status';
 import { UserRecordCreateCommand } from '../../../Contexts/UserRecord/application/create/UserRecordCreateCommand';
+import { UserRecordRemoveCommand } from '../../../Contexts/UserRecord/application/remove/UserRecordRemoveCommand';
 
 export class CustomerCreateController implements Controller {
 
@@ -40,7 +41,12 @@ export class CustomerCreateController implements Controller {
             await this.commandBus.dispatch(userRecordCreateCommand);
 
             await this.commandBus.dispatch(customerCreateCommand);
+
         } catch (error) {
+            const commandRollback = new UserRecordRemoveCommand(uid);
+
+            await this.commandBus.dispatch(commandRollback);
+
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }
 
