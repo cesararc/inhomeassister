@@ -26,3 +26,13 @@ services:
   UserRecord.UserRecordProfileController:
     class: ../../../Apps/UserRecord/controllers/UserRecordProfileController
     arguments: ['@Shared.QueryBus']
+
+  UserRecord.UserRecordRemove:
+    class: ../../../Contexts/UserRecord/application/remove/UserRecordRemove
+    arguments: ['@UserRecord.UserRecordRepository']
+
+  UserRecord.UserRecordRemoveCommandHandler:
+    class: ../../../Contexts/UserRecord/application/remove/UserRecordRemoveCommandHandler
+    arguments: ['@UserRecord.UserRecordRemove']
+    tags:
+      - { name: 'commandHandler' }

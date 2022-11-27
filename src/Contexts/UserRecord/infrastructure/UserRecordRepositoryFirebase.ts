@@ -10,8 +10,8 @@ export class UserRecordRepositoryFirebase extends AuthRepository<UserRecord> imp
         await this.persist(userRecord);
     }
 
-    async profile(customerUid: UserRecordUid): Promise<UserRecord> {
-        const data = await this.authentication().getUser(customerUid.value);
+    async profile(uid: UserRecordUid): Promise<UserRecord> {
+        const data = await this.authentication().getUser(uid.value);
 
         const plainData = {
             id: data.uid,
@@ -22,6 +22,9 @@ export class UserRecordRepositoryFirebase extends AuthRepository<UserRecord> imp
         };
 
         return UserRecord.fromPrimitives(plainData);
+    }
 
+    async remove(uid: UserRecordUid): Promise<void> {
+        await this.authentication().deleteUser(uid.value);
     }
 }
