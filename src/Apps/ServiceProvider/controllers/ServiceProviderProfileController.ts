@@ -29,7 +29,6 @@ export class ServiceProviderProfileController implements Controller {
             res.status(httpStatus.OK).send(this.toResponse(userRecord, serviceProvider));
 
         } catch (error) {
-            console.log({ error })
             if (error instanceof ServiceProviderNotFound) {
                 res.status(httpStatus.NOT_FOUND).send(error.message);
             }
