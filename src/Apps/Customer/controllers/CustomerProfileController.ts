@@ -16,16 +16,15 @@ export class CustomerProfileController implements Controller {
 
     async run(req: Request, res: Response): Promise<void> {
         const uid = req.params.uid;
-        console.log(uid)
 
         try {
             const userRecordQuery = new UserRecordProfileQuery(uid);
 
             const customerProfileQuery = new CustomerProfileQuery(uid);
 
-            const { customer }: CustomerProfileResponse = await this.query.ask(customerProfileQuery);
-
             const { userRecord }: UserRecordProfileResponse = await this.query.ask(userRecordQuery);
+
+            const { customer }: CustomerProfileResponse = await this.query.ask(customerProfileQuery);
 
             res.status(httpStatus.OK).send(this.toResponse(userRecord, customer));
 

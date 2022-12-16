@@ -1,6 +1,6 @@
-import { UserRecordNotFound } from '../../domain/UserRecordNotFound';
 import { UserRecordUid } from '../../domain/UserRecordUid';
 import { UserRecordRepository } from '../../domain/UserRecordRepository';
+import { UserRecordNotFound } from '../../domain/UserRecordNotFound';
 
 export class UserRecordProfile {
     constructor(private repository: UserRecordRepository) { }

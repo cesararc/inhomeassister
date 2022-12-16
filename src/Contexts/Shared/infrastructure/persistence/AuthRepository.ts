@@ -10,5 +10,10 @@ export abstract class AuthRepository<T extends AggregateRoot>{
 
     protected async persist(aggregateRoot: T) {
         await auth.createUser(aggregateRoot.toPrimitives());
+
+        const uid = aggregateRoot.toPrimitives().uid;
+        const role = aggregateRoot.toPrimitives().claim;
+        await auth.setCustomUserClaims(uid, { role });
     }
+
 }
