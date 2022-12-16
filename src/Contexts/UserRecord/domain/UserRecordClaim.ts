@@ -22,6 +22,10 @@ export class UserRecordClaim extends EnumValueObject<Claim> {
     }
 
     protected throwErrorForInvalidValue(value: Claim): void {
+        if (value.length === 0) {
+            throw new InvalidArgumentError(`Claim empty is not a entity valid user record.`);
+        }
+
         throw new InvalidArgumentError(`${value} is not a entity valid user record.`);
     }
 }

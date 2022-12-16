@@ -1,6 +1,6 @@
 
 export class UserRecordNotFound extends Error {
     constructor() {
-        super('Customer not found, please try later.');
+        super('User record not found, please try later.');
     }
 }

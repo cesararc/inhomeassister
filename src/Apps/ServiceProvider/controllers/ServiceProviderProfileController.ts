@@ -22,9 +22,9 @@ export class ServiceProviderProfileController implements Controller {
 
             const serviceProfileProfileQuery = new ServiceProviderProfileQuery(uid);
 
-            const { serviceProvider }: ServiceProviderProfileResponse = await this.query.ask(serviceProfileProfileQuery);
-
             const { userRecord }: UserRecordProfileResponse = await this.query.ask(userRecordQuery);
+
+            const { serviceProvider }: ServiceProviderProfileResponse = await this.query.ask(serviceProfileProfileQuery);
 
             res.status(httpStatus.OK).send(this.toResponse(userRecord, serviceProvider));
 
@@ -46,6 +46,7 @@ export class ServiceProviderProfileController implements Controller {
             email: userRecord.email.toString(),
             phone: userRecord.phoneNumber.toString(),
             displayName: userRecord.displayName.toString(),
-        };
+            claim: userRecord.claim.value
+        }
     }
 }
