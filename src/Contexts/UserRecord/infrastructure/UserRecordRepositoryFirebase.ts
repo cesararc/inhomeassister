@@ -3,6 +3,7 @@ import { AuthRepository } from "../../Shared/infrastructure/persistence/AuthRepo
 import { UserRecordUid } from '../domain/UserRecordUid';
 import { UserRecordRepository } from '../domain/UserRecordRepository';
 import { Claim } from '../domain/UserRecordClaim';
+import { UserRecordNotFound } from '../domain/UserRecordNotFound';
 
 export class UserRecordRepositoryFirebase extends AuthRepository<UserRecord> implements UserRecordRepository {
 
@@ -25,6 +26,8 @@ export class UserRecordRepositoryFirebase extends AuthRepository<UserRecord> imp
     }
 
     async remove(uid: UserRecordUid): Promise<void> {
-        await this.authentication().deleteUser(uid.value);
+        try {
+            await this.authentication().deleteUser(uid.value);
+        } catch (error) { }
     }
 }
