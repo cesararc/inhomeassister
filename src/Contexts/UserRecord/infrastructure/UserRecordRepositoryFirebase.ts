@@ -61,7 +61,7 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
 
     async accountResetPassword(email: UserRecordEmail): Promise<void> {
         const actionCodeSettings = {
-            url: "https://example.com/",
+            url: "https://example.com/ui",
             handleCodeInApp: true,
             iOS: {
                 bundleId: 'com.example.ios',
