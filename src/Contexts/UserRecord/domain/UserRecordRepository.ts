@@ -1,5 +1,6 @@
 import { UserRecord } from './UserRecord';
 import { UserRecordUid } from './UserRecordUid';
+import { UserRecordEmail } from './UserRecordEmail';
 
 export interface UserRecordRepository {
     accountCreate(userRecord: UserRecord): Promise<void>;
@@ -7,4 +8,5 @@ export interface UserRecordRepository {
     accountRemove(userRecordUid: UserRecordUid): Promise<void>;
     accountDisable(userRecordUid: UserRecordUid): Promise<void>;
     accountEnable(userRecordUid: UserRecordUid): Promise<void>;
+    accountResetPassword(email: UserRecordEmail): Promise<void>;
 }
