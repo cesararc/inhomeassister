@@ -1,6 +1,6 @@
+import httpStatus from 'http-status';
 import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
-import httpStatus from 'http-status';
 import { QueryBus } from '../../../Contexts/Shared/domain/QueryBus';
 import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/profile/UserRecordProfileQuery';
 import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/profile/UserRecordProfileResponse';
@@ -24,6 +24,7 @@ export class UserRecordProfileController implements Controller {
 
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }
+
     }
 
     private toResponse(userRecord: UserRecord) {
@@ -31,6 +32,7 @@ export class UserRecordProfileController implements Controller {
             email: userRecord.email.toString(),
             phone: userRecord.phoneNumber.toString(),
             displayName: userRecord.displayName.toString(),
+            claim: userRecord.claim.value
         };
     }
 }

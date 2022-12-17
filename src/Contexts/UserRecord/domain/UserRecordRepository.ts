@@ -2,7 +2,9 @@ import { UserRecord } from './UserRecord';
 import { UserRecordUid } from './UserRecordUid';
 
 export interface UserRecordRepository {
-    create(userRecord: UserRecord): Promise<void>;
+    accountCreate(userRecord: UserRecord): Promise<void>;
     profile(userRecordUid: UserRecordUid): Promise<UserRecord>;
-    remove(userRecordUid: UserRecordUid): Promise<void>;
+    accountRemove(userRecordUid: UserRecordUid): Promise<void>;
+    accountDisable(userRecordUid: UserRecordUid): Promise<void>;
+    accountEnable(userRecordUid: UserRecordUid): Promise<void>;
 }

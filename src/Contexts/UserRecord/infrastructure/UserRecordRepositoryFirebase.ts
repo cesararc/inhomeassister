@@ -5,7 +5,7 @@ import { UserRecordRepository } from '../domain/UserRecordRepository';
 
 export class UserRecordRepositoryFirebase extends AuthRepository<UserRecord> implements UserRecordRepository {
 
-    async create(userRecord: UserRecord): Promise<void> {
+    async accountCreate(userRecord: UserRecord): Promise<void> {
         await this.persist(userRecord);
     }
 
@@ -28,9 +28,17 @@ export class UserRecordRepositoryFirebase extends AuthRepository<UserRecord> imp
 
     }
 
-    async remove(uid: UserRecordUid): Promise<void> {
+    async accountRemove(uid: UserRecordUid): Promise<void> {
         try {
             await this.authentication().deleteUser(uid.value);
         } catch (error) { }
+    }
+
+    async accountDisable(userRecordUid: UserRecordUid): Promise<void> {
+        await this.authentication().updateUser(userRecordUid.value, { disabled: true });
+    }
+
+    async accountEnable(userRecordUid: UserRecordUid): Promise<void> {
+        await this.authentication().updateUser(userRecordUid.value, { disabled: false });
     }
 }

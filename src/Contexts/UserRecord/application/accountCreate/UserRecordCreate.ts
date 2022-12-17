@@ -20,6 +20,6 @@ export class UserRecordCreate {
 
         const userRecord = UserRecord.create(uid, displayName, phone, email, password, claim);
 
-        await this.repository.create(userRecord);
+        await this.repository.accountCreate(userRecord);
     }
 }
