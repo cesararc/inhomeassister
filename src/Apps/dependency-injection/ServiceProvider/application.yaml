@@ -5,7 +5,13 @@ services:
 
   ServiceProvider.ServiceProviderCreate:
     class: ../../../Contexts/ServiceProvider/ServiceProvider/application/create/ServiceProviderCreate
-    arguments: ['@ServiceProvider.ServiceProviderRepository']
+    arguments: ['@ServiceProvider.ServiceProviderRepository',  '@Shared.EventBus']
+
+  ServiceProvider.ServiceProviderDisableAccountOnCreate:
+    class: ../../../Contexts/ServiceProvider/ServiceProvider/application/create/ServiceProviderDisableAccountOnCreate
+    arguments: ["@UserRecord.UserRecordRepository"]
+    tags:
+      - { name: 'domainEventSubscriber' }
 
   ServiceProvider.ServiceProviderCreateCommandHandler:
     class: ../../../Contexts/ServiceProvider/ServiceProvider/application/create/ServiceProviderCreateCommandHandler

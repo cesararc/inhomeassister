@@ -12,7 +12,7 @@ export class UserRecordRepositoryFirebase extends AuthRepository<UserRecord> imp
     async profile(uid: UserRecordUid): Promise<UserRecord> {
         try {
             const data = await this.authentication().getUser(uid.value);
-
+            console.log({ data: data.disabled })
             const plainData = {
                 id: data.uid,
                 displayName: data.displayName,

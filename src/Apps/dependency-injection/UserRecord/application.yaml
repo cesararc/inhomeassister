@@ -37,8 +37,8 @@ services:
     tags:
       - { name: 'commandHandler' }
 
-  UserRecord.UserRecordDisabled:
-    class: ../../../Contexts/UserRecord/application/accountDisable/UserRecordDisabled
+  UserRecord.UserRecordDisable:
+    class: ../../../Contexts/UserRecord/application/accountDisable/UserRecordDisable
     arguments: ['@UserRecord.UserRecordRepository']
 
   UserRecord.UserRecordEnable:
