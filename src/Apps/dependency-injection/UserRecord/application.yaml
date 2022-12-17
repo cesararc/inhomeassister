@@ -13,6 +13,16 @@ services:
     tags:
       - { name: 'commandHandler' }
 
+  UserRecord.UserRecordUpdate:
+    class: ../../../Contexts/UserRecord/application/accountUpdate/UserRecordUpdate
+    arguments: ['@UserRecord.UserRecordRepository']
+
+  UserRecord.UserRecordUpdateCommandHandler:
+    class: ../../../Contexts/UserRecord/application/accountUpdate/UserRecordUpdateCommandHandler
+    arguments: ['@UserRecord.UserRecordUpdate']
+    tags:
+      - { name: 'commandHandler' }
+
   UserRecord.UserRecordProfile:
     class: ../../../Contexts/UserRecord/application/profile/UserRecordProfile
     arguments: ['@UserRecord.UserRecordRepository']

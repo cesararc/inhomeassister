@@ -15,6 +15,17 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
         await auth.setCustomUserClaims(uid, { role });
     }
 
+    async accountUpdate(userRecord: UserRecord): Promise<void> {
+        const data = {
+            ...(userRecord.email.value.length > 0 && { email: userRecord.email.value }),
+            ...(userRecord.displayName.value.length > 0 && { displayName: userRecord.displayName.value }),
+            ...(userRecord.phoneNumber.value.length > 0 && { phoneNumber: userRecord.phoneNumber.value }),
+        };
+
+        console.log({ armarData: data });
+        await auth.updateUser(userRecord.uid.value, data);
+    }
+
     async profile(uid: UserRecordUid): Promise<UserRecord> {
         try {
             const data = await auth.getUser(uid.value);

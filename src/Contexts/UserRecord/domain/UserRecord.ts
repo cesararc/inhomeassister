@@ -15,7 +15,7 @@ export class UserRecord extends AggregateRoot {
     readonly password: UserRecordPassword;
     readonly claim: UserRecordClaim;
 
-    constructor(uid: UserRecordUid, displayName: UserRecordDisplayName, phone: UserRecordPhone, email: UserRecordEmail, claim: UserRecordClaim, password?: UserRecordPassword) {
+    constructor(uid: UserRecordUid, displayName: UserRecordDisplayName, phone: UserRecordPhone, email: UserRecordEmail, claim?: UserRecordClaim, password?: UserRecordPassword) {
         super();
         this.uid = uid;
         this.displayName = displayName;
@@ -28,6 +28,13 @@ export class UserRecord extends AggregateRoot {
     static create(uid: UserRecordUid, displayName: UserRecordDisplayName, phoneNumber: UserRecordPhone, email: UserRecordEmail, password: UserRecordPassword, claim: UserRecordClaim): UserRecord {
 
         const userRecord = new UserRecord(uid, displayName, phoneNumber, email, claim, password);
+
+        return userRecord;
+    }
+
+    static update(uid: UserRecordUid, displayName: UserRecordDisplayName, phoneNumber: UserRecordPhone, email: UserRecordEmail): UserRecord {
+
+        const userRecord = new UserRecord(uid, displayName, phoneNumber, email);
 
         return userRecord;
     }
@@ -49,7 +56,7 @@ export class UserRecord extends AggregateRoot {
             new UserRecordDisplayName(plainData.displayName),
             new UserRecordPhone(plainData.phoneNumber),
             new UserRecordEmail(plainData.email),
-            new UserRecordClaim(plainData.claim)
+            new UserRecordClaim(plainData.claim),
         );
     }
 }
