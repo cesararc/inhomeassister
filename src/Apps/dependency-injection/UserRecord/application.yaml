@@ -50,3 +50,17 @@ services:
   UserRecord.UserRecordEnable:
     class: ../../../Contexts/UserRecord/application/accountEnable/UserRecordEnable
     arguments: ['@UserRecord.UserRecordRepository']
+
+  UserRecord.UserRecordResetPassword:
+    class: ../../../Contexts/UserRecord/application/accountResetPassword/UserRecordResetPassword
+    arguments: ['@UserRecord.UserRecordRepository']
+  
+  UserRecord.UserRecordResetPasswordCommandHandler:
+    class: ../../../Contexts/UserRecord/application/accountResetPassword/UserRecordResetPasswordCommandHandler
+    arguments: ['@UserRecord.UserRecordResetPassword']
+    tags:
+      - { name: 'commandHandler' }
+
+  UserRecord.UserRecordResetPasswordController:
+    class: ../../../Apps/UserRecord/controllers/UserRecordResetPasswordController
+    arguments: ['@Shared.CommandBus']

@@ -1,17 +1,23 @@
 import { UserRecord } from '../domain/UserRecord';
-import { AuthRepository } from "../../Shared/infrastructure/persistence/AuthRepository";
 import { UserRecordUid } from '../domain/UserRecordUid';
 import { UserRecordRepository } from '../domain/UserRecordRepository';
+import { auth } from '../../../Apps/database';
+import { UserRecordEmail } from '../domain/UserRecordEmail';
 
-export class UserRecordRepositoryFirebase extends AuthRepository<UserRecord> implements UserRecordRepository {
+export class UserRecordRepositoryFirebase implements UserRecordRepository {
 
     async accountCreate(userRecord: UserRecord): Promise<void> {
-        await this.persist(userRecord);
+
+        await auth.createUser(userRecord.toPrimitives());
+
+        const uid = userRecord.toPrimitives().uid;
+        const role = userRecord.toPrimitives().claim;
+        await auth.setCustomUserClaims(uid, { role });
     }
 
     async profile(uid: UserRecordUid): Promise<UserRecord> {
         try {
-            const data = await this.authentication().getUser(uid.value);
+            const data = await auth.getUser(uid.value);
 
             const plainData = {
                 id: data.uid,
@@ -30,15 +36,33 @@ export class UserRecordRepositoryFirebase extends AuthRepository<UserRecord> imp
 
     async accountRemove(uid: UserRecordUid): Promise<void> {
         try {
-            await this.authentication().deleteUser(uid.value);
+            await auth.deleteUser(uid.value);
         } catch (error) { }
     }
 
     async accountDisable(userRecordUid: UserRecordUid): Promise<void> {
-        await this.authentication().updateUser(userRecordUid.value, { disabled: true });
+        await auth.updateUser(userRecordUid.value, { disabled: true });
     }
 
     async accountEnable(userRecordUid: UserRecordUid): Promise<void> {
-        await this.authentication().updateUser(userRecordUid.value, { disabled: false });
+        await auth.updateUser(userRecordUid.value, { disabled: false });
+    }
+
+    async accountResetPassword(email: UserRecordEmail): Promise<void> {
+        const actionCodeSettings = {
+            url: "https://example.com/",
+            handleCodeInApp: true,
+            iOS: {
+                bundleId: 'com.example.ios',
+            },
+            android: {
+                packageName: 'com.example.android',
+                installApp: true,
+                minimumVersion: '12',
+            },
+            dynamicLinkDomain: 'coolapp.page.link',
+        };
+        const response = await auth.generatePasswordResetLink(email.value, actionCodeSettings);
+        console.log({ response })
     }
 }
