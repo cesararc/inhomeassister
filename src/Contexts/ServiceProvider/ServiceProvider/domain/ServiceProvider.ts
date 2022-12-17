@@ -29,6 +29,14 @@ export class ServiceProvider extends AggregateRoot {
         return serviceProvider;
     }
 
+    static update(uid: ServiceProviderUid, address: ServiceProviderAddress, dni: ServiceProviderDni, description: ServiceProviderDescription): ServiceProvider {
+
+        const serviceProvider = new ServiceProvider(uid, address, dni, description);
+
+        return serviceProvider;
+    }
+
+
     static fromPrimitives(plainData: { uid: string; address: string; dni: string; description: string; }) {
         return new ServiceProvider(
             new ServiceProviderUid(plainData.uid),

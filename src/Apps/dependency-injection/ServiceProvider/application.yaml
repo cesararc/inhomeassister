@@ -6,8 +6,7 @@ services:
   ServiceProvider.ServiceProviderCreate:
     class: ../../../Contexts/ServiceProvider/ServiceProvider/application/create/ServiceProviderCreate
     arguments: ['@ServiceProvider.ServiceProviderRepository',  '@Shared.EventBus']
-
-
+  
   ServiceProvider.ServiceProviderCreateCommandHandler:
     class: ../../../Contexts/ServiceProvider/ServiceProvider/application/create/ServiceProviderCreateCommandHandler
     arguments: ['@ServiceProvider.ServiceProviderCreate']
@@ -16,6 +15,20 @@ services:
 
   ServiceProvider.ServiceProviderCreateController:
     class: ../../../Apps/ServiceProvider/controllers/ServiceProviderCreateController
+    arguments: ['@Shared.CommandBus']
+
+  ServiceProvider.ServiceProviderUpdate:
+    class: ../../../Contexts/ServiceProvider/ServiceProvider/application/update/ServiceProviderUpdate
+    arguments: ['@ServiceProvider.ServiceProviderRepository', '@Shared.EventBus']
+
+  ServiceProvider.ServiceProviderUpdateCommandHandler:
+    class: ../../../Contexts/ServiceProvider/ServiceProvider/application/update/ServiceProviderUpdateCommandHandler
+    arguments: ['@ServiceProvider.ServiceProviderUpdate']
+    tags:
+      - { name: 'commandHandler' }
+
+  ServiceProvider.ServiceProviderUpdateController:
+    class: ../../../Apps/ServiceProvider/controllers/ServiceProviderUpdateController
     arguments: ['@Shared.CommandBus']
 
   ServiceProvider.ServiceProviderProfile:
