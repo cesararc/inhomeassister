@@ -25,6 +25,19 @@ export class ServiceProviderRepositoryFirebase extends FirebaseRepository<Servic
         return ServiceProvider.fromPrimitives(data);
     }
 
+
+    async update(serviceProvider: ServiceProvider): Promise<void> {
+        try {
+            const collection = this.collection().doc(serviceProvider.toPrimitives().uid);
+
+            await collection.update(serviceProvider.toPrimitives());
+
+        } catch (error) {
+            return null;
+        }
+    }
+
+
     moduleName(): string {
         return "service_provider"
     }
