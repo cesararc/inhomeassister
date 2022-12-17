@@ -27,7 +27,6 @@ export class SellerCreateController implements Controller {
 
             await this.commandBus.dispatch(command);
         } catch (error) {
-            console.log({ error })
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }
 

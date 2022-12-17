@@ -18,10 +18,11 @@ export class ServiceProviderRepositoryFirebase extends FirebaseRepository<Servic
 
     async profile(uid: ServiceProviderUid): Promise<ServiceProvider> {
         const reference = await this.collection().doc(uid.value).get();
-
         const doc = reference.data() as ServiceProviderPlainData;
 
-        return ServiceProvider.fromPrimitives({ uid: doc.uid, address: doc.address, dni: doc.dni, description: doc.description });
+        const data = { uid: doc.uid, address: doc.address, dni: doc.dni, description: doc.description };
+
+        return ServiceProvider.fromPrimitives(data);
     }
 
     moduleName(): string {

@@ -22,4 +22,10 @@ export class ServiceProviderCreatedDomainEvent extends DomainEvent {
             uid: this.uid
         }
     }
+
+    static fromPrimitives(body: ServiceProviderCreatedEventBody): DomainEvent {
+        return new ServiceProviderCreatedDomainEvent({
+            uid: body.uid
+        });
+    }
 }
