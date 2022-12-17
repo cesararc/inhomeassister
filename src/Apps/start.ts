@@ -7,6 +7,5 @@ try {
 }
 
 function handleError(e: any) {
-    console.log(e)
     process.exit(1);
 }
