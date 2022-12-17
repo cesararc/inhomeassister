@@ -12,10 +12,11 @@ export class AuthenticationCreateCookieSessionController implements Controller {
         const idToken = req.body.idToken;
         const csrfToken = req.body.csrfToken;
         const cookieCsrfToken = req.cookies.csrfToken;
+        const email = req.body.email;
 
         try {
 
-            const { cookieSession } = await this.authentication.run({ idToken, csrfToken, cookieCsrfToken });
+            const { cookieSession } = await this.authentication.run({ idToken, csrfToken, cookieCsrfToken, email });
 
             const options: CookieOptions = {
                 maxAge: 60 * 60 * 24 * 5 * 1000,
