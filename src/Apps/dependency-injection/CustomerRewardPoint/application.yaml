@@ -1,0 +1,6 @@
+services:
+  CustomerRewardPoint.CustomerRepository:
+    class: ../../../Contexts/Customer/CustomerRewardPoint/infrastructure/CustomerRepositoryFirebase
+    arguments: []
+
+ 
