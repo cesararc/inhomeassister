@@ -1,29 +1,29 @@
 import { CustomerRewardPointUid } from './CustomerRewardPointUid';
-import { CustomerRewardPointTotal } from './CustomerRewardPointTotal';
+import { CustomerRewardPointAmount } from './CustomerRewardPointAmount';
 import { AggregateRoot } from '../../../Shared/domain/AggregateRoot';
 
 export class CustomerRewardPoint extends AggregateRoot {
     readonly uid: CustomerRewardPointUid;
-    private total: CustomerRewardPointTotal;
+    readonly amount: CustomerRewardPointAmount;
 
-    constructor(uid: CustomerRewardPointUid, total: CustomerRewardPointTotal) {
+    constructor(uid: CustomerRewardPointUid, amount: CustomerRewardPointAmount) {
         super();
 
         this.uid = uid;
-        this.total = total;
+        this.amount = amount;
     }
 
     toPrimitives() {
         return {
             uid: this.uid.value,
-            total: this.total.value,
+            total: this.amount.value,
         };
     }
 
-    static fromPrimitives(data: { uid: string; total: number; existingCourses: string[] }) {
+    static fromPrimitives(data: { uid: string; amount: number; }) {
         return new CustomerRewardPoint(
             new CustomerRewardPointUid(data.uid),
-            new CustomerRewardPointTotal(data.total),
+            new CustomerRewardPointAmount(data.amount),
         );
     }
 }

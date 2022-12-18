@@ -1,17 +1,32 @@
 import { CustomerRewardPointRepository } from '../domain/CustomerRewardPointRepository';
 import { CustomerRewardPoint } from '../domain/CustomerRewardPoint';
 import { CustomerRewardPointUid } from '../domain/CustomerRewardPointUid';
-import { CustomerRewardPointTotal } from '../domain/CustomerRewardPointTotal';
 import { FirebaseRepository } from '../../../Shared/infrastructure/persistence/FirebaseRepository';
 
-export class CustomerRewardPointRepositoryFirebasey extends FirebaseRepository<CustomerRewardPoint> implements CustomerRewardPointRepository {
+interface CustomerRewardPointPlainData {
+    uid: string;
+    amount: number;
+}
 
-    async save(customerRewardPoint: CustomerRewardPoint) {
-        this.persist(customerRewardPoint);
+export class CustomerRewardPointRepositoryFirebase extends FirebaseRepository<CustomerRewardPoint> implements CustomerRewardPointRepository {
+
+    async increment(customerRewardPoint: CustomerRewardPoint): Promise<void> {
+        try {
+            const collection = this.collection().doc(customerRewardPoint.toPrimitives().uid);
+
+            //await collection.update({total: });
+
+        } catch (error) {
+            return null;
+        }
     }
 
-    async search() {
-        return new CustomerRewardPoint(new CustomerRewardPointUid(""), new CustomerRewardPointTotal(0));
+    async search(uid: CustomerRewardPointUid) {
+        const reference = await this.collection().doc(uid.value).get();
+
+        const doc = reference.data() as CustomerRewardPointPlainData;
+
+        return CustomerRewardPoint.fromPrimitives(doc);
     }
 
     moduleName() {
