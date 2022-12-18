@@ -6,8 +6,8 @@ import { CustomerProfileQuery } from '../../../Contexts/Customer/Customer/applic
 import { CustomerProfileResponse } from '../../../Contexts/Customer/Customer/application/profile/CustomerProfileResponse';
 import { Customer } from '../../../Contexts/Customer/Customer/domain/Customer';
 import { CustomerNotFound } from '../../../Contexts/Customer/Customer/domain/CustomerNotFound';
-import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/profile/UserRecordProfileQuery';
-import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/profile/UserRecordProfileResponse';
+import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileQuery';
+import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileResponse';
 import { UserRecord } from '../../../Contexts/UserRecord/domain/UserRecord';
 
 export class CustomerProfileController implements Controller {
