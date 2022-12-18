@@ -22,27 +22,21 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
             ...(userRecord.phoneNumber.value.length > 0 && { phoneNumber: userRecord.phoneNumber.value }),
         };
 
-        console.log({ armarData: data });
         await auth.updateUser(userRecord.uid.value, data);
     }
 
     async profile(uid: UserRecordUid): Promise<UserRecord> {
-        try {
-            const data = await auth.getUser(uid.value);
+        const data = await auth.getUser(uid.value);
 
-            const plainData = {
-                id: data.uid,
-                displayName: data.displayName,
-                email: data.email,
-                phoneNumber: data.phoneNumber,
-                claim: data.customClaims?.role
-            };
+        const plainData = {
+            id: data.uid,
+            displayName: data.displayName,
+            email: data.email,
+            phoneNumber: data.phoneNumber,
+            claim: data.customClaims?.role
+        };
 
-            return UserRecord.fromPrimitives(plainData);
-        } catch (error) {
-            return null
-        }
-
+        return data ? UserRecord.fromPrimitives(plainData) : null;
     }
 
     async accountRemove(uid: UserRecordUid): Promise<void> {

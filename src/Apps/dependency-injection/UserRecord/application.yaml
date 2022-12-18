@@ -24,11 +24,11 @@ services:
       - { name: 'commandHandler' }
 
   UserRecord.UserRecordProfile:
-    class: ../../../Contexts/UserRecord/application/profile/UserRecordProfile
+    class: ../../../Contexts/UserRecord/application/accountProfile/UserRecordProfile
     arguments: ['@UserRecord.UserRecordRepository']
     
   UserRecord.UserRecordProfileQueryHandler:
-    class: ../../../Contexts/UserRecord/application/profile/UserRecordProfileQueryHandler
+    class: ../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileQueryHandler
     arguments: ['@UserRecord.UserRecordProfile']
     tags: 
       - { name: 'queryHandler' }
