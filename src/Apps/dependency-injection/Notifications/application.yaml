@@ -1,0 +1,14 @@
+services:
+  Notification.EmailSenderService:
+    class: ../../../Contexts/Notifications/infrastructure/EmailSenderService
+    arguments: []
+
+  Notification.SendEmailCustomerRewardPoint:
+    class: ../../../Contexts/Notifications/application/sendEmailCustomerRewardPoint/SendEmailCustomerRewardPointIncremented
+    arguments: ['@Notification.EmailSenderService']
+
+  Notification.SendEmailOnCustomerRewardPoint:
+    class: ../../../Contexts/Notifications/application/sendEmailCustomerRewardPoint/SendEmailOnCustomerRewardPointIncremented
+    arguments: ["@Notification.SendEmailCustomerRewardPoint"]
+    tags:
+      - { name: 'domainEventSubscriber' }

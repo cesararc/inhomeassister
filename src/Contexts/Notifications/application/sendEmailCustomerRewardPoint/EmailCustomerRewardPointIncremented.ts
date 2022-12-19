@@ -8,7 +8,7 @@ export class EmailCustomerRewardPointIncremented extends Email {
         super({
             from: new EmailAddress('jmartin@inhomeassister.com'),
             to,
-            subject: new EmailSubject('you have received score'),
+            subject: new EmailSubject(`You have received  score`),
             body: new EmailBody('you have received score')
         });
     }
