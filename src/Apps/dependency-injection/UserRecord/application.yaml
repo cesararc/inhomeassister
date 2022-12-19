@@ -47,10 +47,6 @@ services:
     tags:
       - { name: 'commandHandler' }
 
-  UserRecord.UserRecordDisable:
-    class: ../../../Contexts/UserRecord/application/accountDisable/UserRecordDisable
-    arguments: ['@UserRecord.UserRecordRepository']
-
   UserRecord.UserRecordDisableOnServiceProviderCreated:
     class: ../../../Contexts/UserRecord/application/accountDisable/UserRecordDisableOnServiceProviderCreated
     arguments: ["@UserRecord.UserRecordDisable"]
@@ -60,6 +56,30 @@ services:
   UserRecord.UserRecordEnable:
     class: ../../../Contexts/UserRecord/application/accountEnable/UserRecordEnable
     arguments: ['@UserRecord.UserRecordRepository']
+
+  UserRecord.UserRecordEnableCommandHandler:
+    class: ../../../Contexts/UserRecord/application/accountEnable/UserRecordEnableCommandHandler
+    arguments: ['@UserRecord.UserRecordEnable']
+    tags:
+      - { name: 'commandHandler' }
+
+  UserRecord.UserRecordEnableController:
+    class: ../../../Apps/UserRecord/controllers/UserRecordEnableController
+    arguments: ['@Shared.CommandBus']
+
+  UserRecord.UserRecordDisable:
+    class: ../../../Contexts/UserRecord/application/accountDisable/UserRecordDisable
+    arguments: ['@UserRecord.UserRecordRepository']
+
+  UserRecord.UserRecordDisableCommandHandler:
+    class: ../../../Contexts/UserRecord/application/accountDisable/UserRecordDisableCommandHandler
+    arguments: ['@UserRecord.UserRecordDisable']
+    tags:
+      - { name: 'commandHandler' }
+
+  UserRecord.UserRecordDisableController:
+    class: ../../../Apps/UserRecord/controllers/UserRecordDisableController
+    arguments: ['@Shared.CommandBus']
 
   UserRecord.UserRecordResetPassword:
     class: ../../../Contexts/UserRecord/application/accountResetPassword/UserRecordResetPassword
