@@ -3,6 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import errorHandler from 'errorhandler';
+import helmet from "helmet";
 // import csrf from 'csurf';
 import httpStatus from 'http-status';
 import cookieParser from 'cookie-parser';
@@ -23,8 +24,12 @@ export class Server {
         this.express.use(bodyParser.json());
         this.express.use(cookieParser());
         this.express.use(bodyParser.urlencoded({ extended: false }));
-        this.express.use(cors());
+        this.express.use(helmet.xssFilter());
+        this.express.use(helmet.noSniff());
+        this.express.use(helmet.hidePoweredBy());
+        this.express.use(helmet.frameguard({ action: 'deny' }));
         const router = Router();
+        router.use(cors());
         router.use(errorHandler());
         this.express.use(router);
 

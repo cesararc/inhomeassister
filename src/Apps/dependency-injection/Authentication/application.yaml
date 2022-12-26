@@ -5,7 +5,7 @@ services:
 
   Authentication.AuthenticationCookieSessionCreate:
     class: ../../../Contexts/Authentication/application/AuthenticationCookieSessionCreate
-    arguments: ['@Authentication.AuthenticationRepositoryFirebase']
+    arguments: ['@Authentication.AuthenticationRepositoryFirebase', '@Shared.EventBus']
 
   Authentication.AuthenticationCreateCookieSessionController:
     class: ../../../Apps/Authentication/controllers/AuthenticationCreateCookieSessionController
