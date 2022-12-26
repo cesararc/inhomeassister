@@ -24,7 +24,7 @@ export class AuthenticationCreateCookieSessionController implements Controller {
             const options: CookieOptions = {
                 maxAge: AuthenticationExpiresIn.timeDuration(),
                 httpOnly: true,
-                secure: true
+                secure: true,
             };
 
             res.cookie('session', cookieSession, options);
