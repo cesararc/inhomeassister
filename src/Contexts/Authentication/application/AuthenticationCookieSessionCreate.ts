@@ -18,7 +18,7 @@ type Params = {
 export class AuthenticationCookieSessionCreate {
     constructor(private repository: AuthenticationRepository, private eventBus: EventBus) { }
 
-    async run({ csrfToken, cookieCsrfToken, idToken, email }: Params): Promise<{ cookieSession: string }> {
+    async run({ csrfToken, cookieCsrfToken, idToken, email }: Params): Promise<string> {
 
         if (csrfToken !== cookieCsrfToken) {
             throw new AuthenticationForbidden();
@@ -36,6 +36,6 @@ export class AuthenticationCookieSessionCreate {
 
         await this.eventBus.publish(authentication.pullDomainEvents());
 
-        return cookieSession
+        return cookieSession;
     }
 }
