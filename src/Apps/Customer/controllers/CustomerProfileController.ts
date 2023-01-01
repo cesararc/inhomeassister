@@ -1,6 +1,6 @@
-import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
 import httpStatus from 'http-status';
+import { Controller } from '../../controller/Controller';
 import { QueryBus } from '../../../Contexts/Shared/domain/QueryBus';
 import { CustomerProfileQuery } from '../../../Contexts/Customer/Customer/application/profile/CustomerProfileQuery';
 import { CustomerProfileResponse } from '../../../Contexts/Customer/Customer/application/profile/CustomerProfileResponse';
@@ -15,6 +15,7 @@ export class CustomerProfileController implements Controller {
     constructor(private query: QueryBus) { }
 
     async run(req: Request, res: Response): Promise<void> {
+
         const uid = req.params.uid;
 
         try {
@@ -24,8 +25,7 @@ export class CustomerProfileController implements Controller {
 
             const { userRecord }: UserRecordProfileResponse = await this.query.ask(userRecordQuery);
 
-            const { customer }: CustomerProfileResponse = await this.query.ask(customerProfileQuery);
-
+            const { customer }: CustomerProfileResponse = await this.query.ask(customerProfileQuery)
             res.status(httpStatus.OK).send(this.toResponse(userRecord, customer));
 
         } catch (error) {
