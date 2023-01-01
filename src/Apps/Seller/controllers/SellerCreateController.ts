@@ -1,32 +1,50 @@
 import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
-import { CustomerCreateCommand } from '../../../Contexts/Customer/Customer/application/create/CustomerCreateCommand';
+import { UserRecordCreateCommand } from '../../../Contexts/UserRecord/application/accountCreate/UserRecordCreateCommand';
 import httpStatus from 'http-status';
-import { SellerCreateCommand } from '../../../Contexts/Seller/Seller/application/create/SellerCreateCommand';
+import { UserRecordRemoveCommand } from '../../../Contexts/UserRecord/application/accountRemove/UserRecordRemoveCommand';
+import { SellerCreateCommand } from '../../../Contexts/Seller/application/create/SellerCreateCommand';
 
 export class SellerCreateController implements Controller {
 
     constructor(private commandBus: CommandBus) { }
 
     async run(req: Request, res: Response): Promise<void> {
-        const id = req.body.id;
+        const uid = req.body.uid;
+        const displayName = req.body.displayName;
         const email = req.body.email;
         const phone = req.body.phone;
         const password = req.body.password;
-        const displayName = req.body.displayname;
+        const address = req.body.address;
+        const dni = req.body.dni;
+        const claim = req.body.claim;
 
         try {
-            const command = new SellerCreateCommand({
-                displayName,
-                email,
-                id,
-                password,
-                phone
+            const sellerCreateCommand = new SellerCreateCommand({
+                uid,
+                address,
+                dni
             });
 
-            await this.commandBus.dispatch(command);
+            const userRecordCreateCommand = new UserRecordCreateCommand({
+                displayName,
+                email,
+                password,
+                phone,
+                claim,
+                uid
+            });
+
+            await this.commandBus.dispatch(userRecordCreateCommand);
+
+            await this.commandBus.dispatch(sellerCreateCommand);
+
         } catch (error) {
+            const commandRollback = new UserRecordRemoveCommand(uid);
+
+            await this.commandBus.dispatch(commandRollback);
+
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }
 

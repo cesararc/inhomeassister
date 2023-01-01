@@ -1,12 +1,11 @@
+import { Response, Request } from 'express';
 import httpStatus from 'http-status';
 import { Controller } from '../../controller/Controller';
-import { Response, Request } from 'express';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
-import { CustomerUpdateCommand } from '../../../Contexts/Customer/Customer/application/update/CustomerUpdateCommand';
 import { UserRecordUpdateCommand } from '../../../Contexts/UserRecord/application/accountUpdate/UserRecordUpdateCommand';
-import { ServiceProviderUpdateCommand } from '../../../Contexts/ServiceProvider/application/update/ServiceProviderUpdateCommand';
+import { SellerUpdateCommand } from '../../../Contexts/Seller/application/update/ServiceProviderUpdateCommand';
 
-export class ServiceProviderUpdateController implements Controller {
+export class SellerUpdateController implements Controller {
 
     constructor(private commandBus: CommandBus) { }
 
@@ -17,7 +16,6 @@ export class ServiceProviderUpdateController implements Controller {
         const email = req.body.email;
         const phone = req.body.phone;
 
-        const description = req.body.description;
         const address = req.body.address;
         const dni = req.body.dni;
 
@@ -29,16 +27,15 @@ export class ServiceProviderUpdateController implements Controller {
                 phone
             });
 
-            const serviceProviderUpdateCommand = new ServiceProviderUpdateCommand({
+            const sellerUpdateCommand = new SellerUpdateCommand({
                 uid,
                 address,
                 dni,
-                description
             });
 
             await this.commandBus.dispatch(userRecordUpdateCommand);
 
-            await this.commandBus.dispatch(serviceProviderUpdateCommand);
+            await this.commandBus.dispatch(sellerUpdateCommand);
 
         } catch (error) {
             res.status(httpStatus.BAD_REQUEST).send(error.message);

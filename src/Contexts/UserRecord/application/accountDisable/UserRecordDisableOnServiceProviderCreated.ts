@@ -1,6 +1,6 @@
 import { DomainEventSubscriber } from '../../../Shared/domain/DomainEventSubscriber';
 import { UserRecordDisable } from './UserRecordDisable';
-import { ServiceProviderCreatedDomainEvent } from '../../../ServiceProvider/ServiceProvider/domain/ServiceProviderCreatedDomainEvent';
+import { ServiceProviderCreatedDomainEvent } from '../../../ServiceProvider/domain/ServiceProviderCreatedDomainEvent';
 import { DomainEventClass } from '../../../Shared/domain/DomainEvent';
 import { UserRecordUid } from '../../domain/UserRecordUid';
 
