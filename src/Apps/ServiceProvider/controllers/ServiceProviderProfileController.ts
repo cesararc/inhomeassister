@@ -7,8 +7,8 @@ import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/applicat
 import { UserRecord } from '../../../Contexts/UserRecord/domain/UserRecord';
 import { ServiceProviderProfileResponse } from '../../../Contexts/ServiceProvider/ServiceProvider/application/profile/ServiceProviderProfileResponse';
 import { ServiceProvider } from '../../../Contexts/ServiceProvider/ServiceProvider/domain/ServiceProvider';
-import { ServiceProviderNotFound } from '../../../Contexts/Seller/domain/SellerNotFound';
 import { ServiceProviderProfileQuery } from '../../../Contexts/ServiceProvider/ServiceProvider/application/profile/ServiceProviderProfileQuery';
+import { ServiceProviderNotFound } from '../../../Contexts/ServiceProvider/ServiceProvider/domain/ServiceProviderNotFound';
 
 export class ServiceProviderProfileController implements Controller {
 
