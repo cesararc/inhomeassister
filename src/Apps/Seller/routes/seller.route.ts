@@ -1,9 +1,12 @@
 import { Router, Request, Response } from 'express';
 import container from '../../dependency-injection';
-import { SellerCreateController } from '../controllers/SellerCreateController';
 
 export const register = (router: Router) => {
-    const customerSaveController = container.get<SellerCreateController>('Seller.SellerCreateController');
+    const sellerCreateController = container.get('Seller.SellerCreateController');
+    const sellerUpdateController = container.get('Seller.SellerUpdateController');
+    const sellerProfileController = container.get('Seller.SellerProfileController');
 
-    router.post("/api/seller", (req: Request, res: Response) => customerSaveController.run(req, res));
+    router.post("/api/service-provider", (req: Request, res: Response) => sellerCreateController.run(req, res));
+    router.put("/api/service-provider/:uid", (req: Request, res: Response) => sellerUpdateController.run(req, res));
+    router.get("/api/seller/profile/:uid", (req: Request, res: Response) => sellerProfileController.run(req, res));
 }

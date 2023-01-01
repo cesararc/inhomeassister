@@ -5,12 +5,12 @@ import { QueryBus } from '../../../Contexts/Shared/domain/QueryBus';
 import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileQuery';
 import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileResponse';
 import { UserRecord } from '../../../Contexts/UserRecord/domain/UserRecord';
-import { ServiceProviderProfileResponse } from '../../../Contexts/ServiceProvider/ServiceProvider/application/profile/ServiceProviderProfileResponse';
-import { ServiceProvider } from '../../../Contexts/ServiceProvider/ServiceProvider/domain/ServiceProvider';
-import { ServiceProviderNotFound } from '../../../Contexts/Seller/domain/SellerNotFound';
 import { ServiceProviderProfileQuery } from '../../../Contexts/ServiceProvider/ServiceProvider/application/profile/ServiceProviderProfileQuery';
+import { SellerNotFound } from '../../../Contexts/Seller/domain/SellerNotFound';
+import { SellerProfileResponse } from '../../../Contexts/Seller/application/profile/SellerProfileResponse';
+import { Seller } from '../../../Contexts/Seller/domain/Seller';
 
-export class ServiceProviderProfileController implements Controller {
+export class SellerProfileController implements Controller {
 
     constructor(private query: QueryBus) { }
 
@@ -24,12 +24,12 @@ export class ServiceProviderProfileController implements Controller {
 
             const { userRecord }: UserRecordProfileResponse = await this.query.ask(userRecordQuery);
 
-            const { serviceProvider }: ServiceProviderProfileResponse = await this.query.ask(serviceProfileProfileQuery);
+            const { seller }: SellerProfileResponse = await this.query.ask(serviceProfileProfileQuery);
 
-            res.status(httpStatus.OK).send(this.toResponse(userRecord, serviceProvider));
+            res.status(httpStatus.OK).send(this.toResponse(userRecord, seller));
 
         } catch (error) {
-            if (error instanceof ServiceProviderNotFound) {
+            if (error instanceof SellerNotFound) {
                 res.status(httpStatus.NOT_FOUND).send(error.message);
             }
 
@@ -37,12 +37,11 @@ export class ServiceProviderProfileController implements Controller {
         }
     }
 
-    private toResponse(userRecord: UserRecord, serviceProvider: ServiceProvider) {
+    private toResponse(userRecord: UserRecord, seller: Seller) {
         return {
-            uid: serviceProvider.uid.toString(),
-            dni: serviceProvider.dni.toString(),
-            description: serviceProvider.description.toString(),
-            address: serviceProvider.address.value,
+            uid: seller.uid.toString(),
+            dni: seller.dni.toString(),
+            address: seller.address.value,
             email: userRecord.email.toString(),
             phone: userRecord.phoneNumber.toString(),
             displayName: userRecord.displayName.toString(),

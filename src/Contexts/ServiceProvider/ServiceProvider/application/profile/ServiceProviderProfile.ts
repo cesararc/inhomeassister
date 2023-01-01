@@ -1,6 +1,6 @@
-import { ServiceProviderNotFound } from '../../domain/ServiceProviderNotFound';
 import { ServiceProviderRepository } from '../../domain/ServiceProviderRepository';
 import { ServiceProviderUid } from '../../domain/ServiceProviderUid';
+import { ServiceProviderNotFound } from '../../domain/ServiceProviderNotFound';
 
 export class ServiceProviderProfile {
     constructor(private repository: ServiceProviderRepository) { }

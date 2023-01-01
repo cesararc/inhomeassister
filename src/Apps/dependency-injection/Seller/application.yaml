@@ -1,14 +1,14 @@
 services:
   Seller.SellerRepository:
-    class: ../../../Contexts/Seller/Seller/infrastructure/SellerRepositoryFirebase
+    class: ../../../Contexts/Seller/infrastructure/SellerRepositoryFirebase
     arguments: []
 
   Seller.SellerCreate:
-    class: ../../../Contexts/Seller/Seller/application/create/SellerCreate
-    arguments: ['@Seller.SellerRepository']
-
+    class: ../../../Contexts/Seller/application/create/SellerCreate
+    arguments: ['@Seller.SellerRepository',  '@Shared.EventBus']
+  
   Seller.SellerCreateCommandHandler:
-    class: ../../../Contexts/Seller/Seller/application/create/SellerCreateCommandHandler
+    class: ../../../Contexts/Seller/application/create/SellerCreateCommandHandler
     arguments: ['@Seller.SellerCreate']
     tags:
       - { name: 'commandHandler' }
@@ -16,4 +16,32 @@ services:
   Seller.SellerCreateController:
     class: ../../../Apps/Seller/controllers/SellerCreateController
     arguments: ['@Shared.CommandBus']
+
+  Seller.SellerUpdate:
+    class: ../../../Contexts/Seller/application/update/SellerUpdate
+    arguments: ['@Seller.SellerRepository', '@Shared.EventBus']
+
+  Seller.SellerUpdateCommandHandler:
+    class: ../../../Contexts/Seller/application/update/SellerUpdateCommandHandler
+    arguments: ['@Seller.SellerUpdate']
+    tags:
+      - { name: 'commandHandler' }
+
+  Seller.SellerUpdateController:
+    class: ../../../Apps/Seller/controllers/SellerUpdateController
+    arguments: ['@Shared.CommandBus']
+
+  Seller.SellerProfile:
+    class: ../../../Contexts/Seller/application/profile/SellerProfile
+    arguments: ['@Seller.SellerRepository']
+
+  Seller.SellerQueryHandler:
+    class: ../../../Contexts/Seller/application/profile/SellerProfileQueryHandler
+    arguments: ['@Seller.SellerProfile']
+    tags:
+      - { name: 'queryHandler' }
+
+  Seller.SellerProfileController:
+    class: ../../../Apps/Seller/controllers/SellerProfileController
+    arguments: ['@Shared.QueryBus']
 
