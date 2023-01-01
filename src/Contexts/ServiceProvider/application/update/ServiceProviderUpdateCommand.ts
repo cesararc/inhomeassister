@@ -1,4 +1,4 @@
-import { Command } from "../../../../Shared/domain/Command";
+import { Command } from "../../../Shared/domain/Command";
 
 export class ServiceProviderUpdateCommand extends Command {
     uid: string;

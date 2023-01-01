@@ -4,7 +4,7 @@ import { Response, Request } from 'express';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { CustomerUpdateCommand } from '../../../Contexts/Customer/Customer/application/update/CustomerUpdateCommand';
 import { UserRecordUpdateCommand } from '../../../Contexts/UserRecord/application/accountUpdate/UserRecordUpdateCommand';
-import { ServiceProviderUpdateCommand } from '../../../Contexts/ServiceProvider/ServiceProvider/application/update/ServiceProviderUpdateCommand';
+import { ServiceProviderUpdateCommand } from '../../../Contexts/ServiceProvider/application/update/ServiceProviderUpdateCommand';
 
 export class ServiceProviderUpdateController implements Controller {
 

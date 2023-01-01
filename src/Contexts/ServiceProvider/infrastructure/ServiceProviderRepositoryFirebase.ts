@@ -1,7 +1,7 @@
 import { ServiceProviderRepository } from '../domain/ServiceProviderRepository';
 import { ServiceProvider } from '../domain/ServiceProvider';
 import { ServiceProviderUid } from '../domain/ServiceProviderUid';
-import { FirebaseRepository } from '../../../Shared/infrastructure/persistence/FirebaseRepository';
+import { FirebaseRepository } from '../../Shared/infrastructure/persistence/FirebaseRepository';
 
 type ServiceProviderPlainData = {
     uid: string;

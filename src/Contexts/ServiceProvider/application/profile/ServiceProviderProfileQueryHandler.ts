@@ -1,5 +1,5 @@
-import { Query } from "../../../../Shared/domain/Query";
-import { QueryHandler } from "../../../../Shared/domain/QueryHandler";
+import { Query } from "../../../Shared/domain/Query";
+import { QueryHandler } from "../../../Shared/domain/QueryHandler";
 import { ServiceProviderProfile } from './ServiceProviderProfile';
 import { ServiceProviderProfileQuery } from "./ServiceProviderProfileQuery";
 import { ServiceProviderUid } from "../../domain/ServiceProviderUid";

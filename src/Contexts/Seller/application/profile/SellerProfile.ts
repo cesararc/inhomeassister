@@ -7,7 +7,6 @@ export class SellerProfile {
 
     async run(uid: SellerUid) {
         const customer = await this.repository.profile(uid);
-
         if (!customer) {
             throw new SellerNotFound();
         }

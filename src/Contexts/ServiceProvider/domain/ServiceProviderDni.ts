@@ -1,5 +1,5 @@
-import { StringValueObject } from "../../../Shared/domain/value-objects/StringValueObject";
-import { InvalidArgumentError } from '../../../Shared/domain/value-objects/InvalidArgumentError';
+import { StringValueObject } from "../../Shared/domain/value-objects/StringValueObject";
+import { InvalidArgumentError } from '../../Shared/domain/value-objects/InvalidArgumentError';
 
 export class ServiceProviderDni extends StringValueObject {
     constructor(value: string) {

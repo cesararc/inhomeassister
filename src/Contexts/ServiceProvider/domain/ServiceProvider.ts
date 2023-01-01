@@ -1,4 +1,4 @@
-import { AggregateRoot } from "../../../Shared/domain/AggregateRoot";
+import { AggregateRoot } from "../../Shared/domain/AggregateRoot";
 import { ServiceProviderAddress } from './ServiceProviderAddress';
 import { ServiceProviderUid } from "./ServiceProviderUid";
 import { ServiceProviderDescription } from './ServiceProviderDescription';

@@ -1,5 +1,5 @@
-import { CommandHandler } from '../../../../Shared/domain/CommandHandler';
-import { Command } from '../../../../Shared/domain/Command';
+import { CommandHandler } from '../../../Shared/domain/CommandHandler';
+import { Command } from '../../../Shared/domain/Command';
 import { ServiceProviderCreateCommand } from './ServiceProviderCreateCommand';
 import { ServiceProviderCreate } from './ServiceProviderCreate';
 import { ServiceProviderUid } from '../../domain/ServiceProviderUid';

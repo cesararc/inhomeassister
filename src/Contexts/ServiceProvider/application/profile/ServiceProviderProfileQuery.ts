@@ -1,4 +1,4 @@
-import { Query } from "../../../../Shared/domain/Query";
+import { Query } from "../../../Shared/domain/Query";
 
 export class ServiceProviderProfileQuery implements Query {
     uid: string;

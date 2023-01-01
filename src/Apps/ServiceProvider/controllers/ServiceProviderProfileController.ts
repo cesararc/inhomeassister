@@ -5,10 +5,10 @@ import { QueryBus } from '../../../Contexts/Shared/domain/QueryBus';
 import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileQuery';
 import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileResponse';
 import { UserRecord } from '../../../Contexts/UserRecord/domain/UserRecord';
-import { ServiceProviderProfileResponse } from '../../../Contexts/ServiceProvider/ServiceProvider/application/profile/ServiceProviderProfileResponse';
-import { ServiceProvider } from '../../../Contexts/ServiceProvider/ServiceProvider/domain/ServiceProvider';
-import { ServiceProviderProfileQuery } from '../../../Contexts/ServiceProvider/ServiceProvider/application/profile/ServiceProviderProfileQuery';
-import { ServiceProviderNotFound } from '../../../Contexts/ServiceProvider/ServiceProvider/domain/ServiceProviderNotFound';
+import { ServiceProviderProfileResponse } from '../../../Contexts/ServiceProvider/application/profile/ServiceProviderProfileResponse';
+import { ServiceProvider } from '../../../Contexts/ServiceProvider/domain/ServiceProvider';
+import { ServiceProviderProfileQuery } from '../../../Contexts/ServiceProvider/application/profile/ServiceProviderProfileQuery';
+import { ServiceProviderNotFound } from '../../../Contexts/ServiceProvider/domain/ServiceProviderNotFound';
 
 export class ServiceProviderProfileController implements Controller {
 
