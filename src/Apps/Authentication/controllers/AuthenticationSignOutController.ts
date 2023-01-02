@@ -7,6 +7,6 @@ export class AuthenticationSignOutController implements Controller {
     async run(req: Request, res: Response) {
         res.clearCookie("session");
 
-        res.status(httpStatus.OK).send();
+        res.status(httpStatus.OK).send("SUCCESS");
     }
 }

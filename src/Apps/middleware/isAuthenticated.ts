@@ -7,12 +7,12 @@ const isAuthenticated = async (req: Request, res: Response, next: NextFunction) 
     const { authorization } = req.headers;
 
     try {
-        if (!authorization) res.sendStatus(httpStatus.UNAUTHORIZED);
+        if (!authorization) return res.status(httpStatus.UNAUTHORIZED).send("UNAUTHORIZED");
 
-        if (!authorization.startsWith('Bearer')) res.sendStatus(httpStatus.UNAUTHORIZED);
+        if (!authorization.startsWith('Bearer')) return res.status(httpStatus.UNAUTHORIZED).send("UNAUTHORIZED");
 
         const split = authorization.split('Bearer ')
-        if (split.length !== 2) res.sendStatus(httpStatus.UNAUTHORIZED);
+        if (split.length !== 2) return res.status(httpStatus.UNAUTHORIZED).send("UNAUTHORIZED");
 
         const token = split[1];
 
@@ -21,7 +21,7 @@ const isAuthenticated = async (req: Request, res: Response, next: NextFunction) 
 
         next();
     } catch (error) {
-        res.sendStatus(httpStatus.UNAUTHORIZED);
+        return res.status(httpStatus.UNAUTHORIZED).send("UNAUTHORIZED");
     }
 
 }
