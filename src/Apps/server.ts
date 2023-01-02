@@ -22,7 +22,7 @@ export class Server {
         this.express = express();
         this.express.use(morgan("dev"));
         this.express.use(bodyParser.json());
-        this.express.use(cookieParser());
+        this.express.use(cookieParser("session"));
         this.express.use(bodyParser.urlencoded({ extended: false }));
         this.express.use(helmet.xssFilter());
         this.express.use(helmet.noSniff());

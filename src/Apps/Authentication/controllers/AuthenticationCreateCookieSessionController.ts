@@ -19,11 +19,13 @@ export class AuthenticationCreateCookieSessionController implements Controller {
             const idToken = new AuthenticationIdToken(req.body.idToken);
             const email = new AuthenticationEmailAddress(req.body.email);
             //const csrfToken = new AuthenticationCsrfToken(req.body.csrfToken);
+
             const cookieSession = await this.authentication.run({ idToken, csrfToken, cookieCsrfToken, email });
 
             const options: CookieOptions = {
                 maxAge: AuthenticationExpiresIn.timeDuration(),
-                httpOnly: true,
+                httpOnly: false,
+                signed: true,
                 secure: true,
             };
 

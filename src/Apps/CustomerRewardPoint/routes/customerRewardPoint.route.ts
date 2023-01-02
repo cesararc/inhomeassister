@@ -1,11 +1,19 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 import container from '../../dependency-injection';
+import { isAuthenticated } from '../../middleware/isAuthenticated';
+import { isAuthorized } from '../../middleware/isAuthorized';
 
 export const register = (router: Router) => {
 
-    const customerRewardPointSearch = container.get("CustomerRewardPoint.CustomerRewardPointSearchController");
-    const customerRewardPointIncrement = container.get("CustomerRewardPoint.CustomerRewardPointIncrementController");
+    const search = container.get("CustomerRewardPoint.CustomerRewardPointSearchController");
+    const increment = container.get("CustomerRewardPoint.CustomerRewardPointIncrementController");
 
-    router.post("/api/customer-reward-point", (req: Request, res: Response) => customerRewardPointIncrement.run(req, res));
-    router.get("/api/customer-reward-point/:uid", (req: Request, res: Response) => customerRewardPointSearch.run(req, res));
+    router.post("/api/customer/reward-point",
+        isAuthenticated,
+        isAuthorized({ hasRole: ["admin"] }),
+        (...params) => increment.run(...params));
+    router.get("/api/customer/reward-point/:uid",
+        isAuthenticated,
+        isAuthorized({ hasRole: ["customer"] }),
+        (...params) => search.run(...params));
 }
