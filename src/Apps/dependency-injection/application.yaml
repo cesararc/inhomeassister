@@ -6,3 +6,5 @@ imports:
   - { resource: ./ServiceProvider/application.yaml }
   - { resource: ./UserRecord/application.yaml}
   - { resource: ./Authentication/application.yaml}
+  - { resource: ./CustomerRewardPoint/application.yaml}
+  - { resource: ./Notifications/application.yaml}

@@ -1,5 +1,5 @@
 import { Authentication } from './Authentication';
 
 export interface AuthenticationRepository {
-    cookieSessionCreate(authentication: Authentication): Promise<{ cookieSession: string }>;
+    cookieSessionCreate(authentication: Authentication): Promise<string>;
 }

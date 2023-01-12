@@ -9,8 +9,8 @@ const firestore = admin.initializeApp({
     databaseURL: process.env.GOOGLE_APPLICATION_DATABASE,
 });
 
-export default firestore.firestore();
-
 export const auth = firestore.auth();
+
+export default firestore.firestore();
 
 // export const storage = admin.storage().bucket();

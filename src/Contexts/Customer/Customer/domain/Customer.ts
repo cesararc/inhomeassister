@@ -35,7 +35,6 @@ export class Customer extends AggregateRoot {
         return customer;
     }
 
-
     toPrimitives() {
         return {
             uid: this.uid.value,

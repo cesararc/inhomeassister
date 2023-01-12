@@ -1,14 +1,14 @@
 services:
   ServiceProvider.ServiceProviderRepository:
-    class: ../../../Contexts/ServiceProvider/ServiceProvider/infrastructure/ServiceProviderRepositoryFirebase
+    class: ../../../Contexts/ServiceProvider/infrastructure/ServiceProviderRepositoryFirebase
     arguments: []
 
   ServiceProvider.ServiceProviderCreate:
-    class: ../../../Contexts/ServiceProvider/ServiceProvider/application/create/ServiceProviderCreate
-    arguments: ['@ServiceProvider.ServiceProviderRepository']
-
+    class: ../../../Contexts/ServiceProvider/application/create/ServiceProviderCreate
+    arguments: ['@ServiceProvider.ServiceProviderRepository',  '@Shared.EventBus']
+  
   ServiceProvider.ServiceProviderCreateCommandHandler:
-    class: ../../../Contexts/ServiceProvider/ServiceProvider/application/create/ServiceProviderCreateCommandHandler
+    class: ../../../Contexts/ServiceProvider/application/create/ServiceProviderCreateCommandHandler
     arguments: ['@ServiceProvider.ServiceProviderCreate']
     tags:
       - { name: 'commandHandler' }
@@ -17,12 +17,26 @@ services:
     class: ../../../Apps/ServiceProvider/controllers/ServiceProviderCreateController
     arguments: ['@Shared.CommandBus']
 
+  ServiceProvider.ServiceProviderUpdate:
+    class: ../../../Contexts/ServiceProvider/application/update/ServiceProviderUpdate
+    arguments: ['@ServiceProvider.ServiceProviderRepository', '@Shared.EventBus']
+
+  ServiceProvider.ServiceProviderUpdateCommandHandler:
+    class: ../../../Contexts/ServiceProvider/application/update/ServiceProviderUpdateCommandHandler
+    arguments: ['@ServiceProvider.ServiceProviderUpdate']
+    tags:
+      - { name: 'commandHandler' }
+
+  ServiceProvider.ServiceProviderUpdateController:
+    class: ../../../Apps/ServiceProvider/controllers/ServiceProviderUpdateController
+    arguments: ['@Shared.CommandBus']
+
   ServiceProvider.ServiceProviderProfile:
-    class: ../../../Contexts/ServiceProvider/ServiceProvider/application/profile/ServiceProviderProfile
+    class: ../../../Contexts/ServiceProvider/application/profile/ServiceProviderProfile
     arguments: ['@ServiceProvider.ServiceProviderRepository']
 
   ServiceProvider.ServiceProviderQueryHandler:
-    class: ../../../Contexts/ServiceProvider/ServiceProvider/application/profile/ServiceProviderProfileQueryHandler
+    class: ../../../Contexts/ServiceProvider/application/profile/ServiceProviderProfileQueryHandler
     arguments: ['@ServiceProvider.ServiceProviderProfile']
     tags:
       - { name: 'queryHandler' }
