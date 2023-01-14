@@ -44,7 +44,7 @@ export class Customer extends AggregateRoot {
         }
     }
 
-    static fromPrimitives(plainData: { uid: string; birthday: Date; address: string; dni: string }) {
+    static fromPrimitives(plainData: { uid: string; birthday: string; address: string; dni: string }) {
         return new Customer(
             new CustomerUid(plainData.uid),
             new CustomerBirthday(plainData.birthday),

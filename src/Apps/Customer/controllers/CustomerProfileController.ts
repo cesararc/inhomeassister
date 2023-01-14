@@ -25,7 +25,8 @@ export class CustomerProfileController implements Controller {
 
             const { userRecord }: UserRecordProfileResponse = await this.query.ask(userRecordQuery);
 
-            const { customer }: CustomerProfileResponse = await this.query.ask(customerProfileQuery)
+            const { customer }: CustomerProfileResponse = await this.query.ask(customerProfileQuery);
+
             res.status(httpStatus.OK).send(this.toResponse(userRecord, customer));
 
         } catch (error) {

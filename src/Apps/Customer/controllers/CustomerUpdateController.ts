@@ -16,7 +16,7 @@ export class CustomerUpdateController implements Controller {
         const email = req.body.email;
         const phone = req.body.phone;
 
-        const birthday: Date = req.body.birthday;
+        const birthday = req.body.birthday;
         const address = req.body.address;
         const dni = req.body.dni;
 
