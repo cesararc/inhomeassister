@@ -4,10 +4,10 @@ import { AuthenticationRepository } from '../domain/AuthenticationRepository';
 
 
 export class AuthenticationFirebaseRepository implements AuthenticationRepository {
-
-    async cookieSessionCreate({ idToken, expiresIn }: Authentication) {
-        await auth.verifyIdToken(idToken.value);
-
-        return await auth.createSessionCookie(idToken.value, { expiresIn: expiresIn.value });
+    async signIn({ idToken }: Authentication) {
+        return await auth.createCustomToken(idToken.value, { premiumAccount: true });
+    }
+    async signOut(uid: string) {
+        return await auth.revokeRefreshTokens(uid);
     }
 }

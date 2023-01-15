@@ -3,14 +3,18 @@ services:
     class: ../../../Contexts/Authentication/infrastructure/AuthenticationFirebaseRepository
     arguments: []
 
-  Authentication.AuthenticationCookieSessionCreate:
-    class: ../../../Contexts/Authentication/application/AuthenticationCookieSessionCreate
+  Authentication.AuthenticationSignIn:
+    class: ../../../Contexts/Authentication/application/AuthenticationSignIn
     arguments: ['@Authentication.AuthenticationRepositoryFirebase', '@Shared.EventBus']
 
-  Authentication.AuthenticationCreateCookieSessionController:
-    class: ../../../Apps/Authentication/controllers/AuthenticationCreateCookieSessionController
-    arguments: ['@Authentication.AuthenticationCookieSessionCreate']
+  Authentication.AuthenticationSignInController:
+    class: ../../../Apps/Authentication/controllers/AuthenticationSignInController
+    arguments: ['@Authentication.AuthenticationSignIn']
+
+  Authentication.AuthenticationSignOut:
+    class: ../../../Contexts/Authentication/application/AuthenticationSignOut
+    arguments: ['@Authentication.AuthenticationRepositoryFirebase']
 
   Authentication.AuthenticationSignOutController:
     class: ../../../Apps/Authentication/controllers/AuthenticationSignOutController
-    arguments: []
+    arguments: ['@Authentication.AuthenticationSignOut']
