@@ -10,6 +10,7 @@ export class CustomerCreate {
     constructor(private repository: CustomerRepository, private eventBus: EventBus) { }
 
     async run(id: CustomerUid, address: CustomerAddress, birthday: CustomerBirthday, dni: CustomerDni): Promise<void> {
+
         const customer = Customer.create(id, birthday, address, dni);
 
         await this.repository.create(customer);

@@ -17,14 +17,9 @@ export class CustomerRepositoryFirebase extends FirebaseRepository<Customer> imp
     }
 
     async update(customer: Customer): Promise<void> {
-        try {
-            const collection = this.collection().doc(customer.toPrimitives().uid);
+        const collection = this.collection().doc(customer.toPrimitives().uid);
 
-            await collection.update(customer.toPrimitives());
-
-        } catch (error) {
-            return null;
-        }
+        await collection.update(customer.toPrimitives());
     }
 
     async profile(uid: CustomerUid): Promise<Customer> {

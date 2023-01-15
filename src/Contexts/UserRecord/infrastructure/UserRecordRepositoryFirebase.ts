@@ -6,23 +6,23 @@ import { UserRecordEmail } from '../domain/UserRecordEmail';
 
 export class UserRecordRepositoryFirebase implements UserRecordRepository {
 
-    async create(userRecord: UserRecord): Promise<void> {
+    async create(userR: UserRecord): Promise<void> {
 
-        await auth.createUser(userRecord.toPrimitives());
+        await auth.createUser(userR.toPrimitives());
 
-        const uid = userRecord.toPrimitives().uid;
-        const role = userRecord.toPrimitives().claim;
+        const uid = userR.toPrimitives().uid;
+        const role = userR.toPrimitives().claim;
         await auth.setCustomUserClaims(uid, { role });
     }
 
-    async update(userRecord: UserRecord): Promise<void> {
+    async update(userR: UserRecord): Promise<void> {
         const data = {
-            ...(userRecord.email.value.length > 0 && { email: userRecord.email.value }),
-            ...(userRecord.displayName.value.length > 0 && { displayName: userRecord.displayName.value }),
-            ...(userRecord.phoneNumber.value.length > 0 && { phoneNumber: userRecord.phoneNumber.value }),
+            ...(userR.email.value.length > 0 && { email: userR.email.value }),
+            ...(userR.displayName.value.length > 0 && { displayName: userR.displayName.value }),
+            ...(userR.phoneNumber.value.length > 0 && { phoneNumber: userR.phoneNumber.value }),
         };
 
-        await auth.updateUser(userRecord.uid.value, data);
+        await auth.updateUser(userR.uid.value, data);
     }
 
     async profile(uid: UserRecordUid): Promise<UserRecord> {
