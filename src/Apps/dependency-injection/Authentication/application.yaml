@@ -11,6 +11,10 @@ services:
     class: ../../../Apps/Authentication/controllers/AuthenticationSignInController
     arguments: ['@Authentication.AuthenticationSignIn']
 
+  Authentication.AuthenticationSignOut:
+    class: ../../../Contexts/Authentication/application/AuthenticationSignOut
+    arguments: ['@Authentication.AuthenticationRepositoryFirebase']
+
   Authentication.AuthenticationSignOutController:
     class: ../../../Apps/Authentication/controllers/AuthenticationSignOutController
-    arguments: []
+    arguments: ['@Authentication.AuthenticationSignOut']

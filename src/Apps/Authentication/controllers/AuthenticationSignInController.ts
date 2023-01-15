@@ -15,7 +15,7 @@ export class AuthenticationSignInController implements Controller {
             const idToken = new AuthenticationIdToken(req.body.idToken);
             const email = new AuthenticationEmailAddress(req.body.email);
 
-            const token = await this.auth.run({ idToken, email });
+            const token = await this.auth.run(idToken, email);
 
             res.status(httpStatus.OK).json({ token });
 
