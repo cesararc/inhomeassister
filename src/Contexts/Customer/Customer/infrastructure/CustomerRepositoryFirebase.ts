@@ -5,7 +5,7 @@ import { FirebaseRepository } from '../../../Shared/infrastructure/persistence/F
 
 type CustomerPlainData = {
     uid: string;
-    birthday: Date;
+    birthday: string;
     address: string;
     dni: string;
 }
