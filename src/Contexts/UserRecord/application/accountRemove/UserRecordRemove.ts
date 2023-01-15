@@ -5,6 +5,6 @@ export class UserRecordRemove {
     constructor(private repository: UserRecordRepository) { }
 
     async run(uid: UserRecordUid) {
-        await this.repository.accountRemove(uid);
+        await this.repository.remove(uid);
     }
 }

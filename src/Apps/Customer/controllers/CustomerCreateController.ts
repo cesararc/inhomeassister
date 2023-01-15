@@ -1,6 +1,6 @@
 import httpStatus from 'http-status';
-import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
+import { Controller } from '../../controller/Controller';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { CustomerCreateCommand } from '../../../Contexts/Customer/Customer/application/create/CustomerCreateCommand';
 import { UserRecordCreateCommand } from '../../../Contexts/UserRecord/application/accountCreate/UserRecordCreateCommand';
@@ -22,6 +22,7 @@ export class CustomerCreateController implements Controller {
         const dni = req.body.dni as string;
 
         try {
+
             const userRecordCreateCommand = new UserRecordCreateCommand({
                 displayName,
                 email,
@@ -42,14 +43,15 @@ export class CustomerCreateController implements Controller {
 
             await this.commandBus.dispatch(customerCreateCommand);
 
-        } catch (error) {
-            const commandRollback = new UserRecordRemoveCommand(uid);
+            res.status(httpStatus.CREATED).send();
 
-            await this.commandBus.dispatch(commandRollback);
+        } catch (error) {
+
+            const rollback = new UserRecordRemoveCommand(uid);
+
+            this.commandBus.dispatch(rollback);
 
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }
-
-        res.status(httpStatus.CREATED).send();
     }
 }

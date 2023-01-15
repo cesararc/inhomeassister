@@ -5,6 +5,6 @@ export class UserRecordResetPassword {
     constructor(private repository: UserRecordRepository) { }
 
     async run(email: UserRecordEmail): Promise<void> {
-        return await this.repository.accountResetPassword(email);
+        return await this.repository.resetPassword(email);
     }
 }

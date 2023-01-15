@@ -6,23 +6,23 @@ import { UserRecordEmail } from '../domain/UserRecordEmail';
 
 export class UserRecordRepositoryFirebase implements UserRecordRepository {
 
-    async accountCreate(userRecord: UserRecord): Promise<void> {
+    async create(userR: UserRecord): Promise<void> {
 
-        await auth.createUser(userRecord.toPrimitives());
+        await auth.createUser(userR.toPrimitives());
 
-        const uid = userRecord.toPrimitives().uid;
-        const role = userRecord.toPrimitives().claim;
+        const uid = userR.toPrimitives().uid;
+        const role = userR.toPrimitives().claim;
         await auth.setCustomUserClaims(uid, { role });
     }
 
-    async accountUpdate(userRecord: UserRecord): Promise<void> {
+    async update(userR: UserRecord): Promise<void> {
         const data = {
-            ...(userRecord.email.value.length > 0 && { email: userRecord.email.value }),
-            ...(userRecord.displayName.value.length > 0 && { displayName: userRecord.displayName.value }),
-            ...(userRecord.phoneNumber.value.length > 0 && { phoneNumber: userRecord.phoneNumber.value }),
+            ...(userR.email.value.length > 0 && { email: userR.email.value }),
+            ...(userR.displayName.value.length > 0 && { displayName: userR.displayName.value }),
+            ...(userR.phoneNumber.value.length > 0 && { phoneNumber: userR.phoneNumber.value }),
         };
 
-        await auth.updateUser(userRecord.uid.value, data);
+        await auth.updateUser(userR.uid.value, data);
     }
 
     async profile(uid: UserRecordUid): Promise<UserRecord> {
@@ -39,21 +39,21 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
         return data ? UserRecord.fromPrimitives(plainData) : null;
     }
 
-    async accountRemove(uid: UserRecordUid): Promise<void> {
+    async remove(uid: UserRecordUid): Promise<void> {
         try {
             await auth.deleteUser(uid.value);
         } catch (error) { }
     }
 
-    async accountDisable(userRecordUid: UserRecordUid): Promise<void> {
+    async disable(userRecordUid: UserRecordUid): Promise<void> {
         await auth.updateUser(userRecordUid.value, { disabled: true });
     }
 
-    async accountEnable(userRecordUid: UserRecordUid): Promise<void> {
+    async enable(userRecordUid: UserRecordUid): Promise<void> {
         await auth.updateUser(userRecordUid.value, { disabled: false });
     }
 
-    async accountResetPassword(email: UserRecordEmail): Promise<void> {
+    async resetPassword(email: UserRecordEmail): Promise<void> {
         const actionCodeSettings = {
             url: "https://example.com/ui",
             handleCodeInApp: true,

@@ -1,5 +1,6 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 import container from '../../dependency-injection';
+import { isAuthenticated } from '../../middleware/isAuthenticated';
 
 export const register = (router: Router) => {
     const userRecordProfileController = container.get('UserRecord.UserRecordProfileController');
@@ -7,8 +8,8 @@ export const register = (router: Router) => {
     const userRecordDisableController = container.get('UserRecord.UserRecordDisableController');
     const userRecordEnableController = container.get('UserRecord.UserRecordEnableController');
 
-    router.get("/api/user-record/profile/:uid", (req: Request, res: Response) => userRecordProfileController.run(req, res));
-    router.post("/api/user-record/enable/:uid", (req: Request, res: Response) => userRecordEnableController.run(req, res));
-    router.post("/api/user-record/disable/:uid", (req: Request, res: Response) => userRecordDisableController.run(req, res));
-    router.post("/api/user-record/reset-password/:email", (req: Request, res: Response) => userRecordResetPasswordController.run(req, res));
+    router.get("/api/user-record/profile/:uid", isAuthenticated, (...params) => userRecordProfileController.run(...params));
+    router.post("/api/user-record/enable/:uid", isAuthenticated, (...params) => userRecordEnableController.run(...params));
+    router.post("/api/user-record/disable/:uid", isAuthenticated, (...params) => userRecordDisableController.run(...params));
+    router.post("/api/user-record/reset-password/:email", isAuthenticated, (...params) => userRecordResetPasswordController.run(...params));
 }
