@@ -11,13 +11,16 @@ export class AuthenticationSignInController implements Controller {
     constructor(private auth: AuthenticationSignIn) { }
 
     async run(req: Request, res: Response) {
+        const idToken = req.body.idToken;
+        const email = req.body.email;
+
         try {
-            const idToken = new AuthenticationIdToken(req.body.idToken);
-            const email = new AuthenticationEmailAddress(req.body.email);
+            const token = await this.auth.run(
+                new AuthenticationIdToken(idToken),
+                new AuthenticationEmailAddress(email)
+            );
 
-            const token = await this.auth.run(idToken, email);
-
-            res.status(httpStatus.OK).json({ token });
+            return res.status(httpStatus.OK).json({ token });
 
         } catch (error) {
             if (error instanceof AuthenticationForbidden) {
