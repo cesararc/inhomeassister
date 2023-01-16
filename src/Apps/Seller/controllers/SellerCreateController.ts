@@ -1,8 +1,8 @@
+import httpStatus from 'http-status';
 import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { UserRecordCreateCommand } from '../../../Contexts/UserRecord/application/accountCreate/UserRecordCreateCommand';
-import httpStatus from 'http-status';
 import { UserRecordRemoveCommand } from '../../../Contexts/UserRecord/application/accountRemove/UserRecordRemoveCommand';
 import { SellerCreateCommand } from '../../../Contexts/Seller/application/create/SellerCreateCommand';
 
@@ -40,14 +40,14 @@ export class SellerCreateController implements Controller {
 
             await this.commandBus.dispatch(sellerCreateCommand);
 
+            res.status(httpStatus.CREATED).send();
         } catch (error) {
-            const commandRollback = new UserRecordRemoveCommand(uid);
+            const rollback = new UserRecordRemoveCommand(uid);
 
-            await this.commandBus.dispatch(commandRollback);
+            this.commandBus.dispatch(rollback);
 
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }
 
-        res.status(httpStatus.CREATED).send();
     }
 }

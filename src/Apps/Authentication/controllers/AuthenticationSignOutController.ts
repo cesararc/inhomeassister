@@ -1,12 +1,22 @@
-import { Controller } from "../../controller/Controller";
-import { Request, Response } from 'express';
 import httpStatus from 'http-status';
+import { Request, Response } from 'express';
+import { Controller } from "../../controller/Controller";
+import { AuthenticationSignOut } from '../../../Contexts/Authentication/application/AuthenticationSignOut';
 
 export class AuthenticationSignOutController implements Controller {
 
-    async run(req: Request, res: Response) {
-        res.clearCookie("session");
+    constructor(private auth: AuthenticationSignOut) { }
 
-        res.status(httpStatus.OK).send("SUCCESS");
+    async run(req: Request, res: Response) {
+        const uid = req.params.uid;
+
+        try {
+            await this.auth.run(uid);
+
+            res.status(httpStatus.OK).send();
+
+        } catch (error) {
+            res.status(httpStatus.BAD_REQUEST).send(error.message);
+        }
     }
 }

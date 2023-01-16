@@ -82,11 +82,11 @@ services:
     arguments: ['@Shared.CommandBus']
 
   UserRecord.UserRecordResetPassword:
-    class: ../../../Contexts/UserRecord/application/accountResetPassword/UserRecordResetPassword
+    class: ../../../Contexts/UserRecord/application/resetPassword/UserRecordResetPassword
     arguments: ['@UserRecord.UserRecordRepository']
   
   UserRecord.UserRecordResetPasswordCommandHandler:
-    class: ../../../Contexts/UserRecord/application/accountResetPassword/UserRecordResetPasswordCommandHandler
+    class: ../../../Contexts/UserRecord/application/resetPassword/UserRecordResetPasswordCommandHandler
     arguments: ['@UserRecord.UserRecordResetPassword']
     tags:
       - { name: 'commandHandler' }

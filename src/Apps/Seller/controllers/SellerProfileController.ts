@@ -5,8 +5,6 @@ import { QueryBus } from '../../../Contexts/Shared/domain/QueryBus';
 import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileQuery';
 import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileResponse';
 import { UserRecord } from '../../../Contexts/UserRecord/domain/UserRecord';
-import { ServiceProviderProfileQuery } from '../../../Contexts/ServiceProvider/application/profile/ServiceProviderProfileQuery';
-import { SellerNotFound } from '../../../Contexts/Seller/domain/SellerNotFound';
 import { SellerProfileResponse } from '../../../Contexts/Seller/application/profile/SellerProfileResponse';
 import { Seller } from '../../../Contexts/Seller/domain/Seller';
 import { SellerProfileQuery } from '../../../Contexts/Seller/application/profile/SellerProfileQuery';
@@ -17,7 +15,6 @@ export class SellerProfileController implements Controller {
 
     async run(req: Request, res: Response): Promise<void> {
         const uid = req.params.uid;
-        console.log(uid)
 
         try {
             const userRecordQuery = new UserRecordProfileQuery(uid);
@@ -31,11 +28,7 @@ export class SellerProfileController implements Controller {
             res.status(httpStatus.OK).send(this.toResponse(userRecord, seller));
 
         } catch (error) {
-            if (error instanceof SellerNotFound) {
-                res.status(httpStatus.NOT_FOUND).send(error.message);
-            }
-
-            res.status(httpStatus.BAD_REQUEST).send(error.message);
+            res.status(httpStatus.NOT_FOUND).send(error.message);
         }
     }
 

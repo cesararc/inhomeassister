@@ -5,6 +5,6 @@ export class UserRecordEnable {
     constructor(private repository: UserRecordRepository) { }
 
     async run(userRecordUid: UserRecordUid) {
-        return await this.repository.accountEnable(userRecordUid);
+        return await this.repository.enable(userRecordUid);
     }
 }

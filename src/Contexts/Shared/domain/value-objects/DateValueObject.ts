@@ -2,15 +2,16 @@ import { InvalidArgumentError } from './InvalidArgumentError';
 
 export class DateValueObject {
 
-    value: Date;
+    value: string;
 
-    constructor(value: Date) {
+    constructor(value: string) {
         this.value = value;
+        this.ensureValidDate(value);
     }
 
-    protected ensureValidDate(value: Date) {
-        if (!(value instanceof Date)) {
-            throw new InvalidArgumentError('Date created at is not valid.')
+    protected ensureValidDate(value: string) {
+        if (isNaN(Date.parse(value))) {
+            throw new InvalidArgumentError('Make sure to send the date in a proper format.')
         }
     }
 }

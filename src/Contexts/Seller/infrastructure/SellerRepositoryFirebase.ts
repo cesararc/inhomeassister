@@ -26,14 +26,9 @@ export class SellerRepositoryFirebase extends FirebaseRepository<Seller> impleme
 
 
     async update(serviceProvider: Seller): Promise<void> {
-        try {
-            const collection = this.collection().doc(serviceProvider.toPrimitives().uid);
+        const collection = this.collection().doc(serviceProvider.toPrimitives().uid);
 
-            await collection.update(serviceProvider.toPrimitives());
-
-        } catch (error) {
-            return null;
-        }
+        await collection.update(serviceProvider.toPrimitives());
     }
 
 

@@ -11,11 +11,9 @@ export class SellerUpdateController implements Controller {
 
     async run(req: Request, res: Response): Promise<void> {
         const uid = req.params.uid;
-
         const displayName = req.body.displayName;
         const email = req.body.email;
         const phone = req.body.phone;
-
         const address = req.body.address;
         const dni = req.body.dni;
 
@@ -38,6 +36,10 @@ export class SellerUpdateController implements Controller {
             await this.commandBus.dispatch(sellerUpdateCommand);
 
         } catch (error) {
+            if (error.code === "auth/user-not-found") {
+                res.status(httpStatus.NOT_FOUND).send(error.message);
+            }
+
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }
 
