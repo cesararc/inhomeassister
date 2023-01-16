@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 import { auth } from '../database';
 
-const isAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
+export const isAuthenticated = async function (req: Request, res: Response, next: NextFunction) {
     const { authorization } = req.headers;
 
     try {
@@ -27,7 +27,4 @@ const isAuthenticated = async (req: Request, res: Response, next: NextFunction) 
 
         return res.status(httpStatus.UNAUTHORIZED).send("Unauthorized");
     }
-
 }
-
-export { isAuthenticated }
