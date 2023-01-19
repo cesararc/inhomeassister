@@ -10,5 +10,5 @@ export interface UserRecordRepository {
     remove(userRecordUid: UserRecordUid): Promise<void>;
     disable(userRecordUid: UserRecordUid): Promise<void>;
     enable(userRecordUid: UserRecordUid): Promise<void>;
-    resetPassword(email: UserRecordEmail): Promise<void>;
+    resetPassword(email: UserRecordEmail): Promise<string>;
 }

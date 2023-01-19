@@ -11,5 +11,5 @@ export const register = (router: Router) => {
     router.get("/api/user-record/profile/:uid", isAuthenticated, (...params) => userRecordProfileController.run(...params));
     router.post("/api/user-record/enable/:uid", isAuthenticated, (...params) => userRecordEnableController.run(...params));
     router.post("/api/user-record/disable/:uid", isAuthenticated, (...params) => userRecordDisableController.run(...params));
-    router.post("/api/user-record/reset-password/:email", isAuthenticated, (...params) => userRecordResetPasswordController.run(...params));
+    router.post("/api/user-record/reset-password/:email", (...params) => userRecordResetPasswordController.run(...params));
 }
