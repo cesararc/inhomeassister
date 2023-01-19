@@ -13,13 +13,15 @@ export class UserRecordResetPasswordController implements Controller {
 
         try {
             const command = new UserRecordResetPasswordCommand({ email });
+
             await this.commandBus.dispatch(command);
+
+            res.status(httpStatus.OK).send();
 
         } catch (error) {
 
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }
 
-        res.status(httpStatus.OK).send();
     }
 }
