@@ -22,4 +22,8 @@ export class CustomerCreatedDomainEvent extends DomainEvent {
             uid: this.uid
         }
     }
+
+    static fromPrimitives(body: CustomerCreatedEventBody): DomainEvent {
+        return new CustomerCreatedDomainEvent({ uid: body.uid });
+    }
 }

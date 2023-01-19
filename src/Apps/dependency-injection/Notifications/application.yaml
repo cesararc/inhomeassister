@@ -12,3 +12,13 @@ services:
     arguments: ["@Notification.SendEmailCustomerRewardPoint"]
     tags:
       - { name: 'domainEventSubscriber' }
+
+  Notification.SendEmailCustomerCreated:
+    class: ../../../Contexts/Notifications/application/sendEmailCustomerCreated/SendEmailCustomerCreated
+    arguments: ['@UserRecord.UserRecordRepository', '@Notification.EmailSenderService']
+
+  Notification.SendEmailOnCustomerCreated:
+    class: ../../../Contexts/Notifications/application/sendEmailCustomerCreated/SendEmailOnCustomerCreated
+    arguments: ["@Notification.SendEmailCustomerCreated"]
+    tags:
+      - { name: 'domainEventSubscriber' }

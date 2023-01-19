@@ -53,21 +53,12 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
         await auth.updateUser(userRecordUid.value, { disabled: false });
     }
 
-    async resetPassword(email: UserRecordEmail): Promise<void> {
-        const actionCodeSettings = {
-            url: "https://example.com/ui",
+    async resetPassword(email: UserRecordEmail): Promise<string> {
+        const settings = {
+            url: "https://inhomeassiter.firebaseapp.com/",
             handleCodeInApp: true,
-            iOS: {
-                bundleId: 'com.example.ios',
-            },
-            android: {
-                packageName: 'com.example.android',
-                installApp: true,
-                minimumVersion: '12',
-            },
-            dynamicLinkDomain: 'coolapp.page.link',
         };
-        const response = await auth.generatePasswordResetLink(email.value, actionCodeSettings);
-        console.log({ response })
+
+        return await auth.generatePasswordResetLink(email.value, settings);
     }
 }
