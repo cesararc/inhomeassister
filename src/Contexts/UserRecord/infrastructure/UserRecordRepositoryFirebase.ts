@@ -3,7 +3,6 @@ import { UserRecordUid } from '../domain/UserRecordUid';
 import { UserRecordRepository } from '../domain/UserRecordRepository';
 import { auth } from '../../../Apps/database';
 import { UserRecordEmail } from '../domain/UserRecordEmail';
-import { database } from 'firebase-admin';
 
 export class UserRecordRepositoryFirebase implements UserRecordRepository {
 
@@ -63,12 +62,12 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
         } catch (error) { }
     }
 
-    async disable(userRecordUid: UserRecordUid): Promise<void> {
-        await auth.updateUser(userRecordUid.value, { disabled: true });
+    async disable(uid: UserRecordUid): Promise<void> {
+        await auth.updateUser(uid.value, { disabled: true });
     }
 
-    async enable(userRecordUid: UserRecordUid): Promise<void> {
-        await auth.updateUser(userRecordUid.value, { disabled: false });
+    async enable(uid: UserRecordUid): Promise<void> {
+        await auth.updateUser(uid.value, { disabled: false });
     }
 
     async resetPassword(email: UserRecordEmail): Promise<string> {

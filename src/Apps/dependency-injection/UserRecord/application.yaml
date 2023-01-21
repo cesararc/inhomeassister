@@ -52,11 +52,11 @@ services:
     tags:
       - { name: 'commandHandler' }
 
-  UserRecord.UserRecordDisableOnServiceProviderCreated:
-    class: ../../../Contexts/UserRecord/application/accountDisable/UserRecordDisableOnServiceProviderCreated
-    arguments: ["@UserRecord.UserRecordDisable"]
-    tags:
-      - { name: 'domainEventSubscriber' }
+  # UserRecord.UserRecordDisableOnServiceProviderCreated:
+  #   class: ../../../Contexts/UserRecord/application/accountDisable/UserRecordDisableOnServiceProviderCreated
+  #   arguments: ["@UserRecord.UserRecordDisable"]
+  #   tags:
+  #     - { name: 'domainEventSubscriber' }
 
   UserRecord.UserRecordEnable:
     class: ../../../Contexts/UserRecord/application/accountEnable/UserRecordEnable
