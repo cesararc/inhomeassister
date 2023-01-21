@@ -7,6 +7,7 @@ services:
     class: ../../../Contexts/UserRecord/application/accountCreate/UserRecordCreate
     arguments: ['@UserRecord.UserRecordRepository']
 
+
   UserRecord.UserRecordCreateCommandHandler:
     class: ../../../Contexts/UserRecord/application/accountCreate/UserRecordCreateCommandHandler
     arguments: ['@UserRecord.UserRecordCreate']
@@ -36,6 +37,10 @@ services:
   UserRecord.UserRecordProfileController:
     class: ../../../Apps/UserRecord/controllers/UserRecordProfileController
     arguments: ['@Shared.QueryBus']
+
+  UserRecord.UserRecordProfileCollection:
+    class: ../../../Contexts/UserRecord/application/profileCollection/UserRecordProfileCollection
+    arguments: ['@UserRecord.UserRecordRepository']
 
   UserRecord.UserRecordRemove:
     class: ../../../Contexts/UserRecord/application/accountRemove/UserRecordRemove

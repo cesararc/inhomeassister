@@ -3,6 +3,7 @@ import { UserRecordUid } from '../domain/UserRecordUid';
 import { UserRecordRepository } from '../domain/UserRecordRepository';
 import { auth } from '../../../Apps/database';
 import { UserRecordEmail } from '../domain/UserRecordEmail';
+import { database } from 'firebase-admin';
 
 export class UserRecordRepositoryFirebase implements UserRecordRepository {
 
@@ -37,6 +38,23 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
         };
 
         return data ? UserRecord.fromPrimitives(plainData) : null;
+    }
+
+    async profileCollection(ids: UserRecordUid[]): Promise<Array<UserRecord>> {
+        const identifiers = ids.map(item => ({ uid: item.value }));
+
+        const results = await auth.getUsers(identifiers);
+
+        const users = results.users.map(item => (
+            {
+                id: item.uid,
+                displayName: item.displayName,
+                email: item.email,
+                phoneNumber: item.phoneNumber,
+                claim: item.customClaims?.role
+            }));
+
+        return users.map(item => UserRecord.fromPrimitives(item));
     }
 
     async remove(uid: UserRecordUid): Promise<void> {
