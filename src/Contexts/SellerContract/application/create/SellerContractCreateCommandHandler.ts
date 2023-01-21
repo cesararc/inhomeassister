@@ -8,6 +8,7 @@ import { CustomerUid } from '../../../Customer/Customer/domain/CustomerUid';
 import { ServiceProviderUid } from '../../../ServiceProvider/domain/ServiceProviderUid';
 import { SellerUid } from '../../../Seller/domain/SellerUid';
 import { SellerContractUid } from '../../domain/SellerContractUid';
+import { SellerContractCreatedAt } from '../../domain/SellerContractCreatedAt';
 
 export class SellerContractCreateCommandHandler implements CommandHandler<SellerContractCreateCommand>{
     constructor(private sellerContract: SellerContractCreate) { }
@@ -23,7 +24,8 @@ export class SellerContractCreateCommandHandler implements CommandHandler<Seller
             new CustomerUid(command.customer),
             new ServiceProviderUid(command.serviceProvider),
             new ContractDoc(command.contractDoc),
-            new FinancialDoc(command.financialDoc)
+            new FinancialDoc(command.financialDoc),
+            new SellerContractCreatedAt(command.createdAt)
         )
     }
 }

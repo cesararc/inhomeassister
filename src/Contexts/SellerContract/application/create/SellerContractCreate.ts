@@ -7,12 +7,22 @@ import { CustomerUid } from '../../../Customer/Customer/domain/CustomerUid';
 import { SellerUid } from '../../../Seller/domain/SellerUid';
 import { UserRecordRepository } from '../../../UserRecord/domain/UserRecordRepository';
 import { SellerContractUid } from '../../domain/SellerContractUid';
+import { SellerContractCreatedAt } from '../../domain/SellerContractCreatedAt';
 
 export class SellerContractCreate {
     constructor(private userRecord: UserRecordRepository, private repository: SellerContractRepository) { }
 
-    async run(uid: SellerContractUid, seller: SellerUid, customer: CustomerUid, serviceProvider: ServiceProviderUid, contractDoc: ContractDoc, financialDoc: FinancialDoc): Promise<void> {
-        const contract = SellerContract.create(uid, seller, customer, serviceProvider, contractDoc, financialDoc);
+    async run(
+        uid: SellerContractUid,
+        seller: SellerUid,
+        customer: CustomerUid,
+        serviceProvider: ServiceProviderUid,
+        contractDoc: ContractDoc,
+        financialDoc: FinancialDoc,
+        createdAt: SellerContractCreatedAt):
+        Promise<void> {
+
+        const contract = SellerContract.create(uid, seller, customer, serviceProvider, contractDoc, financialDoc, createdAt);
 
         const profileResults = await this.userRecord.profileCollection([seller, customer, serviceProvider]);
 

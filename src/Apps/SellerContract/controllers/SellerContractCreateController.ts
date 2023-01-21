@@ -14,9 +14,10 @@ export class SellerContractCreateController implements Controller {
         const serviceProvider = req.body.service_provider;
         const contractDoc = req.body.contractDoc;
         const financialDoc = req.body.financialDoc;
+        const createdAt = req.body.created_at;
 
         try {
-            const command = new SellerContractCreateCommand(uid, seller, customer, serviceProvider, contractDoc, financialDoc);
+            const command = new SellerContractCreateCommand(uid, seller, customer, serviceProvider, contractDoc, financialDoc, createdAt);
 
             await this.commandBus.dispatch(command);
 

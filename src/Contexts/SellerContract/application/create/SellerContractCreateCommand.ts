@@ -7,8 +7,15 @@ export class SellerContractCreateCommand extends Command {
     serviceProvider: string;
     contractDoc: string;
     financialDoc: string;
+    createdAt: string;
 
-    constructor(uid: string, seller: string, customer: string, serviceProvider: string, contractDoc: string, financialDoc: string) {
+    constructor(uid: string,
+        seller: string,
+        customer: string,
+        serviceProvider: string,
+        contractDoc: string,
+        financialDoc: string,
+        createdAt: string) {
         super();
         this.uid = uid;
         this.seller = seller;
@@ -16,5 +23,6 @@ export class SellerContractCreateCommand extends Command {
         this.serviceProvider = serviceProvider;
         this.contractDoc = contractDoc;
         this.financialDoc = financialDoc;
+        this.createdAt = createdAt;
     }
 }
