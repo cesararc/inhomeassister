@@ -5,24 +5,22 @@ export class SellerContractCreateCommand extends Command {
     seller: string;
     customer: string;
     serviceProvider: string;
-    contractDoc: string;
+    officialDoc: string;
     financialDoc: string;
-    createdAt: string;
 
     constructor(uid: string,
         seller: string,
         customer: string,
         serviceProvider: string,
-        contractDoc: string,
+        officialDoc: string,
         financialDoc: string,
-        createdAt: string) {
+    ) {
         super();
         this.uid = uid;
         this.seller = seller;
         this.customer = customer;
         this.serviceProvider = serviceProvider;
-        this.contractDoc = contractDoc;
+        this.officialDoc = officialDoc;
         this.financialDoc = financialDoc;
-        this.createdAt = createdAt;
     }
 }

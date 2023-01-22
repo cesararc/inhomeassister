@@ -1,13 +1,15 @@
 import { SellerContractRepository } from '../../domain/SellerContractRepository';
 import { SellerContract } from '../../domain/SellerContract';
-import { ContractDoc } from '../../domain/ContractDoc';
-import { FinancialDoc } from '../../domain/FinancialDoc';
 import { ServiceProviderUid } from '../../../ServiceProvider/domain/ServiceProviderUid';
 import { CustomerUid } from '../../../Customer/Customer/domain/CustomerUid';
 import { SellerUid } from '../../../Seller/domain/SellerUid';
 import { UserRecordRepository } from '../../../UserRecord/domain/UserRecordRepository';
 import { SellerContractUid } from '../../domain/SellerContractUid';
 import { SellerContractCreatedAt } from '../../domain/SellerContractCreatedAt';
+import { SellerContractVerified } from '../../domain/SellerContractVerified';
+import { SellerContractOfficialDoc } from '../../domain/SellerContractOfficialDoc';
+import { SellerContractFinancialDoc } from '../../domain/SellerContractFinancialDoc';
+import { SellerContractUpdatedAt } from '../../domain/SellerContractUpdatedAt';
 
 export class SellerContractCreate {
     constructor(private userRecord: UserRecordRepository, private repository: SellerContractRepository) { }
@@ -17,27 +19,40 @@ export class SellerContractCreate {
         seller: SellerUid,
         customer: CustomerUid,
         serviceProvider: ServiceProviderUid,
-        contractDoc: ContractDoc,
-        financialDoc: FinancialDoc,
-        createdAt: SellerContractCreatedAt):
+        verified: SellerContractVerified,
+        officialDoc: SellerContractOfficialDoc,
+        financialDoc: SellerContractFinancialDoc,
+        createdAt: SellerContractCreatedAt,
+        updatedAt: SellerContractUpdatedAt):
         Promise<void> {
 
-        const contract = SellerContract.create(uid, seller, customer, serviceProvider, contractDoc, financialDoc, createdAt);
+        const contract = SellerContract.create(
+            uid,
+            seller,
+            customer,
+            serviceProvider,
+            verified,
+            officialDoc,
+            financialDoc,
+            updatedAt,
+            createdAt);
 
-        const profileResults = await this.userRecord.profileCollection([seller, customer, serviceProvider]);
+        return await this.repository.create(contract);
 
-        const profiles = profileResults.map(item => ({
-            uid: item.uid.value,
-            email: item.email.value,
-            phone: item.phoneNumber.value,
-            displayName: item.displayName.value,
-            claim: item.claim.value
-        }));
+        // const profileResults = await this.userRecord.profileCollection([seller, customer, serviceProvider]);
 
-        const profilesMap = new Map(profiles.map((item) => [item.claim, item]));
+        // const profiles = profileResults.map(item => ({
+        //     uid: item.uid.value,
+        //     email: item.email.value,
+        //     phone: item.phoneNumber.value,
+        //     displayName: item.displayName.value,
+        //     claim: item.claim.value
+        // }));
 
-        const documents = new Map(Object.entries(profilesMap));
-        console.log(documents)
+        // const profilesMap = new Map(profiles.map((item) => [item.claim, item]));
+
+        // const documents = new Map(Object.entries(profilesMap));
+        // console.log(documents)
         // const sellerProfile = await this.userRecord.profile(seller);
 
         // const customerProfile = await this.userRecord.profile(customer);
@@ -49,6 +64,5 @@ export class SellerContractCreate {
         //             claim: userRecord.claim.value
 
         //console.log(responses);
-        //return await this.repository.create(document);
     }
 }

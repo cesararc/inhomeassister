@@ -1,5 +1,6 @@
 import { SellerContractRepository } from '../domain/SellerContractRepository';
 import firestore from '../../../Apps/database';
+import { SellerContract } from '../domain/SellerContract';
 
 
 export class SellerContractRepositoryFirebase implements SellerContractRepository {
@@ -8,12 +9,11 @@ export class SellerContractRepositoryFirebase implements SellerContractRepositor
         return firestore.collection(this.moduleName());
     }
 
-    async create(sellerContract: any): Promise<void> {
-        //firestore.getAll([])
-        const collection = this.collection().doc();
-        // const document = { ...aggregateRoot.toPrimitives() };
+    async create(sellerContract: SellerContract): Promise<void> {
+        const collection = this.collection().doc(sellerContract.uid.value);
+        const document = { ...sellerContract.toPrimitives() };
 
-        await collection.set(sellerContract);
+        await collection.set(document);
     }
 
     moduleName(): string {
