@@ -25,6 +25,5 @@ export class SellerContractCreateController implements Controller {
 
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }
-
     }
 }

@@ -1,21 +1,19 @@
 import { AggregateRoot } from '../../Shared/domain/AggregateRoot';
 import { SellerContractOfficialDoc } from './SellerContractOfficialDoc';
 import { SellerContractFinancialDoc } from './SellerContractFinancialDoc';
-import { ServiceProviderUid } from '../../ServiceProvider/domain/ServiceProviderUid';
-import { CustomerUid } from '../../Customer/Customer/domain/CustomerUid';
 import { SellerContractCreatedDomainEvent } from './SellerContractCreatedDomainEvent';
-import { SellerUid } from '../../Seller/domain/SellerUid';
-import { SellerContractUid } from './SellerContractUid';
 import { SellerContractCreatedAt } from './SellerContractCreatedAt';
 import { SellerContractUpdatedAt } from './SellerContractUpdatedAt';
 import { SellerContractVerified } from './SellerContractVerified';
+import { SellerContractUid } from './SellerContractUid';
+import { UserRecord } from '../../UserRecord/domain/UserRecord';
 
 export class SellerContract extends AggregateRoot {
 
     uid: SellerContractUid;
-    seller: SellerUid;
-    customer: CustomerUid;
-    serviceProvider: ServiceProviderUid;
+    seller: UserRecord;
+    customer: UserRecord;
+    serviceProvider: UserRecord;
     officialDoc: SellerContractOfficialDoc;
     financialDoc: SellerContractFinancialDoc;
     verified: SellerContractVerified;
@@ -24,9 +22,9 @@ export class SellerContract extends AggregateRoot {
 
     constructor(
         uid: SellerContractUid,
-        seller: SellerUid,
-        customer: CustomerUid,
-        serviceProvider: ServiceProviderUid,
+        seller: UserRecord,
+        customer: UserRecord,
+        serviceProvider: UserRecord,
         verified: SellerContractVerified,
         contractDoc: SellerContractOfficialDoc,
         financialDoc: SellerContractFinancialDoc,
@@ -47,9 +45,9 @@ export class SellerContract extends AggregateRoot {
 
     static create(
         uid: SellerContractUid,
-        seller: SellerUid,
-        customer: CustomerUid,
-        serviceProvider: ServiceProviderUid,
+        seller: UserRecord,
+        customer: UserRecord,
+        serviceProvider: UserRecord,
         verified: SellerContractVerified,
         officialDoc: SellerContractOfficialDoc,
         financialDoc: SellerContractFinancialDoc,
@@ -58,7 +56,7 @@ export class SellerContract extends AggregateRoot {
     ) {
         const contract = new SellerContract(uid, seller, customer, serviceProvider, verified, officialDoc, financialDoc, createdAt, updatedAt);
 
-        contract.record(new SellerContractCreatedDomainEvent({ uid: seller.value }));
+        contract.record(new SellerContractCreatedDomainEvent({ uid: seller.uid.value }));
 
         return contract;
     }
@@ -66,9 +64,9 @@ export class SellerContract extends AggregateRoot {
     toPrimitives() {
         return {
             uid: this.uid.value,
-            seller: this.seller.value,
-            customer: this.customer.value,
-            serviceProvider: this.serviceProvider.value,
+            seller: this.seller.toPrimitives(),
+            customer: this.customer.toPrimitives(),
+            serviceProvider: this.serviceProvider.toPrimitives(),
             officialDoc: this.officialDoc.value,
             financialDoc: this.financialDoc.value,
             verified: this.verified.value,

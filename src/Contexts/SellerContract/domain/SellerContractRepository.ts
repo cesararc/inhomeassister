@@ -1,5 +1,11 @@
 import { SellerContract } from "./SellerContract";
 
 export interface SellerContractRepository {
-    create(contract: any): Promise<void>;
+    /**
+    * Initialize contract process.
+    * @param contract - Instance contract.
+    *
+    * @returns A promise void.
+    */
+    create(contract: SellerContract): Promise<void>;
 }
