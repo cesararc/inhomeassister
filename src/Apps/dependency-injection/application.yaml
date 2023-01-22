@@ -8,3 +8,4 @@ imports:
   - { resource: ./Authentication/application.yaml}
   - { resource: ./CustomerRewardPoint/application.yaml}
   - { resource: ./Notifications/application.yaml}
+  - { resource: ./SellerContract/application.yaml}

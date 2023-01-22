@@ -1,0 +1,19 @@
+services:
+  SellerContract.SellerContractRepository:
+    class: ../../../Contexts/SellerContract/infrastructure/SellerContractRepositoryFirebase
+    arguments: []
+
+  SellerContract.SellerContractCreate:
+    class: ../../../Contexts/SellerContract/application/create/SellerContractCreate
+    arguments: ['@UserRecord.UserRecordRepository', '@SellerContract.SellerContractRepository']
+  
+  SellerContract.SellerContractCreateCommandHandler:
+    class: ../../../Contexts/SellerContract/application/create/SellerContractCreateCommandHandler
+    arguments: ['@SellerContract.SellerContractCreate']
+    tags:
+      - { name: 'commandHandler' }
+
+  SellerContract.SellerContractCreateController:
+    class: ../../../Apps/SellerContract/controllers/SellerContractCreateController
+    arguments: ['@Shared.CommandBus']
+

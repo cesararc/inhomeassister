@@ -7,6 +7,7 @@ services:
     class: ../../../Contexts/UserRecord/application/accountCreate/UserRecordCreate
     arguments: ['@UserRecord.UserRecordRepository']
 
+
   UserRecord.UserRecordCreateCommandHandler:
     class: ../../../Contexts/UserRecord/application/accountCreate/UserRecordCreateCommandHandler
     arguments: ['@UserRecord.UserRecordCreate']
@@ -37,6 +38,10 @@ services:
     class: ../../../Apps/UserRecord/controllers/UserRecordProfileController
     arguments: ['@Shared.QueryBus']
 
+  UserRecord.UserRecordProfileCollection:
+    class: ../../../Contexts/UserRecord/application/profileCollection/UserRecordProfileCollection
+    arguments: ['@UserRecord.UserRecordRepository']
+
   UserRecord.UserRecordRemove:
     class: ../../../Contexts/UserRecord/application/accountRemove/UserRecordRemove
     arguments: ['@UserRecord.UserRecordRepository']
@@ -47,11 +52,11 @@ services:
     tags:
       - { name: 'commandHandler' }
 
-  UserRecord.UserRecordDisableOnServiceProviderCreated:
-    class: ../../../Contexts/UserRecord/application/accountDisable/UserRecordDisableOnServiceProviderCreated
-    arguments: ["@UserRecord.UserRecordDisable"]
-    tags:
-      - { name: 'domainEventSubscriber' }
+  # UserRecord.UserRecordDisableOnServiceProviderCreated:
+  #   class: ../../../Contexts/UserRecord/application/accountDisable/UserRecordDisableOnServiceProviderCreated
+  #   arguments: ["@UserRecord.UserRecordDisable"]
+  #   tags:
+  #     - { name: 'domainEventSubscriber' }
 
   UserRecord.UserRecordEnable:
     class: ../../../Contexts/UserRecord/application/accountEnable/UserRecordEnable

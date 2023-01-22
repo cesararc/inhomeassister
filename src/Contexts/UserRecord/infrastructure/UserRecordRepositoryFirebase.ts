@@ -39,18 +39,35 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
         return data ? UserRecord.fromPrimitives(plainData) : null;
     }
 
+    async profileCollection(ids: UserRecordUid[]): Promise<Array<UserRecord>> {
+        const identifiers = ids.map(item => ({ uid: item.value }));
+
+        const results = await auth.getUsers(identifiers);
+
+        const users = results.users.map(item => (
+            {
+                id: item.uid,
+                displayName: item.displayName,
+                email: item.email,
+                phoneNumber: item.phoneNumber,
+                claim: item.customClaims?.role
+            }));
+
+        return users.map(item => UserRecord.fromPrimitives(item));
+    }
+
     async remove(uid: UserRecordUid): Promise<void> {
         try {
             await auth.deleteUser(uid.value);
         } catch (error) { }
     }
 
-    async disable(userRecordUid: UserRecordUid): Promise<void> {
-        await auth.updateUser(userRecordUid.value, { disabled: true });
+    async disable(uid: UserRecordUid): Promise<void> {
+        await auth.updateUser(uid.value, { disabled: true });
     }
 
-    async enable(userRecordUid: UserRecordUid): Promise<void> {
-        await auth.updateUser(userRecordUid.value, { disabled: false });
+    async enable(uid: UserRecordUid): Promise<void> {
+        await auth.updateUser(uid.value, { disabled: false });
     }
 
     async resetPassword(email: UserRecordEmail): Promise<string> {
