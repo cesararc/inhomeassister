@@ -1,5 +1,5 @@
 import { BooleanValueObject } from "../../Shared/domain/value-objects/BooleanValueObject";
 
-export class SellerContractVerified extends BooleanValueObject {
+export class ContractVerified extends BooleanValueObject {
     static initialize(): boolean { return false };
 }

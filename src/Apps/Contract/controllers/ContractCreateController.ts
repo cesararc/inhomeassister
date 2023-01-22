@@ -2,9 +2,9 @@ import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { Controller } from '../../controller/Controller';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import { SellerContractCreateCommand } from '../../../Contexts/SellerContract/application/create/SellerContractCreateCommand';
+import { ContractCreateCommand } from '../../../Contexts/Contract/application/create/ContractCreateCommand';
 
-export class SellerContractCreateController implements Controller {
+export class ContractCreateController implements Controller {
     constructor(private commandBus: CommandBus) { }
 
     async run(req: Request, res: Response): Promise<void> {
@@ -16,7 +16,7 @@ export class SellerContractCreateController implements Controller {
         const financialDoc = req.body.financialDoc;
 
         try {
-            const command = new SellerContractCreateCommand(uid, seller, customer, serviceProvider, officialDoc, financialDoc);
+            const command = new ContractCreateCommand(uid, seller, customer, serviceProvider, officialDoc, financialDoc);
 
             await this.commandBus.dispatch(command);
 

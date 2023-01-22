@@ -1,6 +1,6 @@
 import { Command } from '../../../Shared/domain/Command';
 
-export class SellerContractCreateCommand extends Command {
+export class ContractCreateCommand extends Command {
     uid: string;
     seller: string;
     customer: string;

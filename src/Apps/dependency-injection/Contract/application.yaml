@@ -1,0 +1,19 @@
+services:
+  Contract.ContractRepository:
+    class: ../../../Contexts/Contract/infrastructure/ContractRepositoryFirebase
+    arguments: []
+
+  Contract.ContractCreate:
+    class: ../../../Contexts/Contract/application/create/ContractCreate
+    arguments: ['@UserRecord.UserRecordRepository', '@Contract.ContractRepository']
+  
+  Contract.ContractCreateCommandHandler:
+    class: ../../../Contexts/Contract/application/create/ContractCreateCommandHandler
+    arguments: ['@Contract.ContractCreate']
+    tags:
+      - { name: 'commandHandler' }
+
+  Contract.ContractCreateController:
+    class: ../../../Apps/Contract/controllers/ContractCreateController
+    arguments: ['@Shared.CommandBus']
+

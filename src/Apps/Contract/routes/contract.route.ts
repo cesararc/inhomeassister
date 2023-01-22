@@ -4,10 +4,10 @@ import { isAuthenticated } from '../../middleware/isAuthenticated';
 import { isAuthorized } from '../../middleware/isAuthorized';
 
 export const register = (router: Router) => {
-    const sellerContractCreateController = container.get('SellerContract.SellerContractCreateController');
+    const contractCreateController = container.get('Contract.ContractCreateController');
 
-    router.post("/api/sellerContract",
+    router.post("/api/contract",
         //isAuthenticated,
         //isAuthorized({ hasRole: ["seller"] }),
-        (...params) => sellerContractCreateController.run(...params));
+        (...params) => contractCreateController.run(...params));
 }
