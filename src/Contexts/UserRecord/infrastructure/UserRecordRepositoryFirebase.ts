@@ -26,17 +26,21 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
     }
 
     async profile(uid: UserRecordUid): Promise<UserRecord> {
-        const data = await auth.getUser(uid.value);
+        try {
+            const data = await auth.getUser(uid.value);
 
-        const plainData = {
-            id: data.uid,
-            displayName: data.displayName,
-            email: data.email,
-            phoneNumber: data.phoneNumber,
-            claim: data.customClaims?.role
-        };
+            const plainData = {
+                id: data.uid,
+                displayName: data.displayName,
+                email: data.email,
+                phoneNumber: data.phoneNumber,
+                claim: data.customClaims?.role
+            };
 
-        return data ? UserRecord.fromPrimitives(plainData) : null;
+            return UserRecord.fromPrimitives(plainData);
+        } catch (error) {
+            return null;
+        }
     }
 
     async profileCollection(ids: UserRecordUid[]): Promise<Array<UserRecord>> {
