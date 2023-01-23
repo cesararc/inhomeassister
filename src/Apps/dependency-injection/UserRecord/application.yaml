@@ -4,32 +4,36 @@ services:
     arguments: []
 
   UserRecord.UserRecordCreate:
-    class: ../../../Contexts/UserRecord/application/accountCreate/UserRecordCreate
+    class: ../../../Contexts/UserRecord/application/Create/UserRecordCreate
     arguments: ['@UserRecord.UserRecordRepository']
 
 
   UserRecord.UserRecordCreateCommandHandler:
-    class: ../../../Contexts/UserRecord/application/accountCreate/UserRecordCreateCommandHandler
+    class: ../../../Contexts/UserRecord/application/Create/UserRecordCreateCommandHandler
     arguments: ['@UserRecord.UserRecordCreate']
     tags:
       - { name: 'commandHandler' }
 
   UserRecord.UserRecordUpdate:
-    class: ../../../Contexts/UserRecord/application/accountUpdate/UserRecordUpdate
+    class: ../../../Contexts/UserRecord/application/Update/UserRecordUpdate
+    arguments: ['@UserRecord.UserRecordRepository']
+
+  UserRecord.UserRecordUpdateTransaction:
+    class: ../../../Contexts/UserRecord/application/UpdateTransaction/UserRecordUpdateTransaction
     arguments: ['@UserRecord.UserRecordRepository']
 
   UserRecord.UserRecordUpdateCommandHandler:
-    class: ../../../Contexts/UserRecord/application/accountUpdate/UserRecordUpdateCommandHandler
+    class: ../../../Contexts/UserRecord/application/Update/UserRecordUpdateCommandHandler
     arguments: ['@UserRecord.UserRecordUpdate']
     tags:
       - { name: 'commandHandler' }
 
   UserRecord.UserRecordProfile:
-    class: ../../../Contexts/UserRecord/application/accountProfile/UserRecordProfile
+    class: ../../../Contexts/UserRecord/application/Profile/UserRecordProfile
     arguments: ['@UserRecord.UserRecordRepository']
     
   UserRecord.UserRecordProfileQueryHandler:
-    class: ../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileQueryHandler
+    class: ../../../Contexts/UserRecord/application/Profile/UserRecordProfileQueryHandler
     arguments: ['@UserRecord.UserRecordProfile']
     tags: 
       - { name: 'queryHandler' }
@@ -39,31 +43,31 @@ services:
     arguments: ['@Shared.QueryBus']
 
   UserRecord.UserRecordProfileCollection:
-    class: ../../../Contexts/UserRecord/application/profileCollection/UserRecordProfileCollection
+    class: ../../../Contexts/UserRecord/application/ProfileCollection/UserRecordProfileCollection
     arguments: ['@UserRecord.UserRecordRepository']
 
   UserRecord.UserRecordRemove:
-    class: ../../../Contexts/UserRecord/application/accountRemove/UserRecordRemove
+    class: ../../../Contexts/UserRecord/application/Remove/UserRecordRemove
     arguments: ['@UserRecord.UserRecordRepository']
 
   UserRecord.UserRecordRemoveCommandHandler:
-    class: ../../../Contexts/UserRecord/application/accountRemove/UserRecordRemoveCommandHandler
+    class: ../../../Contexts/UserRecord/application/Remove/UserRecordRemoveCommandHandler
     arguments: ['@UserRecord.UserRecordRemove']
     tags:
       - { name: 'commandHandler' }
 
   # UserRecord.UserRecordDisableOnServiceProviderCreated:
-  #   class: ../../../Contexts/UserRecord/application/accountDisable/UserRecordDisableOnServiceProviderCreated
+  #   class: ../../../Contexts/UserRecord/application/Disable/UserRecordDisableOnServiceProviderCreated
   #   arguments: ["@UserRecord.UserRecordDisable"]
   #   tags:
   #     - { name: 'domainEventSubscriber' }
 
   UserRecord.UserRecordEnable:
-    class: ../../../Contexts/UserRecord/application/accountEnable/UserRecordEnable
+    class: ../../../Contexts/UserRecord/application/Enable/UserRecordEnable
     arguments: ['@UserRecord.UserRecordRepository']
 
   UserRecord.UserRecordEnableCommandHandler:
-    class: ../../../Contexts/UserRecord/application/accountEnable/UserRecordEnableCommandHandler
+    class: ../../../Contexts/UserRecord/application/Enable/UserRecordEnableCommandHandler
     arguments: ['@UserRecord.UserRecordEnable']
     tags:
       - { name: 'commandHandler' }
@@ -73,11 +77,11 @@ services:
     arguments: ['@Shared.CommandBus']
 
   UserRecord.UserRecordDisable:
-    class: ../../../Contexts/UserRecord/application/accountDisable/UserRecordDisable
+    class: ../../../Contexts/UserRecord/application/Disable/UserRecordDisable
     arguments: ['@UserRecord.UserRecordRepository']
 
   UserRecord.UserRecordDisableCommandHandler:
-    class: ../../../Contexts/UserRecord/application/accountDisable/UserRecordDisableCommandHandler
+    class: ../../../Contexts/UserRecord/application/Disable/UserRecordDisableCommandHandler
     arguments: ['@UserRecord.UserRecordDisable']
     tags:
       - { name: 'commandHandler' }
@@ -87,11 +91,11 @@ services:
     arguments: ['@Shared.CommandBus']
 
   UserRecord.UserRecordResetPassword:
-    class: ../../../Contexts/UserRecord/application/resetPassword/UserRecordResetPassword
+    class: ../../../Contexts/UserRecord/application/ResetPassword/UserRecordResetPassword
     arguments: ['@UserRecord.UserRecordRepository']
   
   UserRecord.UserRecordResetPasswordCommandHandler:
-    class: ../../../Contexts/UserRecord/application/resetPassword/UserRecordResetPasswordCommandHandler
+    class: ../../../Contexts/UserRecord/application/ResetPassword/UserRecordResetPasswordCommandHandler
     arguments: ['@UserRecord.UserRecordResetPassword']
     tags:
       - { name: 'commandHandler' }

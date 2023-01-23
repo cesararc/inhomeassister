@@ -2,13 +2,14 @@ import { Response, Request } from 'express';
 import httpStatus from 'http-status';
 import { Controller } from '../../controller/Controller';
 import { QueryBus } from '../../../Contexts/Shared/domain/QueryBus';
-import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileQuery';
-import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileResponse';
+import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/Profile/UserRecordProfileQuery';
+import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/Profile/UserRecordProfileResponse';
 import { UserRecord } from '../../../Contexts/UserRecord/domain/UserRecord';
 import { ServiceProviderProfileResponse } from '../../../Contexts/ServiceProvider/application/profile/ServiceProviderProfileResponse';
 import { ServiceProvider } from '../../../Contexts/ServiceProvider/domain/ServiceProvider';
 import { ServiceProviderProfileQuery } from '../../../Contexts/ServiceProvider/application/profile/ServiceProviderProfileQuery';
 import { ServiceProviderNotFound } from '../../../Contexts/ServiceProvider/domain/ServiceProviderNotFound';
+import { UserRecordNotFound } from '../../../Contexts/UserRecord/domain/UserRecordNotFound';
 
 export class ServiceProviderProfileController implements Controller {
 
@@ -29,7 +30,7 @@ export class ServiceProviderProfileController implements Controller {
             res.status(httpStatus.OK).send(this.toResponse(userRecord, serviceProvider));
 
         } catch (error) {
-            if (error instanceof ServiceProviderNotFound) {
+            if (error instanceof UserRecordNotFound) {
                 res.status(httpStatus.NOT_FOUND).send(error.message);
             }
 

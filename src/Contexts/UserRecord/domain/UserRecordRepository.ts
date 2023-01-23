@@ -64,4 +64,11 @@ export interface UserRecordRepository {
     * @returns A promise string with link password reset.
     */
     resetPassword(email: UserRecordEmail): Promise<string>;
+    /**
+    * Update user record transaction in collection with user record uid.
+    * @param userRecord - Identifier user
+    *
+    * @returns A promise void.
+    */
+    updateTransaction(userRecord: Partial<UserRecord>): Promise<void>;
 }
