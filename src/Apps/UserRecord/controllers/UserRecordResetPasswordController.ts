@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
-import { UserRecordResetPasswordCommand } from '../../../Contexts/UserRecord/application/resetPassword/UserRecordResetPasswordCommand';
+import { UserRecordResetPasswordCommand } from '../../../Contexts/UserRecord/application/ResetPassword/UserRecordResetPasswordCommand';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 
 export class UserRecordResetPasswordController implements Controller {

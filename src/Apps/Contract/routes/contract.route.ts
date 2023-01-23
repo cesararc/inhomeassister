@@ -13,7 +13,7 @@ export const register = (router: Router) => {
         (...params) => contractCreateController.run(...params));
 
     router.get("/api/contract/unverified/:uid",
-        //isAuthenticated,
-        //isAuthorized({ hasRole: ["seller"] }),
+        isAuthenticated,
+        isAuthorized({ hasRole: ["seller"] }),
         (...params) => contractUnverifiedController.run(...params));
 }

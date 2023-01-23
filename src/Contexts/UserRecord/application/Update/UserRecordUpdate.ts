@@ -17,5 +17,6 @@ export class UserRecordUpdate {
         const userRecord = UserRecord.update(uid, displayName, phone, email);
 
         await this.repository.update(userRecord);
+        await this.repository.updateTransaction(userRecord);
     }
 }

@@ -3,6 +3,7 @@ import { UserRecordUid } from '../domain/UserRecordUid';
 import { UserRecordRepository } from '../domain/UserRecordRepository';
 import { auth } from '../../../Apps/database';
 import { UserRecordEmail } from '../domain/UserRecordEmail';
+import firestore from '../../../Apps/database';
 
 export class UserRecordRepositoryFirebase implements UserRecordRepository {
 
@@ -23,6 +24,40 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
         };
 
         await auth.updateUser(userR.uid.value, data);
+    }
+
+    async updateTransaction(userR: UserRecord): Promise<void> {
+        const data = {
+            ...(userR.email.value.length > 0 && { email: userR.email.value }),
+            ...(userR.displayName.value.length > 0 && { displayName: userR.displayName.value }),
+            ...(userR.phoneNumber.value.length > 0 && { phoneNumber: userR.phoneNumber.value }),
+        };
+
+        const ref = firestore.collection("contract");
+
+        const contractCustomer = await ref.where("customer.uid", "==", userR.uid.value).get();
+        if (!contractCustomer.empty) {
+            contractCustomer.docs.map(async function (item) {
+                const oldValues = item.data()["customer"];
+                await ref.doc(item.id).update({ customer: { ...oldValues, ...data } });
+            });
+        }
+
+        const contractSeller = await ref.where("seller.uid", "==", userR.uid.value).get();
+        if (!contractSeller.empty) {
+            contractSeller.docs.map(async function (item) {
+                const oldValues = item.data()["seller"];
+                await ref.doc(item.id).update({ seller: { ...oldValues, ...data } });
+            })
+        }
+
+        const contractServiceProvider = await ref.where("service_provider.uid", "==", userR.uid.value).get();
+        if (!contractServiceProvider.empty) {
+            contractServiceProvider.docs.map(async function (item) {
+                const oldValues = item.data()["serviceProvider"];
+                await ref.doc(item.id).update({ serviceProvider: { ...oldValues, ...data } });
+            })
+        }
     }
 
     async profile(uid: UserRecordUid): Promise<UserRecord> {
