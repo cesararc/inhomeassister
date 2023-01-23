@@ -11,6 +11,7 @@ import { ContractUpdatedAt } from '../../domain/ContractUpdatedAt';
 import { ContractCreate } from './ContractCreate';
 import { ContractCreateCommand } from './ContractCreateCommand';
 import { SellerUid } from '../../../Seller/domain/SellerUid';
+import { ContractVerifiedAt } from '../../domain/ContractVerifiedAt';
 
 export class ContractCreateCommandHandler implements CommandHandler<ContractCreateCommand>{
     constructor(private contract: ContractCreate) { }
@@ -20,16 +21,20 @@ export class ContractCreateCommandHandler implements CommandHandler<ContractCrea
     }
 
     async handle(command: ContractCreateCommand): Promise<void> {
-        await this.contract.run(
-            new ContractUid(command.uid),
-            new SellerUid(command.seller),
-            new CustomerUid(command.customer),
-            new ServiceProviderUid(command.serviceProvider),
-            new ContractVerified(ContractVerified.initialize()),
-            new ContractOfficialDoc(command.officialDoc),
-            new ContractFinancialDoc(command.financialDoc),
-            new ContractCreatedAt(ContractCreatedAt.initialize()),
-            new ContractUpdatedAt(ContractUpdatedAt.initialize())
-        )
+
+        const contract = {
+            uid: new ContractUid(command.uid),
+            sellerUid: new SellerUid(command.seller),
+            customerUid: new CustomerUid(command.customer),
+            serviceProviderUid: new ServiceProviderUid(command.serviceProvider),
+            officialDoc: new ContractOfficialDoc(command.officialDoc),
+            financialDoc: new ContractFinancialDoc(command.financialDoc),
+            verified: new ContractVerified(ContractVerified.initialize()),
+            verifiedAt: new ContractVerifiedAt(ContractVerifiedAt.initialize()),
+            createdAt: new ContractCreatedAt(ContractCreatedAt.initialize()),
+            updatedAt: new ContractUpdatedAt(ContractUpdatedAt.initialize())
+        }
+
+        await this.contract.run(contract)
     }
 }

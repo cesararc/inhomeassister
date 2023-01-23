@@ -7,6 +7,7 @@ import { ContractCreatedAt } from './ContractCreatedAt';
 import { ContractVerified } from './ContractVerified';
 import { ContractUpdatedAt } from './ContractUpdatedAt';
 import { ContractCreatedDomainEvent } from './ContractCreatedDomainEvent';
+import { ContractVerifiedAt } from './ContractVerifiedAt';
 
 export class Contract extends AggregateRoot {
 
@@ -17,6 +18,7 @@ export class Contract extends AggregateRoot {
     officialDoc: ContractOfficialDoc;
     financialDoc: ContractFinancialDoc;
     verified: ContractVerified;
+    verifiedAt: ContractVerifiedAt;
     createdAt: ContractCreatedAt;
     updateAt: ContractUpdatedAt;
 
@@ -25,9 +27,10 @@ export class Contract extends AggregateRoot {
         seller: UserRecord,
         customer: UserRecord,
         serviceProvider: UserRecord,
-        verified: ContractVerified,
         contractDoc: ContractOfficialDoc,
         financialDoc: ContractFinancialDoc,
+        verified: ContractVerified,
+        verifiedAt: ContractVerifiedAt,
         createdAt: ContractCreatedAt,
         updatedAt: ContractUpdatedAt) {
 
@@ -36,9 +39,10 @@ export class Contract extends AggregateRoot {
         this.seller = seller;
         this.customer = customer;
         this.serviceProvider = serviceProvider;
-        this.verified = verified;
         this.officialDoc = contractDoc;
         this.financialDoc = financialDoc;
+        this.verified = verified;
+        this.verifiedAt = verifiedAt;
         this.createdAt = createdAt;
         this.updateAt = updatedAt;
     }
@@ -48,17 +52,67 @@ export class Contract extends AggregateRoot {
         seller: UserRecord,
         customer: UserRecord,
         serviceProvider: UserRecord,
-        verified: ContractVerified,
         officialDoc: ContractOfficialDoc,
         financialDoc: ContractFinancialDoc,
+        verified: ContractVerified,
+        verifiedAt: ContractUpdatedAt,
         createdAt: ContractCreatedAt,
         updatedAt: ContractUpdatedAt
     ) {
-        const contract = new Contract(uid, seller, customer, serviceProvider, verified, officialDoc, financialDoc, createdAt, updatedAt);
+        const contract = new Contract(
+            uid,
+            seller,
+            customer,
+            serviceProvider,
+            officialDoc,
+            financialDoc,
+            verified,
+            verifiedAt,
+            createdAt,
+            updatedAt);
 
         contract.record(new ContractCreatedDomainEvent({ uid: seller.uid.value }));
 
         return contract;
+    }
+
+
+    static fromPrimitives({
+        uid,
+        seller,
+        customer,
+        serviceProvider,
+        officialDoc,
+        financialDoc,
+        verifiedAt,
+        verified,
+        createdAt,
+        updatedAt }:
+        {
+            uid: string,
+            seller: any,
+            customer: any,
+            serviceProvider: any,
+            officialDoc: string,
+            financialDoc: string,
+            verifiedAt: string,
+            verified: boolean,
+            createdAt: string,
+            updatedAt: string
+        }) {
+
+        return new Contract(
+            new ContractUid(uid),
+            UserRecord.fromPrimitives(seller),
+            UserRecord.fromPrimitives(customer),
+            UserRecord.fromPrimitives(serviceProvider),
+            new ContractOfficialDoc(officialDoc),
+            new ContractFinancialDoc(financialDoc),
+            new ContractVerified(verified),
+            new ContractVerifiedAt(verifiedAt),
+            new ContractCreatedAt(createdAt),
+            new ContractUpdatedAt(updatedAt)
+        );
     }
 
     toPrimitives() {
@@ -70,8 +124,10 @@ export class Contract extends AggregateRoot {
             officialDoc: this.officialDoc.value,
             financialDoc: this.financialDoc.value,
             verified: this.verified.value,
+            verifiedAt: this.verifiedAt.value,
             createdAt: this.createdAt.value,
-            updateAt: this.updateAt.value
+            updateAt: this.updateAt.value,
+
         }
     }
 }

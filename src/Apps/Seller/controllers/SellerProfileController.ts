@@ -8,6 +8,7 @@ import { UserRecord } from '../../../Contexts/UserRecord/domain/UserRecord';
 import { SellerProfileResponse } from '../../../Contexts/Seller/application/profile/SellerProfileResponse';
 import { Seller } from '../../../Contexts/Seller/domain/Seller';
 import { SellerProfileQuery } from '../../../Contexts/Seller/application/profile/SellerProfileQuery';
+import { UserRecordNotFound } from '../../../Contexts/UserRecord/domain/UserRecordNotFound';
 
 export class SellerProfileController implements Controller {
 
@@ -28,6 +29,10 @@ export class SellerProfileController implements Controller {
             res.status(httpStatus.OK).send(this.toResponse(userRecord, seller));
 
         } catch (error) {
+            if (error instanceof UserRecordNotFound) {
+                res.status(httpStatus.BAD_REQUEST).send(error.message);
+            }
+
             res.status(httpStatus.NOT_FOUND).send(error.message);
         }
     }

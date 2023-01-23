@@ -9,21 +9,25 @@ import { ContractFinancialDoc } from '../../domain/ContractFinancialDoc';
 import { ContractUpdatedAt } from '../../domain/ContractUpdatedAt';
 import { UserRecordUid } from '../../../UserRecord/domain/UserRecordUid';
 import { ContractUserRecordNotFound } from '../../domain/ContractUserRecordNotFound';
+import { ContractVerifiedAt } from '../../domain/ContractVerifiedAt';
+
+type Params = {
+    uid: ContractUid,
+    sellerUid: UserRecordUid;
+    customerUid: UserRecordUid;
+    serviceProviderUid: UserRecordUid;
+    verified: ContractVerified;
+    officialDoc: ContractOfficialDoc;
+    financialDoc: ContractFinancialDoc;
+    verifiedAt: ContractVerifiedAt;
+    createdAt: ContractCreatedAt;
+    updatedAt: ContractUpdatedAt;
+}
 
 export class ContractCreate {
     constructor(private userRecord: UserRecordRepository, private repository: ContractRepository) { }
 
-    async run(
-        uid: ContractUid,
-        sellerUid: UserRecordUid,
-        customerUid: UserRecordUid,
-        serviceProviderUid: UserRecordUid,
-        verified: ContractVerified,
-        officialDoc: ContractOfficialDoc,
-        financialDoc: ContractFinancialDoc,
-        createdAt: ContractCreatedAt,
-        updatedAt: ContractUpdatedAt):
-        Promise<void> {
+    async run({ uid, sellerUid, customerUid, serviceProviderUid, financialDoc, officialDoc, verified, verifiedAt, createdAt, updatedAt }: Params): Promise<void> {
 
         const seller = await this.userRecord.profile(sellerUid);
         const customer = await this.userRecord.profile(customerUid);
@@ -31,7 +35,17 @@ export class ContractCreate {
 
         if (!seller || !customer || !serviceProvider) throw new ContractUserRecordNotFound();
 
-        const contract = Contract.create(uid, seller, customer, serviceProvider, verified, officialDoc, financialDoc, updatedAt, createdAt);
+        const contract = Contract.create(
+            uid,
+            seller,
+            customer,
+            serviceProvider,
+            officialDoc,
+            financialDoc,
+            verified,
+            verifiedAt,
+            updatedAt,
+            createdAt);
 
         return await this.repository.create(contract);
     }

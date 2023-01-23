@@ -1,4 +1,5 @@
 import { Contract } from "./Contract";
+import { UserRecordUid } from '../../UserRecord/domain/UserRecordUid';
 
 export interface ContractRepository {
     /**
@@ -10,7 +11,9 @@ export interface ContractRepository {
     create(contract: Contract): Promise<void>;
     /**
     * Contract no verified.
+    * * @param uid - Instance contract.
+    *
     * @returns A promise array seller contract.
     */
-    unverified(): Promise<Array<Contract>>;
+    unverified(uid: UserRecordUid): Promise<Array<Contract>>;
 }

@@ -30,7 +30,7 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
             const data = await auth.getUser(uid.value);
 
             const plainData = {
-                id: data.uid,
+                uid: data.uid,
                 displayName: data.displayName,
                 email: data.email,
                 phoneNumber: data.phoneNumber,
@@ -50,7 +50,7 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
 
         const users = results.users.map(item => (
             {
-                id: item.uid,
+                uid: item.uid,
                 displayName: item.displayName,
                 email: item.email,
                 phoneNumber: item.phoneNumber,

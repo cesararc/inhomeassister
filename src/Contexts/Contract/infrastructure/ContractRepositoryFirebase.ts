@@ -1,6 +1,7 @@
 import firestore from '../../../Apps/database';
 import { ContractRepository } from '../domain/ContractRepository';
 import { Contract } from '../domain/Contract';
+import { UserRecordUid } from '../../UserRecord/domain/UserRecordUid';
 
 
 export class ContractRepositoryFirebase implements ContractRepository {
@@ -16,8 +17,14 @@ export class ContractRepositoryFirebase implements ContractRepository {
         await collection.set(document);
     }
 
-    async unverified(): Promise<Array<Contract>> {
-        return [];
+    async unverified(uid: UserRecordUid): Promise<Array<Contract>> {
+        const reference = this.collection().where("seller.uid", "==", uid.value);
+        const collection = await reference.get();
+
+        if (collection.empty) return [];
+
+        collection.docs.map(e => console.log(e.data()))
+        return collection.docs.map(e => Contract.fromPrimitives({ ...e.data() } as any));
     }
 
     moduleName(): string {

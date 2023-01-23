@@ -8,7 +8,8 @@ export class ContractCreateCommand extends Command {
     officialDoc: string;
     financialDoc: string;
 
-    constructor(uid: string,
+    constructor(
+        uid: string,
         seller: string,
         customer: string,
         serviceProvider: string,

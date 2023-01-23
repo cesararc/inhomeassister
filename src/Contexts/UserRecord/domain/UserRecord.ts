@@ -49,9 +49,9 @@ export class UserRecord extends AggregateRoot {
         }
     }
 
-    static fromPrimitives(plainData: { id: string; displayName: string; email: string; phoneNumber: string; claim: Claim }) {
+    static fromPrimitives(plainData: { uid: string; displayName: string; email: string; phoneNumber: string; claim: Claim }) {
         return new UserRecord(
-            new UserRecordUid(plainData.id),
+            new UserRecordUid(plainData.uid),
             new UserRecordDisplayName(plainData.displayName),
             new UserRecordPhone(plainData.phoneNumber),
             new UserRecordEmail(plainData.email),

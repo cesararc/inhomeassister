@@ -17,3 +17,16 @@ services:
     class: ../../../Apps/Contract/controllers/ContractCreateController
     arguments: ['@Shared.CommandBus']
 
+  Contract.ContractUnverified:
+    class: ../../../Contexts/Contract/application/unverified/ContractUnverified
+    arguments: ['@Contract.ContractRepository']
+
+  Contract.ContractUnverifiedQueryHandler:
+    class: ../../../Contexts/Contract/application/unverified/ContractUnverifiedQueryHandler
+    arguments: ['@Contract.ContractUnverified']
+    tags:
+      - { name: 'queryHandler' }
+
+  Contract.ContractUnverifiedController:
+    class: ../../../Apps/Contract/controllers/ContractUnverifiedController
+    arguments: ['@Shared.QueryBus']
