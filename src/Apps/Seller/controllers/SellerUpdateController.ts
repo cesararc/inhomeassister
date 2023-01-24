@@ -2,7 +2,7 @@ import { Response, Request } from 'express';
 import httpStatus from 'http-status';
 import { Controller } from '../../controller/Controller';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
-import { UserRecordUpdateCommand } from '../../../Contexts/UserRecord/application/accountUpdate/UserRecordUpdateCommand';
+import { UserRecordUpdateCommand } from '../../../Contexts/UserRecord/application/Update/UserRecordUpdateCommand';
 import { SellerUpdateCommand } from '../../../Contexts/Seller/application/update/ServiceProviderUpdateCommand';
 
 export class SellerUpdateController implements Controller {

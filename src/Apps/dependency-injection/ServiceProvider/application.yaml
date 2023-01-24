@@ -5,7 +5,7 @@ services:
 
   ServiceProvider.ServiceProviderCreate:
     class: ../../../Contexts/ServiceProvider/application/create/ServiceProviderCreate
-    arguments: ['@ServiceProvider.ServiceProviderRepository',  '@Shared.EventBus']
+    arguments: ['@ServiceProvider.ServiceProviderRepository', '@Shared.EventBus']
   
   ServiceProvider.ServiceProviderCreateCommandHandler:
     class: ../../../Contexts/ServiceProvider/application/create/ServiceProviderCreateCommandHandler

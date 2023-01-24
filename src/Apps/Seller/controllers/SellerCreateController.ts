@@ -2,8 +2,8 @@ import httpStatus from 'http-status';
 import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
-import { UserRecordCreateCommand } from '../../../Contexts/UserRecord/application/accountCreate/UserRecordCreateCommand';
-import { UserRecordRemoveCommand } from '../../../Contexts/UserRecord/application/accountRemove/UserRecordRemoveCommand';
+import { UserRecordCreateCommand } from '../../../Contexts/UserRecord/application/Create/UserRecordCreateCommand';
+import { UserRecordRemoveCommand } from '../../../Contexts/UserRecord/application/Remove/UserRecordRemoveCommand';
 import { SellerCreateCommand } from '../../../Contexts/Seller/application/create/SellerCreateCommand';
 
 export class SellerCreateController implements Controller {

@@ -1,7 +1,7 @@
 import { Controller } from "../../controller/Controller";
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { Response, Request } from 'express';
-import { UserRecordDisableCommand } from '../../../Contexts/UserRecord/application/accountDisable/UserRecordDisableCommand';
+import { UserRecordDisableCommand } from '../../../Contexts/UserRecord/application/Disable/UserRecordDisableCommand';
 import httpStatus from 'http-status';
 
 export class UserRecordDisableController implements Controller {

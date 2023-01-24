@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import { Controller } from "../../controller/Controller";
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { Response, Request } from 'express';
-import { UserRecordEnableCommand } from '../../../Contexts/UserRecord/application/accountEnable/UserRecordEnableCommand';
+import { UserRecordEnableCommand } from '../../../Contexts/UserRecord/application/Enable/UserRecordEnableCommand';
 
 export class UserRecordEnableController implements Controller {
     constructor(private commandBus: CommandBus) { }

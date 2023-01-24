@@ -5,9 +5,10 @@ import { QueryBus } from '../../../Contexts/Shared/domain/QueryBus';
 import { CustomerProfileQuery } from '../../../Contexts/Customer/Customer/application/profile/CustomerProfileQuery';
 import { CustomerProfileResponse } from '../../../Contexts/Customer/Customer/application/profile/CustomerProfileResponse';
 import { Customer } from '../../../Contexts/Customer/Customer/domain/Customer';
-import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileQuery';
-import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/accountProfile/UserRecordProfileResponse';
+import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/Profile/UserRecordProfileQuery';
+import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/Profile/UserRecordProfileResponse';
 import { UserRecord } from '../../../Contexts/UserRecord/domain/UserRecord';
+import { UserRecordNotFound } from '../../../Contexts/UserRecord/domain/UserRecordNotFound';
 
 export class CustomerProfileController implements Controller {
 
@@ -29,6 +30,10 @@ export class CustomerProfileController implements Controller {
             res.status(httpStatus.OK).send(this.toResponse(userRecord, customer));
 
         } catch (error) {
+            if (error instanceof UserRecordNotFound) {
+                res.status(httpStatus.BAD_REQUEST).send(error.message);
+            }
+
             res.status(httpStatus.NOT_FOUND).send(error.message);
         }
     }

@@ -10,8 +10,8 @@ export const register = (router: Router) => {
 
     router.post("/api/customer", (...params) => customerSaveController.run(...params));
     router.put("/api/customer/:uid",
-        isAuthenticated,
-        isAuthorized({ hasRole: ['customer'] }),
+        //isAuthenticated,
+        //isAuthorized({ hasRole: ['customer'] }),
         (...params) => customerUpdateController.run(...params));
     router.get("/api/customer/profile/:uid",
         isAuthenticated,

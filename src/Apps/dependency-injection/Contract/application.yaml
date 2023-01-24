@@ -1,0 +1,32 @@
+services:
+  Contract.ContractRepository:
+    class: ../../../Contexts/Contract/infrastructure/ContractRepositoryFirebase
+    arguments: []
+
+  Contract.ContractCreate:
+    class: ../../../Contexts/Contract/application/create/ContractCreate
+    arguments: ['@UserRecord.UserRecordRepository', '@Contract.ContractRepository']
+  
+  Contract.ContractCreateCommandHandler:
+    class: ../../../Contexts/Contract/application/create/ContractCreateCommandHandler
+    arguments: ['@Contract.ContractCreate']
+    tags:
+      - { name: 'commandHandler' }
+
+  Contract.ContractCreateController:
+    class: ../../../Apps/Contract/controllers/ContractCreateController
+    arguments: ['@Shared.CommandBus']
+
+  Contract.ContractUnverified:
+    class: ../../../Contexts/Contract/application/unverified/ContractUnverified
+    arguments: ['@Contract.ContractRepository']
+
+  Contract.ContractUnverifiedQueryHandler:
+    class: ../../../Contexts/Contract/application/unverified/ContractUnverifiedQueryHandler
+    arguments: ['@Contract.ContractUnverified']
+    tags:
+      - { name: 'queryHandler' }
+
+  Contract.ContractUnverifiedController:
+    class: ../../../Apps/Contract/controllers/ContractUnverifiedController
+    arguments: ['@Shared.QueryBus']
