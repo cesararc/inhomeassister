@@ -8,8 +8,8 @@ export const register = (router: Router) => {
     const contractUnverifiedController = container.get('Contract.ContractUnverifiedController');
 
     router.post("/api/contract",
-        isAuthenticated,
-        isAuthorized({ hasRole: ["seller"] }),
+        // isAuthenticated,
+        // isAuthorized({ hasRole: ["seller"] }),
         (...params) => contractCreateController.run(...params));
 
     router.get("/api/contract/unverified/:uid",

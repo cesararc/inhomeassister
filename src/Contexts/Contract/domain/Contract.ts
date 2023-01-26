@@ -8,6 +8,9 @@ import { ContractVerified } from './ContractVerified';
 import { ContractUpdatedAt } from './ContractUpdatedAt';
 import { ContractCreatedDomainEvent } from './ContractCreatedDomainEvent';
 import { ContractVerifiedAt } from './ContractVerifiedAt';
+import { ContractProjectPrice } from './ContractProjectPrice';
+import { ContractProjectBasePrice } from './ContractProjectBasePrice';
+import { ContractProjectSellerRevenue } from './ContractProjectSellerRevenue';
 
 export class Contract extends AggregateRoot {
 
@@ -18,6 +21,9 @@ export class Contract extends AggregateRoot {
     officialDoc: ContractOfficialDoc;
     financialDoc: ContractFinancialDoc;
     verified: ContractVerified;
+    projectPrice: ContractProjectPrice;
+    projectBasePrice: ContractProjectBasePrice;
+    projectSellerRevenue: ContractProjectSellerRevenue;
     verifiedAt: ContractVerifiedAt;
     createdAt: ContractCreatedAt;
     updateAt: ContractUpdatedAt;
@@ -30,6 +36,9 @@ export class Contract extends AggregateRoot {
         contractDoc: ContractOfficialDoc,
         financialDoc: ContractFinancialDoc,
         verified: ContractVerified,
+        price: ContractProjectPrice,
+        basePrice: ContractProjectBasePrice,
+        sellerRevenue: ContractProjectSellerRevenue,
         verifiedAt: ContractVerifiedAt,
         createdAt: ContractCreatedAt,
         updatedAt: ContractUpdatedAt) {
@@ -42,6 +51,9 @@ export class Contract extends AggregateRoot {
         this.officialDoc = contractDoc;
         this.financialDoc = financialDoc;
         this.verified = verified;
+        this.projectPrice = price;
+        this.projectBasePrice = basePrice;
+        this.projectSellerRevenue = sellerRevenue;
         this.verifiedAt = verifiedAt;
         this.createdAt = createdAt;
         this.updateAt = updatedAt;
@@ -55,6 +67,9 @@ export class Contract extends AggregateRoot {
         officialDoc: ContractOfficialDoc,
         financialDoc: ContractFinancialDoc,
         verified: ContractVerified,
+        projectPrice: ContractProjectPrice,
+        projectBasePrice: ContractProjectBasePrice,
+        projectSellerRevenue: ContractProjectSellerRevenue,
         verifiedAt: ContractUpdatedAt,
         createdAt: ContractCreatedAt,
         updatedAt: ContractUpdatedAt
@@ -67,6 +82,9 @@ export class Contract extends AggregateRoot {
             officialDoc,
             financialDoc,
             verified,
+            projectPrice,
+            projectBasePrice,
+            projectSellerRevenue,
             verifiedAt,
             createdAt,
             updatedAt);
@@ -84,8 +102,11 @@ export class Contract extends AggregateRoot {
         serviceProvider,
         officialDoc,
         financialDoc,
-        verifiedAt,
         verified,
+        projectPrice,
+        projectBasePrice,
+        projectSellerRevenue,
+        verifiedAt,
         createdAt,
         updatedAt }:
         {
@@ -95,8 +116,11 @@ export class Contract extends AggregateRoot {
             serviceProvider: any,
             officialDoc: string,
             financialDoc: string,
-            verifiedAt: string,
             verified: boolean,
+            projectPrice: number;
+            projectBasePrice: number;
+            projectSellerRevenue: number;
+            verifiedAt: string,
             createdAt: string,
             updatedAt: string
         }) {
@@ -109,6 +133,9 @@ export class Contract extends AggregateRoot {
             new ContractOfficialDoc(officialDoc),
             new ContractFinancialDoc(financialDoc),
             new ContractVerified(verified),
+            new ContractProjectPrice(projectPrice),
+            new ContractProjectBasePrice(projectBasePrice),
+            new ContractProjectSellerRevenue(projectSellerRevenue),
             new ContractVerifiedAt(verifiedAt),
             new ContractCreatedAt(createdAt),
             new ContractUpdatedAt(updatedAt)
@@ -124,6 +151,9 @@ export class Contract extends AggregateRoot {
             officialDoc: this.officialDoc.value,
             financialDoc: this.financialDoc.value,
             verified: this.verified.value,
+            projectPrice: this.projectPrice.value,
+            projectBasePrice: this.projectBasePrice.value,
+            projectSellerRevenue: this.projectSellerRevenue.value,
             verifiedAt: this.verifiedAt.value,
             createdAt: this.createdAt.value,
             updateAt: this.updateAt.value,
