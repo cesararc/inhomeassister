@@ -10,15 +10,21 @@ import { ContractUpdatedAt } from '../../domain/ContractUpdatedAt';
 import { UserRecordUid } from '../../../UserRecord/domain/UserRecordUid';
 import { ContractUserRecordNotFound } from '../../domain/ContractUserRecordNotFound';
 import { ContractVerifiedAt } from '../../domain/ContractVerifiedAt';
+import { ContractProjectPrice } from '../../domain/ContractProjectPrice';
+import { ContractProjectBasePrice } from '../../domain/ContractProjectBasePrice';
+import { ContractProjectSellerRevenue } from '../../domain/ContractProjectSellerRevenue';
 
 type Params = {
     uid: ContractUid,
     sellerUid: UserRecordUid;
     customerUid: UserRecordUid;
     serviceProviderUid: UserRecordUid;
-    verified: ContractVerified;
     officialDoc: ContractOfficialDoc;
     financialDoc: ContractFinancialDoc;
+    verified: ContractVerified;
+    projectPrice: ContractProjectPrice,
+    projectBasePrice: ContractProjectBasePrice;
+    projectSellerRevenue: ContractProjectSellerRevenue;
     verifiedAt: ContractVerifiedAt;
     createdAt: ContractCreatedAt;
     updatedAt: ContractUpdatedAt;
@@ -27,7 +33,7 @@ type Params = {
 export class ContractCreate {
     constructor(private userRecord: UserRecordRepository, private repository: ContractRepository) { }
 
-    async run({ uid, sellerUid, customerUid, serviceProviderUid, financialDoc, officialDoc, verified, verifiedAt, createdAt, updatedAt }: Params): Promise<void> {
+    async run({ uid, sellerUid, customerUid, serviceProviderUid, financialDoc, officialDoc, verified, projectPrice, projectBasePrice, projectSellerRevenue, verifiedAt, createdAt, updatedAt }: Params): Promise<void> {
 
         const seller = await this.userRecord.profile(sellerUid);
         const customer = await this.userRecord.profile(customerUid);
@@ -43,6 +49,9 @@ export class ContractCreate {
             officialDoc,
             financialDoc,
             verified,
+            projectPrice,
+            projectBasePrice,
+            projectSellerRevenue,
             verifiedAt,
             updatedAt,
             createdAt);
