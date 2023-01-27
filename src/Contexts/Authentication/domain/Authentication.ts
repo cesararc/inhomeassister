@@ -1,27 +1,27 @@
 import { AggregateRoot } from "../../Shared/domain/AggregateRoot";
-import { AuthenticationIdToken } from './AuthenticationIdToken';
+import { AuthenticationUserId } from './AuthenticationUserId';
 import { AuthenticationLoginDomainEvent } from './AuthenticationLoginDomainEvent';
 import { AuthenticationEmailAddress } from './AuthenticationEmailAddress';
 
 type Params = {
-    idToken: AuthenticationIdToken;
+    userId: AuthenticationUserId;
     email: AuthenticationEmailAddress;
 }
 
 export class Authentication extends AggregateRoot {
-    idToken: AuthenticationIdToken;
+    userId: AuthenticationUserId;
     email: AuthenticationEmailAddress;
 
     constructor(
-        idToken: AuthenticationIdToken,
+        userId: AuthenticationUserId,
         email: AuthenticationEmailAddress) {
         super();
-        this.idToken = idToken;
+        this.userId = userId;
         this.email = email;
     }
 
-    static create({ idToken, email }: Params) {
-        const auth = new Authentication(idToken, email);
+    static create({ userId, email }: Params) {
+        const auth = new Authentication(userId, email);
 
         auth.record(new AuthenticationLoginDomainEvent({ email: email.value }));
 
@@ -30,7 +30,7 @@ export class Authentication extends AggregateRoot {
 
     toPrimitives() {
         return {
-            idToken: this.idToken.value,
+            userId: this.userId.value,
             email: this.email.value
         }
     }
