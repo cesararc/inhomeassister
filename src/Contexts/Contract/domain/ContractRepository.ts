@@ -20,20 +20,12 @@ export interface ContractRepository {
     *
     * @returns A promise void.
     */
-    contractReject(uid: ContractUid, reviewedAt: ContractReviewedAt, status: ContractStatus): Promise<void>;
+    contractReview(uid: ContractUid, reviewedAt: ContractReviewedAt, status: ContractStatus): Promise<void>;
     /**
-    * Change contract status to accept.
-    * * @param uid uid contract
-    * * @param verifiedAt uid contract
+    * Contract no verified.
+    * * @param uid - Instance contract.
     *
-    * @returns A promise void.
+    * @returns A promise array seller contract.
     */
-    contractApprove(uid: ContractUid, reviewedAt: ContractReviewedAt, status: ContractStatus): Promise<void>;
-    /**
-   * Contract no verified.
-   * * @param uid - Instance contract.
-   *
-   * @returns A promise array seller contract.
-   */
     unverified(uid: UserRecordUid): Promise<Array<Contract>>;
 }

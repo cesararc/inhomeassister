@@ -5,6 +5,7 @@ export enum Status {
     CREATED = "CREATED",
     REJECTED = "REJECTED",
     APPROVED = "APPROVED",
+    PRODUCTION = "PRODUCTION"
 }
 
 export class ContractStatus extends EnumValueObject<Status> {
@@ -19,6 +20,8 @@ export class ContractStatus extends EnumValueObject<Status> {
     static reject(): Status { return Status.REJECTED };
 
     static approve(): Status { return Status.APPROVED };
+
+    static production(): Status { return Status.PRODUCTION };
 
 
     protected ensureFormatValid(value: string) {

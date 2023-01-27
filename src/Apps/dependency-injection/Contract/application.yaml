@@ -45,6 +45,20 @@ services:
     class: ../../../Apps/Contract/controllers/ContractApproveController
     arguments: ['@Shared.CommandBus']
 
+  Contract.ContractProduction:
+    class: ../../../Contexts/Contract/application/contractProduction/ContractProduction
+    arguments: ['@Contract.ContractRepository']
+
+  Contract.ContractProductionCommandHandler:
+    class: ../../../Contexts/Contract/application/contractProduction/ContractProductionCommandHandler
+    arguments: ['@Contract.ContractProduction']
+    tags:
+      - { name: 'commandHandler' }
+
+  Contract.ContractProductionController:
+    class: ../../../Apps/Contract/controllers/ContractProductionController
+    arguments: ['@Shared.CommandBus']
+
   Contract.ContractUnverified:
     class: ../../../Contexts/Contract/application/unverified/ContractUnverified
     arguments: ['@Contract.ContractRepository']

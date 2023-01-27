@@ -20,13 +20,7 @@ export class ContractRepositoryFirebase implements ContractRepository {
         await collection.set(document);
     }
 
-    async contractReject(uid: ContractUid, reviewedAt: ContractReviewedAt, status: ContractStatus): Promise<void> {
-        const collection = this.collection().doc(uid.value);
-
-        await collection.update({ reviewedAt: reviewedAt.value, status: status.value });
-    }
-
-    async contractApprove(uid: ContractUid, reviewedAt: ContractReviewedAt, status: ContractStatus): Promise<void> {
+    async contractReview(uid: ContractUid, reviewedAt: ContractReviewedAt, status: ContractStatus): Promise<void> {
         const collection = this.collection().doc(uid.value);
 
         await collection.update({ reviewedAt: reviewedAt.value, status: status.value });
