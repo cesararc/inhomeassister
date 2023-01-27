@@ -11,7 +11,7 @@ import { ContractUpdatedAt } from '../../domain/ContractUpdatedAt';
 import { ContractCreate } from './ContractCreate';
 import { ContractCreateCommand } from './ContractCreateCommand';
 import { SellerUid } from '../../../Seller/domain/SellerUid';
-import { ContractVerifiedAt } from '../../domain/ContractVerifiedAt';
+import { ContractReviewedAt } from '../../domain/ContractReviewedAt';
 import { ContractProjectPrice } from '../../domain/ContractProjectPrice';
 import { ContractProjectBasePrice } from '../../domain/ContractProjectBasePrice';
 import { ContractProjectSellerRevenue } from '../../domain/ContractProjectSellerRevenue';
@@ -36,7 +36,7 @@ export class ContractCreateCommandHandler implements CommandHandler<ContractCrea
             projectPrice: new ContractProjectPrice(ContractProjectPrice.initialize()),
             projectBasePrice: new ContractProjectBasePrice(ContractProjectBasePrice.initialize()),
             projectSellerRevenue: new ContractProjectSellerRevenue(ContractProjectSellerRevenue.initialize()),
-            verifiedAt: new ContractVerifiedAt(ContractVerifiedAt.initialize()),
+            verifiedAt: new ContractReviewedAt(ContractReviewedAt.initialize()),
             createdAt: new ContractCreatedAt(ContractCreatedAt.initialize()),
             updatedAt: new ContractUpdatedAt(ContractUpdatedAt.initialize())
         }

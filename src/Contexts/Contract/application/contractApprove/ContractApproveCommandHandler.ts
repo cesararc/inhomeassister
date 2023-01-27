@@ -1,23 +1,23 @@
 import { CommandHandler } from '../../../Shared/domain/CommandHandler';
-import { ContractRejectCommand } from './ContractRejectCommand';
-import { ContractReject } from './ContractReject';
 import { Command } from '../../../Shared/domain/Command';
 import { ContractUid } from '../../domain/ContractUid';
 import { ContractReviewedAt } from '../../domain/ContractReviewedAt';
 import { ContractStatus } from '../../domain/ContractStatus';
+import { ContractApprove } from './ContractApprove';
+import { ContractApproveCommand } from './ContractApproveCommand';
 
-export class ContractRejectCommandHandler implements CommandHandler<ContractRejectCommand>{
-    constructor(private contract: ContractReject) { }
+export class ContractApproveCommandHandler implements CommandHandler<ContractApproveCommand>{
+    constructor(private contract: ContractApprove) { }
 
     subscribedTo(): Command {
-        return ContractRejectCommand;
+        return ContractApproveCommand;
     }
 
-    async handle(command: ContractRejectCommand): Promise<void> {
+    async handle(command: ContractApproveCommand): Promise<void> {
 
         await this.contract.run(
             new ContractUid(command.uid),
             new ContractReviewedAt(ContractReviewedAt.initialize()),
-            new ContractStatus(ContractStatus.reject()));
+            new ContractStatus(ContractStatus.approve()));
     }
 }

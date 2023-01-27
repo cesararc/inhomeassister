@@ -2,9 +2,9 @@ import { InvalidArgumentError } from '../../Shared/domain/value-objects/InvalidA
 import { EnumValueObject } from '../../Shared/domain/value-objects/EnumValueObjects';
 
 export enum Status {
-    CREATED = "created",
-    REJECTED = "rejected",
-    VERIFIED = "verified",
+    CREATED = "CREATED",
+    REJECTED = "REJECTED",
+    APPROVED = "APPROVED",
 }
 
 export class ContractStatus extends EnumValueObject<Status> {
@@ -15,6 +15,11 @@ export class ContractStatus extends EnumValueObject<Status> {
     }
 
     static initialize(): Status { return Status.CREATED };
+
+    static reject(): Status { return Status.REJECTED };
+
+    static approve(): Status { return Status.APPROVED };
+
 
     protected ensureFormatValid(value: string) {
         if (value.length === 0) {

@@ -9,7 +9,7 @@ import { ContractFinancialDoc } from '../../domain/ContractFinancialDoc';
 import { ContractUpdatedAt } from '../../domain/ContractUpdatedAt';
 import { UserRecordUid } from '../../../UserRecord/domain/UserRecordUid';
 import { ContractUserRecordNotFound } from '../../domain/ContractUserRecordNotFound';
-import { ContractVerifiedAt } from '../../domain/ContractVerifiedAt';
+import { ContractReviewedAt } from '../../domain/ContractReviewedAt';
 import { ContractProjectPrice } from '../../domain/ContractProjectPrice';
 import { ContractProjectBasePrice } from '../../domain/ContractProjectBasePrice';
 import { ContractProjectSellerRevenue } from '../../domain/ContractProjectSellerRevenue';
@@ -25,7 +25,7 @@ type Params = {
     projectPrice: ContractProjectPrice,
     projectBasePrice: ContractProjectBasePrice;
     projectSellerRevenue: ContractProjectSellerRevenue;
-    verifiedAt: ContractVerifiedAt;
+    verifiedAt: ContractReviewedAt;
     createdAt: ContractCreatedAt;
     updatedAt: ContractUpdatedAt;
 }

@@ -1,7 +1,8 @@
 import { Contract } from "./Contract";
 import { UserRecordUid } from '../../UserRecord/domain/UserRecordUid';
 import { ContractUid } from "./ContractUid";
-import { ContractVerifiedAt } from './ContractVerifiedAt';
+import { ContractReviewedAt } from './ContractReviewedAt';
+import { ContractStatus } from "./ContractStatus";
 
 export interface ContractRepository {
     /**
@@ -12,18 +13,27 @@ export interface ContractRepository {
     */
     create(contract: Contract): Promise<void>;
     /**
-    * Contract no verified.
-    * * @param uid - Instance contract.
+    * Rejection of a contract for documentation reasons or contract approval reasons.
+    * * @param uid uid contract
+    * * @param verifiedAt uid contract
+    * * @param status status contract
     *
-    * @returns A promise array seller contract.
+    * @returns A promise void.
     */
-    unverified(uid: UserRecordUid): Promise<Array<Contract>>;
+    contractReject(uid: ContractUid, reviewedAt: ContractReviewedAt, status: ContractStatus): Promise<void>;
     /**
-    * rejection of a contract for documentation reasons or contract approval reasons.
+    * Change contract status to accept.
     * * @param uid uid contract
     * * @param verifiedAt uid contract
     *
     * @returns A promise void.
     */
-    contractReject(uid: ContractUid, verifiedAt: ContractVerifiedAt): Promise<void>;
+    contractApprove(uid: ContractUid, reviewedAt: ContractReviewedAt, status: ContractStatus): Promise<void>;
+    /**
+   * Contract no verified.
+   * * @param uid - Instance contract.
+   *
+   * @returns A promise array seller contract.
+   */
+    unverified(uid: UserRecordUid): Promise<Array<Contract>>;
 }
