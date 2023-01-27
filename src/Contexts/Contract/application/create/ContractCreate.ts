@@ -3,7 +3,7 @@ import { Contract } from '../../domain/Contract';
 import { UserRecordRepository } from '../../../UserRecord/domain/UserRecordRepository';
 import { ContractUid } from '../../domain/ContractUid';
 import { ContractCreatedAt } from '../../domain/ContractCreatedAt';
-import { ContractVerified } from '../../domain/ContractVerified';
+import { ContractStatus } from '../../domain/ContractStatus';
 import { ContractOfficialDoc } from '../../domain/ContractOfficialDoc';
 import { ContractFinancialDoc } from '../../domain/ContractFinancialDoc';
 import { ContractUpdatedAt } from '../../domain/ContractUpdatedAt';
@@ -21,7 +21,7 @@ type Params = {
     serviceProviderUid: UserRecordUid;
     officialDoc: ContractOfficialDoc;
     financialDoc: ContractFinancialDoc;
-    verified: ContractVerified;
+    status: ContractStatus;
     projectPrice: ContractProjectPrice,
     projectBasePrice: ContractProjectBasePrice;
     projectSellerRevenue: ContractProjectSellerRevenue;
@@ -33,7 +33,7 @@ type Params = {
 export class ContractCreate {
     constructor(private userRecord: UserRecordRepository, private repository: ContractRepository) { }
 
-    async run({ uid, sellerUid, customerUid, serviceProviderUid, financialDoc, officialDoc, verified, projectPrice, projectBasePrice, projectSellerRevenue, verifiedAt, createdAt, updatedAt }: Params): Promise<void> {
+    async run({ uid, sellerUid, customerUid, serviceProviderUid, financialDoc, officialDoc, status, projectPrice, projectBasePrice, projectSellerRevenue, verifiedAt, createdAt, updatedAt }: Params): Promise<void> {
 
         const seller = await this.userRecord.profile(sellerUid);
         const customer = await this.userRecord.profile(customerUid);
@@ -48,7 +48,7 @@ export class ContractCreate {
             serviceProvider,
             officialDoc,
             financialDoc,
-            verified,
+            status,
             projectPrice,
             projectBasePrice,
             projectSellerRevenue,
