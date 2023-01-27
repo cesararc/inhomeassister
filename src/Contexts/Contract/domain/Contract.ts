@@ -4,13 +4,13 @@ import { ContractUid } from './ContractUid';
 import { ContractOfficialDoc } from './ContractOfficialDoc';
 import { ContractFinancialDoc } from './ContractFinancialDoc';
 import { ContractCreatedAt } from './ContractCreatedAt';
-import { ContractVerified } from './ContractVerified';
 import { ContractUpdatedAt } from './ContractUpdatedAt';
 import { ContractCreatedDomainEvent } from './ContractCreatedDomainEvent';
-import { ContractVerifiedAt } from './ContractVerifiedAt';
 import { ContractProjectPrice } from './ContractProjectPrice';
 import { ContractProjectBasePrice } from './ContractProjectBasePrice';
 import { ContractProjectSellerRevenue } from './ContractProjectSellerRevenue';
+import { ContractStatus } from './ContractStatus';
+import { ContractReviewedAt } from './ContractReviewedAt';
 
 export class Contract extends AggregateRoot {
 
@@ -20,11 +20,11 @@ export class Contract extends AggregateRoot {
     serviceProvider: UserRecord;
     officialDoc: ContractOfficialDoc;
     financialDoc: ContractFinancialDoc;
-    verified: ContractVerified;
+    status: ContractStatus;
     projectPrice: ContractProjectPrice;
     projectBasePrice: ContractProjectBasePrice;
     projectSellerRevenue: ContractProjectSellerRevenue;
-    verifiedAt: ContractVerifiedAt;
+    reviewedAt: ContractReviewedAt;
     createdAt: ContractCreatedAt;
     updateAt: ContractUpdatedAt;
 
@@ -35,11 +35,11 @@ export class Contract extends AggregateRoot {
         serviceProvider: UserRecord,
         contractDoc: ContractOfficialDoc,
         financialDoc: ContractFinancialDoc,
-        verified: ContractVerified,
+        status: ContractStatus,
         price: ContractProjectPrice,
         basePrice: ContractProjectBasePrice,
         sellerRevenue: ContractProjectSellerRevenue,
-        verifiedAt: ContractVerifiedAt,
+        reviewedAt: ContractReviewedAt,
         createdAt: ContractCreatedAt,
         updatedAt: ContractUpdatedAt) {
 
@@ -50,11 +50,11 @@ export class Contract extends AggregateRoot {
         this.serviceProvider = serviceProvider;
         this.officialDoc = contractDoc;
         this.financialDoc = financialDoc;
-        this.verified = verified;
+        this.status = status;
         this.projectPrice = price;
         this.projectBasePrice = basePrice;
         this.projectSellerRevenue = sellerRevenue;
-        this.verifiedAt = verifiedAt;
+        this.reviewedAt = reviewedAt;
         this.createdAt = createdAt;
         this.updateAt = updatedAt;
     }
@@ -66,11 +66,11 @@ export class Contract extends AggregateRoot {
         serviceProvider: UserRecord,
         officialDoc: ContractOfficialDoc,
         financialDoc: ContractFinancialDoc,
-        verified: ContractVerified,
+        status: ContractStatus,
         projectPrice: ContractProjectPrice,
         projectBasePrice: ContractProjectBasePrice,
         projectSellerRevenue: ContractProjectSellerRevenue,
-        verifiedAt: ContractUpdatedAt,
+        reviewedAt: ContractUpdatedAt,
         createdAt: ContractCreatedAt,
         updatedAt: ContractUpdatedAt
     ) {
@@ -81,11 +81,11 @@ export class Contract extends AggregateRoot {
             serviceProvider,
             officialDoc,
             financialDoc,
-            verified,
+            status,
             projectPrice,
             projectBasePrice,
             projectSellerRevenue,
-            verifiedAt,
+            reviewedAt,
             createdAt,
             updatedAt);
 
@@ -94,7 +94,6 @@ export class Contract extends AggregateRoot {
         return contract;
     }
 
-
     static fromPrimitives({
         uid,
         seller,
@@ -102,11 +101,11 @@ export class Contract extends AggregateRoot {
         serviceProvider,
         officialDoc,
         financialDoc,
-        verified,
+        status,
         projectPrice,
         projectBasePrice,
         projectSellerRevenue,
-        verifiedAt,
+        reviewedAt,
         createdAt,
         updatedAt }:
         {
@@ -116,11 +115,11 @@ export class Contract extends AggregateRoot {
             serviceProvider: any,
             officialDoc: string,
             financialDoc: string,
-            verified: boolean,
+            status: any,
             projectPrice: number;
             projectBasePrice: number;
             projectSellerRevenue: number;
-            verifiedAt: string,
+            reviewedAt: string,
             createdAt: string,
             updatedAt: string
         }) {
@@ -132,11 +131,11 @@ export class Contract extends AggregateRoot {
             UserRecord.fromPrimitives(serviceProvider),
             new ContractOfficialDoc(officialDoc),
             new ContractFinancialDoc(financialDoc),
-            new ContractVerified(verified),
+            new ContractStatus(status),
             new ContractProjectPrice(projectPrice),
             new ContractProjectBasePrice(projectBasePrice),
             new ContractProjectSellerRevenue(projectSellerRevenue),
-            new ContractVerifiedAt(verifiedAt),
+            new ContractReviewedAt(reviewedAt),
             new ContractCreatedAt(createdAt),
             new ContractUpdatedAt(updatedAt)
         );
@@ -150,11 +149,11 @@ export class Contract extends AggregateRoot {
             serviceProvider: this.serviceProvider.toPrimitives(),
             officialDoc: this.officialDoc.value,
             financialDoc: this.financialDoc.value,
-            verified: this.verified.value,
+            status: this.status.value,
             projectPrice: this.projectPrice.value,
             projectBasePrice: this.projectBasePrice.value,
             projectSellerRevenue: this.projectSellerRevenue.value,
-            verifiedAt: this.verifiedAt.value,
+            reviewedAt: this.reviewedAt.value,
             createdAt: this.createdAt.value,
             updateAt: this.updateAt.value,
 

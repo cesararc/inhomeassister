@@ -17,6 +17,48 @@ services:
     class: ../../../Apps/Contract/controllers/ContractCreateController
     arguments: ['@Shared.CommandBus']
 
+  Contract.ContractReject:
+    class: ../../../Contexts/Contract/application/contractReject/ContractReject
+    arguments: ['@Contract.ContractRepository']
+
+  Contract.ContractRejectCommandHandler:
+    class: ../../../Contexts/Contract/application/contractReject/ContractRejectCommandHandler
+    arguments: ['@Contract.ContractReject']
+    tags:
+      - { name: 'commandHandler' }
+
+  Contract.ContractRejectController:
+    class: ../../../Apps/Contract/controllers/ContractRejectController
+    arguments: ['@Shared.CommandBus']
+
+  Contract.ContractApprove:
+    class: ../../../Contexts/Contract/application/contractApprove/ContractApprove
+    arguments: ['@Contract.ContractRepository']
+
+  Contract.ContractApproveCommandHandler:
+    class: ../../../Contexts/Contract/application/contractApprove/ContractApproveCommandHandler
+    arguments: ['@Contract.ContractApprove']
+    tags:
+      - { name: 'commandHandler' }
+
+  Contract.ContractApproveController:
+    class: ../../../Apps/Contract/controllers/ContractApproveController
+    arguments: ['@Shared.CommandBus']
+
+  Contract.ContractProduction:
+    class: ../../../Contexts/Contract/application/contractProduction/ContractProduction
+    arguments: ['@Contract.ContractRepository']
+
+  Contract.ContractProductionCommandHandler:
+    class: ../../../Contexts/Contract/application/contractProduction/ContractProductionCommandHandler
+    arguments: ['@Contract.ContractProduction']
+    tags:
+      - { name: 'commandHandler' }
+
+  Contract.ContractProductionController:
+    class: ../../../Apps/Contract/controllers/ContractProductionController
+    arguments: ['@Shared.CommandBus']
+
   Contract.ContractUnverified:
     class: ../../../Contexts/Contract/application/unverified/ContractUnverified
     arguments: ['@Contract.ContractRepository']

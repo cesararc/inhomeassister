@@ -4,14 +4,14 @@ import { CustomerUid } from '../../../Customer/Customer/domain/CustomerUid';
 import { ServiceProviderUid } from '../../../ServiceProvider/domain/ServiceProviderUid';
 import { ContractUid } from '../../domain/ContractUid';
 import { ContractCreatedAt } from '../../domain/ContractCreatedAt';
-import { ContractVerified } from '../../domain/ContractVerified';
+import { ContractStatus } from '../../domain/ContractStatus';
 import { ContractOfficialDoc } from '../../domain/ContractOfficialDoc';
 import { ContractFinancialDoc } from '../../domain/ContractFinancialDoc';
 import { ContractUpdatedAt } from '../../domain/ContractUpdatedAt';
 import { ContractCreate } from './ContractCreate';
 import { ContractCreateCommand } from './ContractCreateCommand';
 import { SellerUid } from '../../../Seller/domain/SellerUid';
-import { ContractVerifiedAt } from '../../domain/ContractVerifiedAt';
+import { ContractReviewedAt } from '../../domain/ContractReviewedAt';
 import { ContractProjectPrice } from '../../domain/ContractProjectPrice';
 import { ContractProjectBasePrice } from '../../domain/ContractProjectBasePrice';
 import { ContractProjectSellerRevenue } from '../../domain/ContractProjectSellerRevenue';
@@ -32,11 +32,11 @@ export class ContractCreateCommandHandler implements CommandHandler<ContractCrea
             serviceProviderUid: new ServiceProviderUid(command.serviceProvider),
             officialDoc: new ContractOfficialDoc(command.officialDoc),
             financialDoc: new ContractFinancialDoc(command.financialDoc),
-            verified: new ContractVerified(ContractVerified.initialize()),
+            status: new ContractStatus(ContractStatus.initialize()),
             projectPrice: new ContractProjectPrice(ContractProjectPrice.initialize()),
             projectBasePrice: new ContractProjectBasePrice(ContractProjectBasePrice.initialize()),
             projectSellerRevenue: new ContractProjectSellerRevenue(ContractProjectSellerRevenue.initialize()),
-            verifiedAt: new ContractVerifiedAt(ContractVerifiedAt.initialize()),
+            verifiedAt: new ContractReviewedAt(ContractReviewedAt.initialize()),
             createdAt: new ContractCreatedAt(ContractCreatedAt.initialize()),
             updatedAt: new ContractUpdatedAt(ContractUpdatedAt.initialize())
         }

@@ -29,7 +29,7 @@ export class ContractUnverifiedController implements Controller {
         return contract.map(item => ({
             uid: item.uid.value,
             createdAt: item.createdAt.value,
-            verified: item.verified.value,
+            status: item.status.value,
             updatedAt: item.updateAt.value
         }));
     }
