@@ -7,9 +7,14 @@ services:
     class: ../../../Contexts/Authentication/application/AuthenticationSignIn
     arguments: ['@Authentication.AuthenticationRepositoryFirebase', '@Shared.EventBus']
 
+  Authentication.AuthenticationRole:
+    class: ../../../Contexts/Authentication/application/AuthenticationRole
+    arguments: ['@Authentication.AuthenticationRepositoryFirebase']
+
+
   Authentication.AuthenticationSignInController:
     class: ../../../Apps/Authentication/controllers/AuthenticationSignInController
-    arguments: ['@Authentication.AuthenticationSignIn']
+    arguments: ['@Authentication.AuthenticationSignIn', "@Authentication.AuthenticationRole"]
 
   Authentication.AuthenticationSignOut:
     class: ../../../Contexts/Authentication/application/AuthenticationSignOut
