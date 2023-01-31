@@ -44,6 +44,7 @@ export class UserRecord extends AggregateRoot {
             uid: this.uid.value,
             displayName: this.displayName.value,
             email: this.email.value,
+            password: this.password.value,
             phoneNumber: this.phoneNumber.value,
             claim: this.claim.value
         }

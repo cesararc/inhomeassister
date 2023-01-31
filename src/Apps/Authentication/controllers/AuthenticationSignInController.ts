@@ -1,26 +1,31 @@
-import httpStatus from 'http-status';
 import { Request, Response } from 'express';
+import httpStatus from 'http-status';
 import { Controller } from "../../controller/Controller";
 import { AuthenticationSignIn } from '../../../Contexts/Authentication/application/AuthenticationSignIn';
 import { AuthenticationForbidden } from '../../../Contexts/Authentication/domain/AuthenticationForbidden';
-import { AuthenticationIdToken } from '../../../Contexts/Authentication/domain/AuthenticationIdToken';
+import { AuthenticationUserId } from '../../../Contexts/Authentication/domain/AuthenticationUserId';
 import { AuthenticationEmailAddress } from "../../../Contexts/Authentication/domain/AuthenticationEmailAddress";
+import { AuthenticationRole } from '../../../Contexts/Authentication/application/AuthenticationRole';
+import { AuthenticationIdToken } from '../../../Contexts/Authentication/domain/AuthenticationIdToken';
 
 export class AuthenticationSignInController implements Controller {
 
-    constructor(private auth: AuthenticationSignIn) { }
+    constructor(private auth: AuthenticationSignIn, private role: AuthenticationRole) { }
 
     async run(req: Request, res: Response) {
+        const userId = req.body.userId;
         const idToken = req.body.idToken;
         const email = req.body.email;
 
         try {
             const token = await this.auth.run(
-                new AuthenticationIdToken(idToken),
+                new AuthenticationUserId(userId),
                 new AuthenticationEmailAddress(email)
             );
 
-            return res.status(httpStatus.OK).json({ token });
+            const role = await this.role.run(new AuthenticationIdToken(idToken));
+
+            return res.status(httpStatus.OK).json(this.toResponse(token, role));
 
         } catch (error) {
             if (error instanceof AuthenticationForbidden) {
@@ -29,5 +34,9 @@ export class AuthenticationSignInController implements Controller {
 
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }
+    }
+
+    private toResponse(token: string, role: string) {
+        return { token, role };
     }
 }
