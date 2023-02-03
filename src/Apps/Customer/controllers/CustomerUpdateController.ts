@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
-import { CustomerUpdateCommand } from '../../../Contexts/Customer/Customer/application/update/CustomerUpdateCommand';
+import { CustomerUpdateCommand } from '../../../Contexts/Customer/application/update/CustomerUpdateCommand';
 import { UserRecordUpdateCommand } from '../../../Contexts/UserRecord/application/Update/UserRecordUpdateCommand';
 
 export class CustomerUpdateController implements Controller {

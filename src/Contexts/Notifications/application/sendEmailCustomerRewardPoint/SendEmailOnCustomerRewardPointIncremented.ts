@@ -2,7 +2,7 @@ import { DomainEventSubscriber } from "../../../Shared/domain/DomainEventSubscri
 import { DomainEventClass } from '../../../Shared/domain/DomainEvent';
 import { EmailAddress } from "../../domain/EmailAddress";
 import { SendEmailCustomerRewardPointIncremented } from "./SendEmailCustomerRewardPointIncremented";
-import { CustomerRewardPointIncrementedDomainEvent } from '../../../Customer/CustomerRewardPoint/domain/CustomerRewardPointIncrementedDomainEvent';
+import { CustomerRewardPointIncrementedDomainEvent } from '../../../CustomerRewardPoint/domain/CustomerRewardPointIncrementedDomainEvent';
 
 export class SendEmailOnCustomerRewardPointIncremented implements DomainEventSubscriber<CustomerRewardPointIncrementedDomainEvent>{
     constructor(private sendEmail: SendEmailCustomerRewardPointIncremented) { }
