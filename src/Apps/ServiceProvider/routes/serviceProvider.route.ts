@@ -9,7 +9,7 @@ export const register = (router: Router) => {
     const serviceProviderProfileController = container.get('ServiceProvider.ServiceProviderProfileController');
 
     router.post("/api/service_provider", (...params) => serviceProviderCreateController.run(...params));
-    router.put("/api/service-provider/:uid",
+    router.put("/api/service_provider/:uid",
         isAuthenticated,
         isAuthorized({ hasRole: ['service_provider'] }),
         (...params) => serviceProviderUpdateController.run(...params));
