@@ -1,14 +1,14 @@
 services:
   CustomerRewardPoint.CustomerRewardPointRepository:
-    class: ../../../Contexts/Customer/CustomerRewardPoint/infrastructure/CustomerRewardPointRepositoryFirebase
+    class: ../../../Contexts/CustomerRewardPoint/infrastructure/CustomerRewardPointRepositoryFirebase
     arguments: []
 
   CustomerRewardPoint.CustomerRewardPointIncrement:
-    class: ../../../Contexts/Customer/CustomerRewardPoint/application/increment/CustomerRewardPointIncrement
+    class: ../../../Contexts/CustomerRewardPoint/application/increment/CustomerRewardPointIncrement
     arguments: ['@CustomerRewardPoint.CustomerRewardPointRepository', '@Shared.EventBus']
 
   CustomerRewardPoint.CustomerRewardPointIncrementCommandHandler:
-    class: ../../../Contexts/Customer/CustomerRewardPoint/application/increment/CustomerRewardPointIncrementCommandHandler
+    class: ../../../Contexts/CustomerRewardPoint/application/increment/CustomerRewardPointIncrementCommandHandler
     arguments: ['@CustomerRewardPoint.CustomerRewardPointIncrement']
     tags:
       - { name: 'commandHandler' }
@@ -18,11 +18,11 @@ services:
     arguments: ['@Shared.CommandBus']
 
   CustomerRewardPoint.CustomerRewardPointSearch:
-    class: ../../../Contexts/Customer/CustomerRewardPoint/application/search/CustomerRewardPointSearch
+    class: ../../../Contexts/CustomerRewardPoint/application/search/CustomerRewardPointSearch
     arguments: ['@CustomerRewardPoint.CustomerRewardPointRepository', '@Shared.EventBus']
 
   CustomerRewardPoint.CustomerRewardPointSearchQueryHandler:
-    class: ../../../Contexts/Customer/CustomerRewardPoint/application/search/CustomerRewardPointSearchQueryHandler
+    class: ../../../Contexts/CustomerRewardPoint/application/search/CustomerRewardPointSearchQueryHandler
     arguments: ['@CustomerRewardPoint.CustomerRewardPointSearch']
     tags:
       - { name: 'queryHandler' }

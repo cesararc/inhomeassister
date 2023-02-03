@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
-import { CustomerRewardPointIncrementCommand } from '../../../Contexts/Customer/CustomerRewardPoint/application/increment/CustomerRewardPointIncrementCommand';
+import { CustomerRewardPointIncrementCommand } from '../../../Contexts/CustomerRewardPoint/application/increment/CustomerRewardPointIncrementCommand';
 
 export class CustomerRewardPointIncrementController implements Controller {
 

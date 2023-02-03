@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import { Response, Request } from 'express';
 import { Controller } from '../../controller/Controller';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
-import { CustomerCreateCommand } from '../../../Contexts/Customer/Customer/application/create/CustomerCreateCommand';
+import { CustomerCreateCommand } from '../../../Contexts/Customer/application/create/CustomerCreateCommand';
 import { UserRecordCreateCommand } from '../../../Contexts/UserRecord/application/Create/UserRecordCreateCommand';
 import { UserRecordRemoveCommand } from '../../../Contexts/UserRecord/application/Remove/UserRecordRemoveCommand';
 

@@ -1,6 +1,6 @@
 import { Command } from '../../../Shared/domain/Command';
 import { CommandHandler } from '../../../Shared/domain/CommandHandler';
-import { CustomerUid } from '../../../Customer/Customer/domain/CustomerUid';
+import { CustomerUid } from '../../../Customer/domain/CustomerUid';
 import { ServiceProviderUid } from '../../../ServiceProvider/domain/ServiceProviderUid';
 import { ContractUid } from '../../domain/ContractUid';
 import { ContractCreatedAt } from '../../domain/ContractCreatedAt';

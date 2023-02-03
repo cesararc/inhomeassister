@@ -4,17 +4,17 @@ import { isAuthenticated } from '../../middleware/isAuthenticated';
 import { isAuthorized } from '../../middleware/isAuthorized';
 
 export const register = (router: Router) => {
-    const sellerCreateController = container.get('Seller.SellerCreateController');
-    const sellerUpdateController = container.get('Seller.SellerUpdateController');
-    const sellerProfileController = container.get('Seller.SellerProfileController');
+    const SellerCreateController = container.get('Seller.SellerCreateController');
+    const SellerUpdateController = container.get('Seller.SellerUpdateController');
+    const SellerProfileController = container.get('Seller.SellerProfileController');
 
-    router.post("/api/seller", (...params) => sellerCreateController.run(...params));
+    router.post("/api/seller", (...params) => SellerCreateController.run(...params));
     router.put("/api/seller/:uid",
         isAuthenticated,
         isAuthorized({ hasRole: ['seller'] }),
-        (...params) => sellerUpdateController.run(...params));
+        (...params) => SellerUpdateController.run(...params));
     router.get("/api/seller/profile/:uid",
         isAuthenticated,
         isAuthorized({ hasRole: ['seller'] }),
-        (...params) => sellerProfileController.run(...params));
+        (...params) => SellerProfileController.run(...params));
 }

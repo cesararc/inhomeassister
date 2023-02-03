@@ -5,15 +5,15 @@ import { isAuthorized } from '../../middleware/isAuthorized';
 
 export const register = (router: Router) => {
 
-    const search = container.get("CustomerRewardPoint.CustomerRewardPointSearchController");
-    const increment = container.get("CustomerRewardPoint.CustomerRewardPointIncrementController");
+    const SearchController = container.get("CustomerRewardPoint.CustomerRewardPointSearchController");
+    const IncrementController = container.get("CustomerRewardPoint.CustomerRewardPointIncrementController");
 
     router.post("/api/customer/reward-point",
         isAuthenticated,
         isAuthorized({ hasRole: ["admin"] }),
-        (...params) => increment.run(...params));
+        (...params) => IncrementController.run(...params));
     router.get("/api/customer/reward-point/:uid",
         isAuthenticated,
         isAuthorized({ hasRole: ["customer"] }),
-        (...params) => search.run(...params));
+        (...params) => SearchController.run(...params));
 }
