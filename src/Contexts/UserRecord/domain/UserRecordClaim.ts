@@ -5,6 +5,7 @@ export enum Claim {
     SELLER = "seller",
     SERVICE_PROVIDER = "service_provider",
     CUSTOMER = "customer",
+    ADMIN = "admin"
 }
 
 export class UserRecordClaim extends EnumValueObject<Claim> {

@@ -1,0 +1,33 @@
+services:
+  Admin.AdminRepository:
+    class: ../../../Contexts/Admin/infrastructure/AdminRepositoryFirebase
+    arguments: []
+
+  Admin.AdminCreate:
+    class: ../../../Contexts/Admin/application/create/AdminCreate
+    arguments: ['@Admin.AdminRepository', '@Shared.EventBus']
+
+  Admin.AdminCreateCommandHandler:
+    class: ../../../Contexts/Admin/application/create/AdminCreateCommandHandler
+    arguments: ['@Admin.AdminCreate']
+    tags:
+      - { name: 'commandHandler' }
+
+  Admin.AdminCreateController:
+    class: ../../../Apps/Admin/controllers/AdminCreateController
+    arguments: ['@Shared.CommandBus']
+
+  Admin.AdminProfile:
+    class: ../../../Contexts/Admin/application/profile/AdminProfile
+    arguments: ['@Admin.AdminRepository']
+
+  Admin.AdminProfileQueryHandler:
+    class: ../../../Contexts/Admin/application/profile/AdminProfileQueryHandler
+    arguments: ['@Admin.AdminProfile']
+    tags:
+      - { name: 'queryHandler' }
+
+  Admin.AdminProfileController:
+    class: ../../../Apps/Admin/controllers/AdminProfileController
+    arguments: ['@Shared.QueryBus']
+

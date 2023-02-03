@@ -2,9 +2,9 @@ import httpStatus from 'http-status';
 import { Response, Request } from 'express';
 import { Controller } from '../../controller/Controller';
 import { QueryBus } from '../../../Contexts/Shared/domain/QueryBus';
-import { CustomerRewardPointSearchQuery } from '../../../Contexts/Customer/CustomerRewardPoint/application/search/CustomerRewardPointSearchQuery';
-import { CustomerRewardPointSearchResponse } from '../../../Contexts/Customer/CustomerRewardPoint/application/search/CustomerRewardPointSearchResponse';
-import { CustomerRewardPoint } from '../../../Contexts/Customer/CustomerRewardPoint/domain/CustomerRewardPoint';
+import { CustomerRewardPointSearchQuery } from '../../../Contexts/CustomerRewardPoint/application/search/CustomerRewardPointSearchQuery';
+import { CustomerRewardPointSearchResponse } from '../../../Contexts/CustomerRewardPoint/application/search/CustomerRewardPointSearchResponse';
+import { CustomerRewardPoint } from '../../../Contexts/CustomerRewardPoint/domain/CustomerRewardPoint';
 
 export class CustomerRewardPointSearchController implements Controller {
 
