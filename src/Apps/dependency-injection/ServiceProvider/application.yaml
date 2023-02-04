@@ -33,7 +33,7 @@ services:
 
   ServiceProvider.ServiceProviderProfile:
     class: ../../../Contexts/ServiceProvider/application/profile/ServiceProviderProfile
-    arguments: ['@ServiceProvider.ServiceProviderRepository']
+    arguments: ['@ServiceProvider.ServiceProviderRepository', '@UserRecord.UserRecordRepository']
 
   ServiceProvider.ServiceProviderQueryHandler:
     class: ../../../Contexts/ServiceProvider/application/profile/ServiceProviderProfileQueryHandler

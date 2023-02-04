@@ -14,8 +14,8 @@ export class ServiceProviderProfileQueryHandler implements QueryHandler<ServiceP
     }
 
     async handle(query: ServiceProviderProfileQuery): Promise<ServiceProviderProfileResponse> {
-        const customer = await this.profile.run(new ServiceProviderUid(query.uid));
+        const response = await this.profile.run(new ServiceProviderUid(query.uid));
 
-        return new ServiceProviderProfileResponse(customer);
+        return new ServiceProviderProfileResponse(response.userRecord, response.serviceProvider);
     }
 }

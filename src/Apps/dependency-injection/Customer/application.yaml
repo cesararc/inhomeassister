@@ -19,7 +19,7 @@ services:
 
   Customer.CustomerProfile:
     class: ../../../Contexts/Customer/application/profile/CustomerProfile
-    arguments: ['@Customer.CustomerRepository']
+    arguments: ['@Customer.CustomerRepository', '@UserRecord.UserRecordRepository']
 
   Customer.CustomerProfileQueryHandler:
     class: ../../../Contexts/Customer/application/profile/CustomerProfileQueryHandler

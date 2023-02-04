@@ -2,8 +2,6 @@ import { Response, Request } from 'express';
 import httpStatus from 'http-status';
 import { Controller } from '../../controller/Controller';
 import { QueryBus } from '../../../Contexts/Shared/domain/QueryBus';
-import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/Profile/UserRecordProfileQuery';
-import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/Profile/UserRecordProfileResponse';
 import { UserRecord } from '../../../Contexts/UserRecord/domain/UserRecord';
 import { SellerProfileResponse } from '../../../Contexts/Seller/application/profile/SellerProfileResponse';
 import { Seller } from '../../../Contexts/Seller/domain/Seller';
@@ -18,13 +16,10 @@ export class SellerProfileController implements Controller {
         const uid = req.params.uid;
 
         try {
-            const userRecordQuery = new UserRecordProfileQuery(uid);
 
-            const sellerProfileProfileQuery = new SellerProfileQuery(uid);
+            const query = new SellerProfileQuery(uid);
 
-            const { userRecord }: UserRecordProfileResponse = await this.query.ask(userRecordQuery);
-
-            const { seller }: SellerProfileResponse = await this.query.ask(sellerProfileProfileQuery);
+            const { userRecord, seller }: SellerProfileResponse = await this.query.ask(query);
 
             res.status(httpStatus.OK).send(this.toResponse(userRecord, seller));
 

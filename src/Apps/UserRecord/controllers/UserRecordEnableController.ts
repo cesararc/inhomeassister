@@ -9,7 +9,6 @@ export class UserRecordEnableController implements Controller {
 
     async run(req: Request, res: Response): Promise<void> {
         const uid = req.params.uid;
-        console.log([uid])
 
         try {
             const command = new UserRecordEnableCommand(uid);
