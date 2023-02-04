@@ -4,7 +4,7 @@ import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { ServiceProviderCreateCommand } from '../../../Contexts/ServiceProvider/application/create/ServiceProviderCreateCommand';
 import { UserRecordCreateCommand } from '../../../Contexts/UserRecord/application/Create/UserRecordCreateCommand';
 import httpStatus from 'http-status';
-import { UserRecordRemoveCommand } from '../../../Contexts/UserRecord/application/Remove/UserRecordRemoveCommand';
+import { UserRecordDeleteCommand } from '../../../Contexts/UserRecord/application/Delete/UserRecordDeleteCommand';
 
 export class ServiceProviderCreateController implements Controller {
 
@@ -43,7 +43,7 @@ export class ServiceProviderCreateController implements Controller {
             await this.commandBus.dispatch(serviceProviderCreatecommand);
 
         } catch (error) {
-            const commandRollback = new UserRecordRemoveCommand(uid);
+            const commandRollback = new UserRecordDeleteCommand(uid);
 
             await this.commandBus.dispatch(commandRollback);
 

@@ -3,8 +3,8 @@ import { Response, Request } from 'express';
 import { Controller } from '../../controller/Controller';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { UserRecordCreateCommand } from '../../../Contexts/UserRecord/application/Create/UserRecordCreateCommand';
-import { UserRecordRemoveCommand } from '../../../Contexts/UserRecord/application/Remove/UserRecordRemoveCommand';
 import { AdminCreateCommand } from '../../../Contexts/Admin/application/create/AdminCreateCommand';
+import { UserRecordDeleteCommand } from '../../../Contexts/UserRecord/application/Delete/UserRecordDeleteCommand';
 
 export class AdminCreateController implements Controller {
 
@@ -43,7 +43,7 @@ export class AdminCreateController implements Controller {
 
         } catch (error) {
 
-            const rollback = new UserRecordRemoveCommand(uid);
+            const rollback = new UserRecordDeleteCommand(uid);
 
             this.commandBus.dispatch(rollback);
 

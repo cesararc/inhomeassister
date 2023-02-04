@@ -4,7 +4,7 @@ import { Controller } from '../../controller/Controller';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { CustomerCreateCommand } from '../../../Contexts/Customer/application/create/CustomerCreateCommand';
 import { UserRecordCreateCommand } from '../../../Contexts/UserRecord/application/Create/UserRecordCreateCommand';
-import { UserRecordRemoveCommand } from '../../../Contexts/UserRecord/application/Remove/UserRecordRemoveCommand';
+import { UserRecordDeleteCommand } from '../../../Contexts/UserRecord/application/Delete/UserRecordDeleteCommand';
 
 export class CustomerCreateController implements Controller {
 
@@ -47,7 +47,7 @@ export class CustomerCreateController implements Controller {
 
         } catch (error) {
 
-            const rollback = new UserRecordRemoveCommand(uid);
+            const rollback = new UserRecordDeleteCommand(uid);
 
             this.commandBus.dispatch(rollback);
 
