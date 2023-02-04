@@ -1,7 +1,8 @@
 import { UserRecordDisplayName } from "../../UserRecord/domain/UserRecordDisplayName";
 import { Customer } from "./Customer";
-import { CustomerDni } from "./CustomerDni";
+import { CustomerDni } from './CustomerDni';
 import { CustomerUid } from './CustomerUid';
+import { Nullable } from '../../Shared/domain/Nullable';
 
 export interface CustomerRepository {
     /**
@@ -25,4 +26,11 @@ export interface CustomerRepository {
     * @returns A promise void.
     */
     update(customer: Customer): Promise<void>;
+    /**
+    * Matching customer by dni
+    * @param customer - Entitie customer
+    *
+    * @returns A promise customer.
+    */
+    matching(criteria: CustomerDni): Promise<Nullable<Customer>>;
 }
