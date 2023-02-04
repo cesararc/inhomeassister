@@ -3,6 +3,7 @@ import { Customer } from "./Customer";
 import { CustomerDni } from './CustomerDni';
 import { CustomerUid } from './CustomerUid';
 import { Nullable } from '../../Shared/domain/Nullable';
+import { UserRecord } from '../../UserRecord/domain/UserRecord';
 
 export interface CustomerRepository {
     /**

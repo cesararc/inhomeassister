@@ -5,8 +5,6 @@ import { QueryBus } from '../../../Contexts/Shared/domain/QueryBus';
 import { CustomerProfileQuery } from '../../../Contexts/Customer/application/profile/CustomerProfileQuery';
 import { CustomerProfileResponse } from '../../../Contexts/Customer/application/profile/CustomerProfileResponse';
 import { Customer } from '../../../Contexts/Customer/domain/Customer';
-import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/Profile/UserRecordProfileQuery';
-import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/Profile/UserRecordProfileResponse';
 import { UserRecord } from '../../../Contexts/UserRecord/domain/UserRecord';
 import { UserRecordNotFound } from '../../../Contexts/UserRecord/domain/UserRecordNotFound';
 
@@ -19,13 +17,10 @@ export class CustomerProfileController implements Controller {
         const uid = req.params.uid;
 
         try {
-            const userRecordQuery = new UserRecordProfileQuery(uid);
 
-            const customerProfileQuery = new CustomerProfileQuery(uid);
+            const query = new CustomerProfileQuery(uid);
 
-            const { userRecord }: UserRecordProfileResponse = await this.query.ask(userRecordQuery);
-
-            const { customer }: CustomerProfileResponse = await this.query.ask(customerProfileQuery);
+            const { userRecord, customer }: CustomerProfileResponse = await this.query.ask(query);
 
             res.status(httpStatus.OK).send(this.toResponse(userRecord, customer));
 

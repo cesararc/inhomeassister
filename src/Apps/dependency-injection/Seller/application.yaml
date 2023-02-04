@@ -33,7 +33,7 @@ services:
 
   Seller.SellerProfile:
     class: ../../../Contexts/Seller/application/profile/SellerProfile
-    arguments: ['@Seller.SellerRepository']
+    arguments: ['@Seller.SellerRepository', '@UserRecord.UserRecordRepository']
 
   Seller.SellerQueryHandler:
     class: ../../../Contexts/Seller/application/profile/SellerProfileQueryHandler
