@@ -1,6 +1,6 @@
 
 export class CustomerNotFound extends Error {
     constructor() {
-        super('Customer not found, please try later.');
+        super('Customer not found.');
     }
 }

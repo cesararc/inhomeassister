@@ -46,13 +46,13 @@ services:
     class: ../../../Contexts/UserRecord/application/ProfileCollection/UserRecordProfileCollection
     arguments: ['@UserRecord.UserRecordRepository']
 
-  UserRecord.UserRecordRemove:
-    class: ../../../Contexts/UserRecord/application/Remove/UserRecordRemove
+  UserRecord.UserRecordDelete:
+    class: ../../../Contexts/UserRecord/application/Delete/UserRecordDelete
     arguments: ['@UserRecord.UserRecordRepository']
 
-  UserRecord.UserRecordRemoveCommandHandler:
-    class: ../../../Contexts/UserRecord/application/Remove/UserRecordRemoveCommandHandler
-    arguments: ['@UserRecord.UserRecordRemove']
+  UserRecord.UserRecordDeleteCommandHandler:
+    class: ../../../Contexts/UserRecord/application/Delete/UserRecordDeleteCommandHandler
+    arguments: ['@UserRecord.UserRecordDelete']
     tags:
       - { name: 'commandHandler' }
 

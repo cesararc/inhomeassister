@@ -45,3 +45,17 @@ services:
     class: ../../../Apps/Customer/controllers/CustomerUpdateController
     arguments: ['@Shared.CommandBus']
 
+  Customer.CustomerMatching:
+    class: ../../../Contexts/Customer/application/matching/CustomerMatching
+    arguments: ['@Customer.CustomerRepository']
+
+  Customer.CustomerMatchingQueryHandler:
+    class: ../../../Contexts/Customer/application/matching/CustomerMatchingQueryHandler
+    arguments: ['@Customer.CustomerMatching']
+    tags:
+      - { name: 'queryHandler' }
+
+  Customer.CustomerMatchingController:
+    class: ../../../Apps/Customer/controllers/CustomerMatchingController
+    arguments: ['@Shared.QueryBus']
+

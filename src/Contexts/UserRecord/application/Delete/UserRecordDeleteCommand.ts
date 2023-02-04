@@ -1,5 +1,5 @@
 
-export class UserRecordRemoveCommand {
+export class UserRecordDeleteCommand {
 
     uid: string;
 

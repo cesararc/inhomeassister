@@ -42,7 +42,7 @@ export interface UserRecordRepository {
     *
     * @returns A promise void.
     */
-    remove(userRecordUid: UserRecordUid): Promise<void>;
+    delete(userRecordUid: UserRecordUid): Promise<void>;
     /**
     * Disable user account.
     * @param UserRecordUid - Identifier user

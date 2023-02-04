@@ -95,7 +95,7 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
         return users.map(item => UserRecord.fromPrimitives(item));
     }
 
-    async remove(uid: UserRecordUid): Promise<void> {
+    async delete(uid: UserRecordUid): Promise<void> {
         try {
             await auth.deleteUser(uid.value);
         } catch (error) { }
