@@ -14,7 +14,7 @@ export const register = (router: Router) => {
         isAuthorized({ hasRole: ['seller'] }),
         (...params) => SellerUpdateController.run(...params));
     router.get("/api/seller/profile/:uid",
-        // isAuthenticated,
-        // isAuthorized({ hasRole: ['seller'] }),
+        isAuthenticated,
+        isAuthorized({ hasRole: ['seller'] }),
         (...params) => SellerProfileController.run(...params));
 }

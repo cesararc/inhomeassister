@@ -16,11 +16,11 @@ export const register = (router: Router) => {
         isAuthorized({ hasRole: ['customer'] }),
         (...params) => CustomerUpdateController.run(...params));
     router.get("/api/customer/profile/:uid",
-        // isAuthenticated,
-        // isAuthorized({ hasRole: ['customer'] }),
+        isAuthenticated,
+        isAuthorized({ hasRole: ['customer'] }),
         (...params) => CustomerProfileController.run(...params));
     router.get("/api/customer/matching/:param",
-        // isAuthenticated,
-        // isAuthorized({ hasRole: ['customer'] }),
+        isAuthenticated,
+        isAuthorized({ hasRole: ['customer'] }),
         (...params) => CustomerMatchingController.run(...params));
 }
