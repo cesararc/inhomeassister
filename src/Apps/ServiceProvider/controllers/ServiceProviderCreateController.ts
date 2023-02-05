@@ -1,10 +1,8 @@
+import httpStatus from 'http-status';
 import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { ServiceProviderCreateCommand } from '../../../Contexts/ServiceProvider/application/create/ServiceProviderCreateCommand';
-import { UserRecordCreateCommand } from '../../../Contexts/UserRecord/application/Create/UserRecordCreateCommand';
-import httpStatus from 'http-status';
-import { UserRecordDeleteCommand } from '../../../Contexts/UserRecord/application/Delete/UserRecordDeleteCommand';
 
 export class ServiceProviderCreateController implements Controller {
 
@@ -14,7 +12,7 @@ export class ServiceProviderCreateController implements Controller {
         const uid = req.body.uid;
         const displayName = req.body.displayName;
         const email = req.body.email;
-        const phone = req.body.phone;
+        const phoneNumber = req.body.phone;
         const password = req.body.password;
         const address = req.body.address;
         const dni = req.body.dni;
@@ -22,30 +20,21 @@ export class ServiceProviderCreateController implements Controller {
         const claim = req.body.claim;
 
         try {
-            const serviceProviderCreatecommand = new ServiceProviderCreateCommand({
+            const command = new ServiceProviderCreateCommand({
                 uid,
+                displayName,
+                email,
+                password,
+                phoneNumber,
+                claim,
                 address,
                 description,
                 dni
             });
 
-            const userRecordCreateCommand = new UserRecordCreateCommand({
-                displayName,
-                email,
-                password,
-                phone,
-                claim,
-                uid
-            });
-
-            await this.commandBus.dispatch(userRecordCreateCommand);
-
-            await this.commandBus.dispatch(serviceProviderCreatecommand);
+            await this.commandBus.dispatch(command);
 
         } catch (error) {
-            const commandRollback = new UserRecordDeleteCommand(uid);
-
-            await this.commandBus.dispatch(commandRollback);
 
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }

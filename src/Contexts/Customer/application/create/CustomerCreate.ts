@@ -41,6 +41,7 @@ export class CustomerCreate {
 
             await this.eventBus.publish(customer.pullDomainEvents());
         } catch (error) {
+            // Rollback user record repository
             await this.userRecordRepository.delete(uid);
         }
     }
