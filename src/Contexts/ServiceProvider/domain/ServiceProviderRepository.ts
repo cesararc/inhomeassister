@@ -1,5 +1,7 @@
 import { ServiceProvider } from "./ServiceProvider";
 import { ServiceProviderUid } from './ServiceProviderUid';
+import { ServiceProviderDni } from './ServiceProviderDni';
+import { Nullable } from "../../Shared/domain/Nullable";
 
 export interface ServiceProviderRepository {
     /**
@@ -23,4 +25,11 @@ export interface ServiceProviderRepository {
     * @returns A promise void.
     */
     update(serviceProvider: ServiceProvider): Promise<void>;
+    /**
+    * Update service provider
+    * @param serviceProvider - Service provider entitie
+    *
+    * @returns A promise void.
+    */
+    matching(param: ServiceProviderDni): Promise<Nullable<ServiceProviderUid>>;
 }

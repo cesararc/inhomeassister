@@ -13,7 +13,7 @@ export class CustomerMatching {
 
         const customer = await this.customerRepository.profile(uid);
 
-        const userRecord = await this.userRecordRepository.profile(customer.uid);
+        const userRecord = await this.userRecordRepository.profile(uid);
 
         if (!customer || !userRecord) throw new CustomerNotFound();
 

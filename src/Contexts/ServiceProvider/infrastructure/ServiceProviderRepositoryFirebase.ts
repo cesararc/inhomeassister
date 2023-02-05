@@ -1,7 +1,9 @@
 import { ServiceProviderRepository } from '../domain/ServiceProviderRepository';
 import { ServiceProvider } from '../domain/ServiceProvider';
 import { ServiceProviderUid } from '../domain/ServiceProviderUid';
-import { FirebaseRepository } from '../../Shared/infrastructure/persistence/FirebaseRepository';
+import { ServiceProviderDni } from '../domain/ServiceProviderDni';
+import { Nullable } from '../../Shared/domain/Nullable';
+import firestore from '../../../Apps/database';
 
 type ServiceProviderPlainData = {
     uid: string;
@@ -10,10 +12,13 @@ type ServiceProviderPlainData = {
     description: string;
 }
 
-export class ServiceProviderRepositoryFirebase extends FirebaseRepository<ServiceProvider> implements ServiceProviderRepository {
+export class ServiceProviderRepositoryFirebase implements ServiceProviderRepository {
 
     async create(serviceProvider: ServiceProvider): Promise<void> {
-        await this.persist(serviceProvider);
+        const collection = this.collection().doc(serviceProvider.toPrimitives().uid);
+        const document = { ...serviceProvider.toPrimitives() };
+
+        await collection.set(document);
     }
 
     async profile(uid: ServiceProviderUid): Promise<ServiceProvider> {
@@ -35,6 +40,21 @@ export class ServiceProviderRepositoryFirebase extends FirebaseRepository<Servic
         } catch (error) {
             return null;
         }
+    }
+
+    async matching(criteria: ServiceProviderDni): Promise<Nullable<ServiceProviderUid>> {
+        const result = await this.collection().where("dni", "==", criteria.value).get();
+
+        if (result.empty) return null;
+
+        const reference = result.docs[0];
+        const document = reference.data() as ServiceProviderPlainData;
+
+        return document ? new ServiceProviderUid(document.uid) : null;
+    }
+
+    protected collection() {
+        return firestore.collection(this.moduleName());
     }
 
 

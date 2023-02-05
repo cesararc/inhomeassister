@@ -47,7 +47,7 @@ services:
 
   Customer.CustomerMatching:
     class: ../../../Contexts/Customer/application/matching/CustomerMatching
-    arguments: ['@Customer.CustomerRepository']
+    arguments: ['@Customer.CustomerRepository', '@UserRecord.UserRecordRepository']
 
   Customer.CustomerMatchingQueryHandler:
     class: ../../../Contexts/Customer/application/matching/CustomerMatchingQueryHandler

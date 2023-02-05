@@ -45,3 +45,17 @@ services:
     class: ../../../Apps/ServiceProvider/controllers/ServiceProviderProfileController
     arguments: ['@Shared.QueryBus']
 
+  ServiceProvider.ServiceProviderMatching:
+    class: ../../../Contexts/ServiceProvider/application/matching/ServiceProviderMatching
+    arguments: ['@ServiceProvider.ServiceProviderRepository','@UserRecord.UserRecordRepository', '@UserRecord.UserRecordRepository']
+
+  ServiceProvider.ServiceProviderMatchingQueryHandler:
+    class: ../../../Contexts/ServiceProvider/application/matching/ServiceProviderMatchingQueryHandler
+    arguments: ['@ServiceProvider.ServiceProviderMatching']
+    tags:
+      - { name: 'queryHandler' }
+
+  ServiceProvider.ServiceProviderMatchingController:
+    class: ../../../Apps/ServiceProvider/controllers/ServiceProviderMatchingController
+    arguments: ['@Shared.QueryBus']
+
