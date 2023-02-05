@@ -5,7 +5,7 @@ services:
 
   Customer.CustomerCreate:
     class: ../../../Contexts/Customer/application/create/CustomerCreate
-    arguments: ['@Customer.CustomerRepository', '@Shared.EventBus']
+    arguments: ['@Customer.CustomerRepository','@UserRecord.UserRecordRepository', '@Shared.EventBus']
 
   Customer.CustomerCreateCommandHandler:
     class: ../../../Contexts/Customer/application/create/CustomerCreateCommandHandler

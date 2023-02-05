@@ -9,7 +9,6 @@ export const register = (router: Router) => {
     const CustomerProfileController = container.get('Customer.CustomerProfileController');
     const CustomerMatchingController = container.get('Customer.CustomerMatchingController');
 
-
     router.post("/api/customer", (...params) => CustomerSaveController.run(...params));
     router.put("/api/customer/:uid",
         isAuthenticated,
