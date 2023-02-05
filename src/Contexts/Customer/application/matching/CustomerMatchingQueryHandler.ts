@@ -14,8 +14,8 @@ export class CustomerMatchingQueryHandler implements QueryHandler<CustomerMatchi
     }
 
     async handle(query: CustomerMatchingQuery): Promise<CustomerMatchingResponse> {
-        const customer = await this.matching.run(new CustomerDni(query.param));
+        const response = await this.matching.run(new CustomerDni(query.param));
 
-        return new CustomerMatchingResponse(customer);
+        return new CustomerMatchingResponse(response.customer, response.userRecord);
     }
 }
