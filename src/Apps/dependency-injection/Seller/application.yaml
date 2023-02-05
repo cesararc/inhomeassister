@@ -5,7 +5,7 @@ services:
 
   Seller.SellerCreate:
     class: ../../../Contexts/Seller/application/create/SellerCreate
-    arguments: ['@Seller.SellerRepository',  '@Shared.EventBus']
+    arguments: ['@Seller.SellerRepository', '@UserRecord.UserRecordRepository', '@Shared.EventBus']
   
   Seller.SellerCreateCommandHandler:
     class: ../../../Contexts/Seller/application/create/SellerCreateCommandHandler
