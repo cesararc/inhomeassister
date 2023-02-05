@@ -3,7 +3,6 @@ import { Response, Request } from 'express';
 import { Controller } from '../../controller/Controller';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { CustomerCreateCommand } from '../../../Contexts/Customer/application/create/CustomerCreateCommand';
-import { UserRecordDeleteCommand } from '../../../Contexts/UserRecord/application/Delete/UserRecordDeleteCommand';
 
 export class CustomerCreateController implements Controller {
 
@@ -39,10 +38,6 @@ export class CustomerCreateController implements Controller {
             res.status(httpStatus.CREATED).send();
 
         } catch (error) {
-
-            const rollback = new UserRecordDeleteCommand(uid);
-
-            this.commandBus.dispatch(rollback);
 
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }
