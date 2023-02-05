@@ -1,12 +1,16 @@
 import { CustomerRewardPointRepository } from '../domain/CustomerRewardPointRepository';
 import { CustomerRewardPoint } from '../domain/CustomerRewardPoint';
 import { CustomerRewardPointUid } from '../domain/CustomerRewardPointUid';
-import { FirebaseRepository } from '../../Shared/infrastructure/persistence/FirebaseRepository';
+import firestore from '../../../Apps/database';
 
-export class CustomerRewardPointRepositoryFirebase extends FirebaseRepository<CustomerRewardPoint> implements CustomerRewardPointRepository {
+export class CustomerRewardPointRepositoryFirebase implements CustomerRewardPointRepository {
 
     async save(customerRewardPoint: CustomerRewardPoint): Promise<void> {
-        this.persist(customerRewardPoint);
+
+        const collection = this.collection().doc(customerRewardPoint.toPrimitives().uid);
+        const document = { ...customerRewardPoint.toPrimitives() };
+
+        await collection.set(document);
     }
 
     async search(uid: CustomerRewardPointUid) {
@@ -14,6 +18,10 @@ export class CustomerRewardPointRepositoryFirebase extends FirebaseRepository<Cu
         const doc = reference.data() as { uid: string; amount: number };
 
         return doc ? CustomerRewardPoint.fromPrimitives(doc) : null;
+    }
+
+    protected collection() {
+        return firestore.collection(this.moduleName());
     }
 
     moduleName() {

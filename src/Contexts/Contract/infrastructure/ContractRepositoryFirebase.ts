@@ -9,10 +9,6 @@ import { ContractStatus } from '../domain/ContractStatus';
 
 export class ContractRepositoryFirebase implements ContractRepository {
 
-    protected collection() {
-        return firestore.collection(this.moduleName());
-    }
-
     async create(contract: Contract): Promise<void> {
         const collection = this.collection().doc(contract.uid.value);
         const document = { ...contract.toPrimitives() };
@@ -34,6 +30,10 @@ export class ContractRepositoryFirebase implements ContractRepository {
 
         collection.docs.map(e => console.log(e.data()))
         return collection.docs.map(e => Contract.fromPrimitives({ ...e.data() } as any));
+    }
+
+    protected collection() {
+        return firestore.collection(this.moduleName());
     }
 
     moduleName(): string {
