@@ -3,6 +3,7 @@ import { Customer } from '../domain/Customer';
 import { CustomerUid } from '../domain/CustomerUid';
 import { CustomerDni } from '../domain/CustomerDni';
 import firestore from '../../../Apps/database';
+import { Nullable } from '../../Shared/domain/Nullable';
 
 type CustomerPlainData = {
     uid: string;
@@ -34,7 +35,7 @@ export class CustomerRepositoryFirebase implements CustomerRepository {
         return Customer.fromPrimitives(document);
     }
 
-    async matching(criteria: CustomerDni): Promise<Customer> {
+    async matching(criteria: CustomerDni): Promise<Nullable<CustomerUid>> {
         const result = await this.collection().where("dni", "==", criteria.value).get();
 
         if (result.empty) return null;
@@ -42,7 +43,7 @@ export class CustomerRepositoryFirebase implements CustomerRepository {
         const reference = result.docs[0];
         const document = reference.data() as CustomerPlainData;
 
-        return document ? Customer.fromPrimitives(document) : null;
+        return document ? new CustomerUid(document.uid) : null;
     }
 
     protected collection() {

@@ -6,8 +6,6 @@ import { CustomerMatchingResponse } from '../../../Contexts/Customer/application
 import httpStatus from 'http-status';
 import { Customer } from "../../../Contexts/Customer/domain/Customer";
 import { CustomerNotFound } from '../../../Contexts/Customer/domain/CustomerNotFound';
-import { UserRecordProfileQuery } from '../../../Contexts/UserRecord/application/Profile/UserRecordProfileQuery';
-import { UserRecordProfileResponse } from '../../../Contexts/UserRecord/application/Profile/UserRecordProfileResponse';
 import { UserRecord } from '../../../Contexts/UserRecord/domain/UserRecord';
 
 export class CustomerMatchingController implements Controller {
@@ -20,11 +18,7 @@ export class CustomerMatchingController implements Controller {
         try {
             const customerQuery = new CustomerMatchingQuery(param);
 
-            const { customer }: CustomerMatchingResponse = await this.query.ask(customerQuery);
-
-            const userRecordQuery = new UserRecordProfileQuery(customer.uid.value);
-
-            const { userRecord }: UserRecordProfileResponse = await this.query.ask(userRecordQuery);
+            const { customer, userRecord }: CustomerMatchingResponse = await this.query.ask(customerQuery);
 
             res.status(httpStatus.OK).send(this.toResponse(userRecord, customer));
 
