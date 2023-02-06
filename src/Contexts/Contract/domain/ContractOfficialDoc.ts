@@ -10,7 +10,7 @@ export class ContractOfficialDoc extends StringValueObject {
     }
 
     protected ensureFormat(value: string) {
-        if (value.length === 0) {
+        if (!value || value.length === 0) {
             throw new InvalidArgumentError("Official contract document url is required.");
         }
     }

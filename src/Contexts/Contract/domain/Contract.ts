@@ -144,9 +144,9 @@ export class Contract extends AggregateRoot {
     toPrimitives() {
         return {
             uid: this.uid.value,
-            seller: this.seller.toPrimitives(),
-            customer: this.customer.toPrimitives(),
-            serviceProvider: this.serviceProvider.toPrimitives(),
+            seller: this.seller.toPrimitivesDocument(),
+            customer: this.customer.toPrimitivesDocument(),
+            serviceProvider: this.serviceProvider.toPrimitivesDocument(),
             officialDoc: this.officialDoc.value,
             financialDoc: this.financialDoc.value,
             status: this.status.value,

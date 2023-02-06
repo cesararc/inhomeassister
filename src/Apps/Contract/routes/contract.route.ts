@@ -11,8 +11,8 @@ export const register = (router: Router) => {
     const ContractUnverifiedController = container.get('Contract.ContractUnverifiedController');
 
     router.post("/api/contract",
-        isAuthenticated,
-        isAuthorized({ hasRole: ["seller"] }),
+        // isAuthenticated,
+        // isAuthorized({ hasRole: ["seller"] }),
         (...params) => ContractCreateController.run(...params));
 
     router.post("/api/contract/reject/:uid",
