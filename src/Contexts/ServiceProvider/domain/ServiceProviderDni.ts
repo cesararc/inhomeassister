@@ -8,7 +8,7 @@ export class ServiceProviderDni extends StringValueObject {
     }
 
     protected ensureFormatValid(value: string) {
-        if (value.length === 0) {
+        if (!value || value.length === 0) {
             throw new InvalidArgumentError("Service provider dni is required")
         }
     }
