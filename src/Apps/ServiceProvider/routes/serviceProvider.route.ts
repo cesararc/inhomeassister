@@ -20,6 +20,6 @@ export const register = (router: Router) => {
         (...params) => ServiceProviderProfileController.run(...params));
     router.get("/api/service_provider/matching/:param",
         isAuthenticated,
-        isAuthorized({ hasRole: ['service_provider'] }),
+        isAuthorized({ hasRole: ['service_provider', "seller"] }),
         (...params) => ServiceProviderMatchingController.run(...params));
 }
