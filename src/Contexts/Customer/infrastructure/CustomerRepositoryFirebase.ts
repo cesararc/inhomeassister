@@ -1,7 +1,9 @@
 import { CustomerRepository } from "../domain/CustomerRepository";
 import { Customer } from '../domain/Customer';
 import { CustomerUid } from '../domain/CustomerUid';
-import { FirebaseRepository } from '../../Shared/infrastructure/persistence/FirebaseRepository';
+import { CustomerDni } from '../domain/CustomerDni';
+import firestore from '../../../Apps/database';
+import { Nullable } from '../../Shared/domain/Nullable';
 
 type CustomerPlainData = {
     uid: string;
@@ -10,10 +12,13 @@ type CustomerPlainData = {
     dni: string;
 }
 
-export class CustomerRepositoryFirebase extends FirebaseRepository<Customer> implements CustomerRepository {
+export class CustomerRepositoryFirebase implements CustomerRepository {
 
     async create(customer: Customer): Promise<void> {
-        await this.persist(customer);
+        const collection = this.collection().doc(customer.toPrimitives().uid);
+        const document = { ...customer.toPrimitives() };
+
+        await collection.set(document);
     }
 
     async update(customer: Customer): Promise<void> {
@@ -23,9 +28,26 @@ export class CustomerRepositoryFirebase extends FirebaseRepository<Customer> imp
     }
 
     async profile(uid: CustomerUid): Promise<Customer> {
-        const doc = await this.profileRetrieve<CustomerPlainData>(uid.value);
+        const reference = await this.collection().doc(uid.value).get();
 
-        return Customer.fromPrimitives(doc);
+        const document = reference.data() as CustomerPlainData;
+
+        return Customer.fromPrimitives(document);
+    }
+
+    async matching(criteria: CustomerDni): Promise<Nullable<CustomerUid>> {
+        const result = await this.collection().where("dni", "==", criteria.value).get();
+
+        if (result.empty) return null;
+
+        const reference = result.docs[0];
+        const document = reference.data() as CustomerPlainData;
+
+        return document ? new CustomerUid(document.uid) : null;
+    }
+
+    protected collection() {
+        return firestore.collection(this.moduleName());
     }
 
     moduleName(): string {

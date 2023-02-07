@@ -14,8 +14,8 @@ export class SellerProfileQueryHandler implements QueryHandler<SellerProfileQuer
     }
 
     async handle(query: SellerProfileQuery): Promise<SellerProfileResponse> {
-        const customer = await this.profile.run(new SellerUid(query.uid));
+        const response = await this.profile.run(new SellerUid(query.uid));
 
-        return new SellerProfileResponse(customer);
+        return new SellerProfileResponse(response.userRecord, response.seller);
     }
 }

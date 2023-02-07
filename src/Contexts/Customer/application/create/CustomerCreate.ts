@@ -5,16 +5,44 @@ import { CustomerAddress } from '../../domain/CustomerAddress';
 import { CustomerBirthday } from '../../domain/CustomerBirthday';
 import { CustomerDni } from '../../domain/CustomerDni';
 import { EventBus } from '../../../Shared/domain/EventBus';
+import { UserRecordRepository } from '../../../UserRecord/domain/UserRecordRepository';
+import { UserRecord } from '../../../UserRecord/domain/UserRecord';
+import { UserRecordDisplayName } from '../../../UserRecord/domain/UserRecordDisplayName';
+import { UserRecordPhone } from '../../../UserRecord/domain/UserRecordPhone';
+import { UserRecordEmail } from '../../../UserRecord/domain/UserRecordEmail';
+import { UserRecordPassword } from '../../../UserRecord/domain/UserRecordPassword';
+import { UserRecordClaim } from '../../../UserRecord/domain/UserRecordClaim';
 
 export class CustomerCreate {
-    constructor(private repository: CustomerRepository, private eventBus: EventBus) { }
+    constructor(
+        private customerRepository: CustomerRepository,
+        private userRecordRepository: UserRecordRepository,
+        private eventBus: EventBus) { }
 
-    async run(id: CustomerUid, address: CustomerAddress, birthday: CustomerBirthday, dni: CustomerDni): Promise<void> {
+    async run(
+        uid: CustomerUid,
+        displayName: UserRecordDisplayName,
+        phoneNumber: UserRecordPhone,
+        email: UserRecordEmail,
+        password: UserRecordPassword,
+        claim: UserRecordClaim,
+        address: CustomerAddress,
+        birthday: CustomerBirthday,
+        dni: CustomerDni): Promise<void> {
 
-        const customer = Customer.create(id, birthday, address, dni);
+        try {
+            const userRecord = UserRecord.create(uid, displayName, phoneNumber, email, password, claim);
 
-        await this.repository.create(customer);
+            await this.userRecordRepository.create(userRecord);
 
-        await this.eventBus.publish(customer.pullDomainEvents());
+            const customer = Customer.create(uid, birthday, address, dni);
+
+            await this.customerRepository.create(customer);
+
+            await this.eventBus.publish(customer.pullDomainEvents());
+        } catch (error) {
+            // Rollback user record repository
+            await this.userRecordRepository.delete(uid);
+        }
     }
 }

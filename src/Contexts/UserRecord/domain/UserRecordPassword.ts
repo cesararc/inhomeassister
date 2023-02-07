@@ -8,8 +8,9 @@ export class UserRecordPassword extends StringValueObject {
     }
 
     protected ensureValidFormat(value: string) {
-        if (value.length < 6) {
-            throw new InvalidArgumentError("The password provided must be a string with at least 6 characters")
-        }
+        if (!value) throw new InvalidArgumentError("Password is required.");
+
+        if (value.length < 6) throw new InvalidArgumentError("The password provided must be a string with at least 6 characters")
+
     }
 }

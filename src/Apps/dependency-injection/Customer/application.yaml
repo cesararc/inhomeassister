@@ -5,7 +5,7 @@ services:
 
   Customer.CustomerCreate:
     class: ../../../Contexts/Customer/application/create/CustomerCreate
-    arguments: ['@Customer.CustomerRepository', '@Shared.EventBus']
+    arguments: ['@Customer.CustomerRepository','@UserRecord.UserRecordRepository', '@Shared.EventBus']
 
   Customer.CustomerCreateCommandHandler:
     class: ../../../Contexts/Customer/application/create/CustomerCreateCommandHandler
@@ -19,7 +19,7 @@ services:
 
   Customer.CustomerProfile:
     class: ../../../Contexts/Customer/application/profile/CustomerProfile
-    arguments: ['@Customer.CustomerRepository']
+    arguments: ['@Customer.CustomerRepository', '@UserRecord.UserRecordRepository']
 
   Customer.CustomerProfileQueryHandler:
     class: ../../../Contexts/Customer/application/profile/CustomerProfileQueryHandler
@@ -44,4 +44,18 @@ services:
   Customer.CustomerUpdateController:
     class: ../../../Apps/Customer/controllers/CustomerUpdateController
     arguments: ['@Shared.CommandBus']
+
+  Customer.CustomerMatching:
+    class: ../../../Contexts/Customer/application/matching/CustomerMatching
+    arguments: ['@Customer.CustomerRepository', '@UserRecord.UserRecordRepository']
+
+  Customer.CustomerMatchingQueryHandler:
+    class: ../../../Contexts/Customer/application/matching/CustomerMatchingQueryHandler
+    arguments: ['@Customer.CustomerMatching']
+    tags:
+      - { name: 'queryHandler' }
+
+  Customer.CustomerMatchingController:
+    class: ../../../Apps/Customer/controllers/CustomerMatchingController
+    arguments: ['@Shared.QueryBus']
 

@@ -5,7 +5,7 @@ services:
 
   ServiceProvider.ServiceProviderCreate:
     class: ../../../Contexts/ServiceProvider/application/create/ServiceProviderCreate
-    arguments: ['@ServiceProvider.ServiceProviderRepository', '@Shared.EventBus']
+    arguments: ['@ServiceProvider.ServiceProviderRepository','@UserRecord.UserRecordRepository', '@Shared.EventBus']
   
   ServiceProvider.ServiceProviderCreateCommandHandler:
     class: ../../../Contexts/ServiceProvider/application/create/ServiceProviderCreateCommandHandler
@@ -33,7 +33,7 @@ services:
 
   ServiceProvider.ServiceProviderProfile:
     class: ../../../Contexts/ServiceProvider/application/profile/ServiceProviderProfile
-    arguments: ['@ServiceProvider.ServiceProviderRepository']
+    arguments: ['@ServiceProvider.ServiceProviderRepository', '@UserRecord.UserRecordRepository']
 
   ServiceProvider.ServiceProviderQueryHandler:
     class: ../../../Contexts/ServiceProvider/application/profile/ServiceProviderProfileQueryHandler
@@ -43,5 +43,19 @@ services:
 
   ServiceProvider.ServiceProviderProfileController:
     class: ../../../Apps/ServiceProvider/controllers/ServiceProviderProfileController
+    arguments: ['@Shared.QueryBus']
+
+  ServiceProvider.ServiceProviderMatching:
+    class: ../../../Contexts/ServiceProvider/application/matching/ServiceProviderMatching
+    arguments: ['@ServiceProvider.ServiceProviderRepository','@UserRecord.UserRecordRepository', '@UserRecord.UserRecordRepository']
+
+  ServiceProvider.ServiceProviderMatchingQueryHandler:
+    class: ../../../Contexts/ServiceProvider/application/matching/ServiceProviderMatchingQueryHandler
+    arguments: ['@ServiceProvider.ServiceProviderMatching']
+    tags:
+      - { name: 'queryHandler' }
+
+  ServiceProvider.ServiceProviderMatchingController:
+    class: ../../../Apps/ServiceProvider/controllers/ServiceProviderMatchingController
     arguments: ['@Shared.QueryBus']
 

@@ -16,8 +16,12 @@ export class Uuid {
     }
 
     private ensureIsValidUuid(id: string): void {
+        if (!id || id.length === 0) {
+            throw new InvalidArgumentError(`${this.constructor.name} is required`);
+        }
+
         if (!validate(id)) {
-            throw new InvalidArgumentError(`<${this.constructor.name}> does not allow the value <${id}>`);
+            throw new InvalidArgumentError(`${this.constructor.name} does not allow the value ${id}`);
         }
     }
 

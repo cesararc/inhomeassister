@@ -3,8 +3,6 @@ import { Response, Request } from 'express';
 import { Controller } from '../../controller/Controller';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { CustomerCreateCommand } from '../../../Contexts/Customer/application/create/CustomerCreateCommand';
-import { UserRecordCreateCommand } from '../../../Contexts/UserRecord/application/Create/UserRecordCreateCommand';
-import { UserRecordRemoveCommand } from '../../../Contexts/UserRecord/application/Remove/UserRecordRemoveCommand';
 
 export class CustomerCreateController implements Controller {
 
@@ -16,40 +14,30 @@ export class CustomerCreateController implements Controller {
         const displayName = req.body.displayName as string;
         const email = req.body.email as string;
         const password = req.body.password as string;
-        const phone = req.body.phone as string;
+        const phoneNumber = req.body.phone as string;
         const birthday = req.body.birthday as string;
         const address = req.body.address as string;
         const dni = req.body.dni as string;
 
         try {
 
-            const userRecordCreateCommand = new UserRecordCreateCommand({
+            const command = new CustomerCreateCommand({
+                uid,
                 displayName,
+                phoneNumber,
                 email,
                 password,
                 claim,
-                phone,
-                uid
-            });
-
-            const customerCreateCommand = new CustomerCreateCommand({
-                uid,
                 address,
                 birthday,
                 dni
             });
 
-            await this.commandBus.dispatch(userRecordCreateCommand);
-
-            await this.commandBus.dispatch(customerCreateCommand);
+            await this.commandBus.dispatch(command);
 
             res.status(httpStatus.CREATED).send();
 
         } catch (error) {
-
-            const rollback = new UserRecordRemoveCommand(uid);
-
-            this.commandBus.dispatch(rollback);
 
             res.status(httpStatus.BAD_REQUEST).send(error.message);
         }

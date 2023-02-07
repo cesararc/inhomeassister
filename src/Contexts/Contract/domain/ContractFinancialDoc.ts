@@ -9,7 +9,7 @@ export class ContractFinancialDoc extends StringValueObject {
 
     }
     protected ensureFormat(value: string) {
-        if (value.length === 0) {
+        if (!value || value.length === 0) {
             throw new InvalidArgumentError("Financial contract document url is required.");
         }
     }

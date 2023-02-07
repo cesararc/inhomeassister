@@ -5,7 +5,7 @@ services:
 
   Seller.SellerCreate:
     class: ../../../Contexts/Seller/application/create/SellerCreate
-    arguments: ['@Seller.SellerRepository',  '@Shared.EventBus']
+    arguments: ['@Seller.SellerRepository', '@UserRecord.UserRecordRepository', '@Shared.EventBus']
   
   Seller.SellerCreateCommandHandler:
     class: ../../../Contexts/Seller/application/create/SellerCreateCommandHandler
@@ -33,7 +33,7 @@ services:
 
   Seller.SellerProfile:
     class: ../../../Contexts/Seller/application/profile/SellerProfile
-    arguments: ['@Seller.SellerRepository']
+    arguments: ['@Seller.SellerRepository', '@UserRecord.UserRecordRepository']
 
   Seller.SellerQueryHandler:
     class: ../../../Contexts/Seller/application/profile/SellerProfileQueryHandler

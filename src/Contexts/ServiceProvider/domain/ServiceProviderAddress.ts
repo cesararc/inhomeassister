@@ -8,7 +8,7 @@ export class ServiceProviderAddress extends StringValueObject {
     }
 
     protected ensureFormatValid(value: string) {
-        if (value.length === 0) {
+        if (!value || value.length === 0) {
             throw new InvalidArgumentError("Service provider address is required")
         }
 
