@@ -11,7 +11,6 @@ export class UserRecordCreate {
     constructor(private repository: UserRecordRepository) { }
 
     async run(uid: UserRecordUid, displayName: UserRecordDisplayName, phone: UserRecordPhone, email: UserRecordEmail, password: UserRecordPassword, claim: UserRecordClaim): Promise<void> {
-
         const userRecord = UserRecord.create(uid, displayName, phone, email, password, claim);
 
         await this.repository.create(userRecord);

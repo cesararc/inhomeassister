@@ -8,7 +8,6 @@ import firestore from '../../../Apps/database';
 export class UserRecordRepositoryFirebase implements UserRecordRepository {
 
     async create(userR: UserRecord): Promise<void> {
-
         await auth.createUser(userR.toPrimitives());
 
         const uid = userR.toPrimitives().uid;
@@ -96,9 +95,7 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
     }
 
     async delete(uid: UserRecordUid): Promise<void> {
-        try {
-            await auth.deleteUser(uid.value);
-        } catch (error) { }
+        try { await auth.deleteUser(uid.value) } catch (error) { }
     }
 
     async disable(uid: UserRecordUid): Promise<void> {
