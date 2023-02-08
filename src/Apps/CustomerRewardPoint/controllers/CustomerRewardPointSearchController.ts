@@ -21,7 +21,12 @@ export class CustomerRewardPointSearchController implements Controller {
             res.status(httpStatus.OK).send(this.toResponse(customerRewardPoint));
 
         } catch (error) {
-            res.status(httpStatus.BAD_REQUEST).send({ statusCode: httpStatus.BAD_REQUEST, message: error.message });
+            res.status(httpStatus.BAD_REQUEST).json(
+                {
+                    statusCode: httpStatus.BAD_REQUEST,
+                    message: error.message
+                }
+            );
         }
     }
 

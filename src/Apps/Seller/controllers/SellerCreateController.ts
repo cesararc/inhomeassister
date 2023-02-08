@@ -34,8 +34,12 @@ export class SellerCreateController implements Controller {
 
             res.status(httpStatus.CREATED).send();
         } catch (error) {
-            res.status(httpStatus.BAD_REQUEST).send({ statusCode: httpStatus.BAD_REQUEST, message: error.message });
+            res.status(httpStatus.BAD_REQUEST).json(
+                {
+                    statusCode: httpStatus.BAD_REQUEST,
+                    message: error.message
+                }
+            );
         }
-
     }
 }

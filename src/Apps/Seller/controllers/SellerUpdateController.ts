@@ -35,14 +35,25 @@ export class SellerUpdateController implements Controller {
 
             await this.commandBus.dispatch(sellerUpdateCommand);
 
+            res.status(httpStatus.OK).send();
+
         } catch (error) {
             if (error.code === "auth/user-not-found") {
-                res.status(httpStatus.NOT_FOUND).send({ statusCode: httpStatus.NOT_FOUND, message: error.message });
+                res.status(httpStatus.NOT_FOUND).json(
+                    {
+                        statusCode: httpStatus.NOT_FOUND,
+                        message: error.message
+                    }
+                );
             }
 
-            res.status(httpStatus.BAD_REQUEST).send({ statusCode: httpStatus.BAD_REQUEST, message: error.message });
+            res.status(httpStatus.BAD_REQUEST).json(
+                {
+                    statusCode: httpStatus.BAD_REQUEST,
+                    message: error.message
+                }
+            );
         }
 
-        res.status(httpStatus.OK).send();
     }
 }

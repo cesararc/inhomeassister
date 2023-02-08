@@ -21,8 +21,12 @@ export class UserRecordProfileController implements Controller {
             res.status(httpStatus.OK).send(this.toResponse(userRecord));
 
         } catch (error) {
-
-            res.status(httpStatus.BAD_REQUEST).send(error.message);
+            res.status(httpStatus.BAD_REQUEST).json(
+                {
+                    statusCode: httpStatus.BAD_REQUEST,
+                    message: error.message
+                }
+            );
         }
 
     }

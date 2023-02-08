@@ -24,10 +24,20 @@ export class ServiceProviderProfileController implements Controller {
 
         } catch (error) {
             if (error instanceof UserRecordNotFound) {
-                res.status(httpStatus.NOT_FOUND).send(error.message);
+                res.status(httpStatus.NOT_FOUND).json(
+                    {
+                        statusCode: httpStatus.NOT_FOUND,
+                        message: error.message
+                    }
+                );
             }
 
-            res.status(httpStatus.BAD_REQUEST).send(error.message);
+            res.status(httpStatus.BAD_REQUEST).json(
+                {
+                    statusCode: httpStatus.BAD_REQUEST,
+                    message: error.message
+                }
+            );
         }
     }
 
