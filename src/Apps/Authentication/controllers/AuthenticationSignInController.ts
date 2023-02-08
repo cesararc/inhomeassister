@@ -25,18 +25,24 @@ export class AuthenticationSignInController implements Controller {
 
             const role = await this.role.run(new AuthenticationIdToken(idToken));
 
-            return res.status(httpStatus.OK).json(this.toResponse(token, role));
+            return res.status(httpStatus.OK).json({ token, role });
 
         } catch (error) {
             if (error instanceof AuthenticationForbidden) {
-                res.status(httpStatus.FORBIDDEN).send(error.message);
+                res.status(httpStatus.FORBIDDEN).json(
+                    {
+                        statusCode: httpStatus.FORBIDDEN,
+                        message: error.message
+                    }
+                );
             }
 
-            res.status(httpStatus.BAD_REQUEST).send(error.message);
+            res.status(httpStatus.BAD_REQUEST).json(
+                {
+                    statusCode: httpStatus.BAD_REQUEST,
+                    message: error.message
+                }
+            );
         }
-    }
-
-    private toResponse(token: string, role: string) {
-        return { token, role };
     }
 }

@@ -40,10 +40,10 @@ export class CustomerUpdateController implements Controller {
             res.status(httpStatus.OK).send();
         } catch (error) {
             if (error.code === "auth/user-not-found") {
-                res.status(httpStatus.NOT_FOUND).send(error.message);
+                res.status(httpStatus.NOT_FOUND).send({ statusCode: httpStatus.NOT_FOUND, message: error.message });
             }
 
-            res.status(httpStatus.BAD_REQUEST).send(error.message);
+            res.status(httpStatus.BAD_REQUEST).send({ statusCode: httpStatus.BAD_REQUEST, message: error.message });
         }
     }
 }
