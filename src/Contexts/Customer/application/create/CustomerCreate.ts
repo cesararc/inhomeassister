@@ -30,19 +30,14 @@ export class CustomerCreate {
         birthday: CustomerBirthday,
         dni: CustomerDni): Promise<void> {
 
-        try {
-            const userRecord = UserRecord.create(uid, displayName, phoneNumber, email, password, claim);
+        const userRecord = UserRecord.create(uid, displayName, phoneNumber, email, password, claim);
 
-            await this.userRecordRepository.create(userRecord);
+        await this.userRecordRepository.create(userRecord);
 
-            const customer = Customer.create(uid, birthday, address, dni);
+        const customer = Customer.create(uid, birthday, address, dni);
 
-            await this.customerRepository.create(customer);
+        await this.customerRepository.create(customer);
 
-            await this.eventBus.publish(customer.pullDomainEvents());
-        } catch (error) {
-            // Rollback user record repository
-            await this.userRecordRepository.delete(uid);
-        }
+        await this.eventBus.publish(customer.pullDomainEvents());
     }
 }

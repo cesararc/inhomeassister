@@ -30,19 +30,14 @@ export class ServiceProviderCreate {
         dni: ServiceProviderDni,
         description: ServiceProviderDescription): Promise<void> {
 
-        try {
-            const userRecord = UserRecord.create(uid, displayName, phoneNumber, email, password, claim);
+        const userRecord = UserRecord.create(uid, displayName, phoneNumber, email, password, claim);
 
-            await this.userRecordRepository.create(userRecord);
+        await this.userRecordRepository.create(userRecord);
 
-            const serviceProvider = ServiceProvider.create(uid, address, dni, description);
+        const serviceProvider = ServiceProvider.create(uid, address, dni, description);
 
-            await this.repository.create(serviceProvider);
+        await this.repository.create(serviceProvider);
 
-            await this.eventBus.publish(serviceProvider.pullDomainEvents());
-        } catch (error) {
-            // Rollback user record repository
-            await this.userRecordRepository.delete(uid);
-        }
+        await this.eventBus.publish(serviceProvider.pullDomainEvents());
     }
 }
