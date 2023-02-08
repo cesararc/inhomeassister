@@ -12,5 +12,3 @@ const firestore = admin.initializeApp({
 export const auth = firestore.auth();
 
 export default firestore.firestore();
-
-// export const storage = admin.storage().bucket();

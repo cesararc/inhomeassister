@@ -36,7 +36,7 @@ export class Server {
         registerRoutes(router);
 
         router.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-            res.status(httpStatus.BAD_REQUEST).send(err.message);
+            res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message);
         });
     }
 
