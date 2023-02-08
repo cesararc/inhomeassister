@@ -3,6 +3,7 @@ import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { SellerCreateCommand } from '../../../Contexts/Seller/application/create/SellerCreateCommand';
+import { UserRecordDeleteCommand } from '../../../Contexts/UserRecord/application/Delete/UserRecordDeleteCommand';
 
 export class SellerCreateController implements Controller {
 
@@ -34,6 +35,9 @@ export class SellerCreateController implements Controller {
 
             res.status(httpStatus.CREATED).send();
         } catch (error) {
+
+            await this.commandBus.dispatch(new UserRecordDeleteCommand(uid));
+
             res.status(httpStatus.BAD_REQUEST).json(
                 {
                     statusCode: httpStatus.BAD_REQUEST,

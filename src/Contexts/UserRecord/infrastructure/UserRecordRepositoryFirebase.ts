@@ -8,6 +8,7 @@ import firestore from '../../../Apps/database';
 export class UserRecordRepositoryFirebase implements UserRecordRepository {
 
     async create(userR: UserRecord): Promise<void> {
+
         await auth.createUser(userR.toPrimitives());
 
         const uid = userR.toPrimitives().uid;

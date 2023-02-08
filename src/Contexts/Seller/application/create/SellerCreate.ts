@@ -28,19 +28,15 @@ export class SellerCreate {
         address: SellerAddress,
         dni: SellerDni): Promise<void> {
 
-        try {
-            const userRecord = UserRecord.create(uid, displayName, phoneNumber, email, password, claim);
+        const userRecord = UserRecord.create(uid, displayName, phoneNumber, email, password, claim);
 
-            await this.userRecordRepository.create(userRecord);
+        await this.userRecordRepository.create(userRecord);
 
-            const serviceProvider = Seller.create(uid, address, dni);
+        const serviceProvider = Seller.create(uid, address, dni);
 
-            await this.sellerRepository.create(serviceProvider);
+        await this.sellerRepository.create(serviceProvider);
 
-            await this.eventBus.publish(serviceProvider.pullDomainEvents());
-        } catch (error) {
-            // Rollback user record repository
-            await this.userRecordRepository.delete(uid);
-        }
+        await this.eventBus.publish(serviceProvider.pullDomainEvents());
+
     }
 }
