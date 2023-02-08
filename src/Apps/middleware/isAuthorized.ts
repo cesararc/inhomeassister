@@ -6,13 +6,23 @@ export function isAuthorized(opts: { hasRole: Array<'customer' | 'service_provid
         const { role } = res.locals;
 
         if (!role) {
-            return res.status(httpStatus.FORBIDDEN).send("You do not have permissions for this resource");
+            return res.status(httpStatus.FORBIDDEN).json(
+                {
+                    statusCode: httpStatus.FORBIDDEN,
+                    message: "You do not have permissions for this resource"
+                }
+            );
         }
 
         if (opts.hasRole.includes(role)) {
             return next();
         }
 
-        return res.status(httpStatus.FORBIDDEN).send("You do not have permissions for this resource");
+        return res.status(httpStatus.FORBIDDEN).json(
+            {
+                statusCode: httpStatus.FORBIDDEN,
+                message: "You do not have permissions for this resource"
+            }
+        );
     }
 }

@@ -40,6 +40,7 @@ export class ServiceProviderUpdateController implements Controller {
 
             await this.commandBus.dispatch(serviceProviderUpdateCommand);
 
+            res.status(httpStatus.OK).send();
         } catch (error) {
             res.status(httpStatus.BAD_REQUEST).json(
                 {
@@ -49,6 +50,5 @@ export class ServiceProviderUpdateController implements Controller {
             );
         }
 
-        res.status(httpStatus.OK).send();
     }
 }
