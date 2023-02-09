@@ -96,9 +96,7 @@ export class UserRecordRepositoryFirebase implements UserRecordRepository {
     }
 
     async delete(uid: UserRecordUid): Promise<void> {
-        try {
-            await auth.deleteUser(uid.value);
-        } catch (error) { }
+        try { await auth.deleteUser(uid.value) } catch (error) { }
     }
 
     async disable(uid: UserRecordUid): Promise<void> {

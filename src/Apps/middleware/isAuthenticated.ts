@@ -6,12 +6,33 @@ export const isAuthenticated = async function (req: Request, res: Response, next
     const { authorization } = req.headers;
 
     try {
-        if (!authorization) return res.status(httpStatus.UNAUTHORIZED).send("Unauthorized");
+        if (!authorization) {
+            return res.status(httpStatus.UNAUTHORIZED).json(
+                {
+                    statusCode: httpStatus.UNAUTHORIZED,
+                    message: "Unauthorized"
+                }
+            );
+        }
 
-        if (!authorization.startsWith('Bearer')) return res.status(httpStatus.UNAUTHORIZED).send("Unauthorized");
+        if (!authorization.startsWith('Bearer')) {
+            return res.status(httpStatus.UNAUTHORIZED).json(
+                {
+                    statusCode: httpStatus.UNAUTHORIZED,
+                    message: "Unauthorized"
+                }
+            );
+        }
 
         const split = authorization.split('Bearer ')
-        if (split.length !== 2) return res.status(httpStatus.UNAUTHORIZED).send("Unauthorized");
+        if (split.length !== 2) {
+            return res.status(httpStatus.UNAUTHORIZED).json(
+                {
+                    statusCode: httpStatus.UNAUTHORIZED,
+                    message: "Unauthorized"
+                }
+            );
+        }
 
         const token = split[1];
 
@@ -22,9 +43,19 @@ export const isAuthenticated = async function (req: Request, res: Response, next
 
     } catch (error) {
         if (error.code === "auth/id-token-revoked") {
-            return res.status(httpStatus.UNAUTHORIZED).send("Session has been revoked.");
+            return res.status(httpStatus.UNAUTHORIZED).json(
+                {
+                    statusCode: httpStatus.UNAUTHORIZED,
+                    message: "Session has been revoked."
+                }
+            );
         }
 
-        return res.status(httpStatus.UNAUTHORIZED).send("Unauthorized");
+        return res.status(httpStatus.UNAUTHORIZED).json(
+            {
+                statusCode: httpStatus.UNAUTHORIZED,
+                message: "Unauthorized"
+            }
+        );
     }
 }

@@ -3,6 +3,7 @@ import { Controller } from '../../controller/Controller';
 import { Response, Request } from 'express';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { ServiceProviderCreateCommand } from '../../../Contexts/ServiceProvider/application/create/ServiceProviderCreateCommand';
+import { UserRecordDeleteCommand } from '../../../Contexts/UserRecord/application/Delete/UserRecordDeleteCommand';
 
 export class ServiceProviderCreateController implements Controller {
 
@@ -34,11 +35,18 @@ export class ServiceProviderCreateController implements Controller {
 
             await this.commandBus.dispatch(command);
 
+            res.status(httpStatus.CREATED).send();
         } catch (error) {
 
-            res.status(httpStatus.BAD_REQUEST).send(error.message);
+            await this.commandBus.dispatch(new UserRecordDeleteCommand(uid));
+
+            res.status(httpStatus.BAD_REQUEST).json(
+                {
+                    statusCode: httpStatus.BAD_REQUEST,
+                    message: error.message
+                }
+            );
         }
 
-        res.status(httpStatus.CREATED).send();
     }
 }

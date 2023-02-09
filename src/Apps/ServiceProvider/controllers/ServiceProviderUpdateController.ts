@@ -40,10 +40,15 @@ export class ServiceProviderUpdateController implements Controller {
 
             await this.commandBus.dispatch(serviceProviderUpdateCommand);
 
+            res.status(httpStatus.OK).send();
         } catch (error) {
-            res.status(httpStatus.BAD_REQUEST).send(error.message);
+            res.status(httpStatus.BAD_REQUEST).json(
+                {
+                    statusCode: httpStatus.BAD_REQUEST,
+                    message: error.message
+                }
+            );
         }
 
-        res.status(httpStatus.OK).send();
     }
 }

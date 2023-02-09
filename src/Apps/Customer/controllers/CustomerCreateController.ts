@@ -3,6 +3,7 @@ import { Response, Request } from 'express';
 import { Controller } from '../../controller/Controller';
 import { CommandBus } from '../../../Contexts/Shared/domain/CommandBus';
 import { CustomerCreateCommand } from '../../../Contexts/Customer/application/create/CustomerCreateCommand';
+import { UserRecordDeleteCommand } from '../../../Contexts/UserRecord/application/Delete/UserRecordDeleteCommand';
 
 export class CustomerCreateController implements Controller {
 
@@ -39,7 +40,14 @@ export class CustomerCreateController implements Controller {
 
         } catch (error) {
 
-            res.status(httpStatus.BAD_REQUEST).send(error.message);
+            await this.commandBus.dispatch(new UserRecordDeleteCommand(uid));
+
+            res.status(httpStatus.BAD_REQUEST).json(
+                {
+                    statusCode: httpStatus.BAD_REQUEST,
+                    message: error.message
+                }
+            );
         }
     }
 }
